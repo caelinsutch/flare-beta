@@ -142,20 +142,10 @@ const Home = () => {
               width="fit-content"
               boxShadow="2xl"
             >
-              <Text
-                as="h1"
-                fontWeight="bold"
-                fontSize="3xl"
-                color={{ base: "gray.700", md: "#F49D37" }}
-              >
+              <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
                 June 26th
               </Text>
-              <Text
-                as="h1"
-                fontWeight="bold"
-                fontSize="3xl"
-                color={{ base: "gray.700", md: "#F49D37" }}
-              >
+              <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
                 Berkeley, CA
               </Text>
               <Box
@@ -184,7 +174,7 @@ const Home = () => {
                     Name
                   </Text>
                   <Input
-                    placeholder="Caelin Sutch"
+                    placeholder="Carol Christ"
                     type="text"
                     border="2px solid #979797"
                     borderColor="#979797"
@@ -201,7 +191,7 @@ const Home = () => {
                   </Text>
 
                   <Input
-                    placeholder="9163174484"
+                    placeholder="5106427464"
                     type="text"
                     border="2px solid #979797"
                     borderColor="#979797"
@@ -217,7 +207,7 @@ const Home = () => {
                     IG Handle
                   </Text>
                   <Input
-                    placeholder="@caelinsutch"
+                    placeholder="@ucberkeley"
                     type="text"
                     border="2px solid #979797"
                     borderColor="#979797"
