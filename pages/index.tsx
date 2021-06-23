@@ -138,7 +138,11 @@ const Home = () => {
                 </Text>
               </Box>
             ) : (
-              <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+              <Box
+                as="form"
+                onSubmit={handleSubmit(onSubmit)}
+                maxWidth={{ base: undefined, md: "300px" }}
+              >
                 <Text fontSize="xs" mt={4}>
                   Name
                 </Text>
