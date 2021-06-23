@@ -62,173 +62,136 @@ const Home = () => {
     await post("/register", data);
   };
 
-  // const title = 'Flare - Find Berkeley Parties';
-  // const description = 'Flare makes it easy to find and host awesome parties in Berkeley. Join today for exclusive access to great parties near you.'
-
-  const title = "Berkeley. June 26th. Jungle Juice";
-  const description =
-    "RSVP for the best Berkeley parties. Starting June 26th, get exclusive access today.";
-
   return (
-    <div>
-      <Head>
-        <title>Flare - Find Berkeley Parties</title>
-        <meta name="title" content={title} />
-        <meta name="description" content={description} />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://beta.flaresocial.app/" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content="https://i.imgur.com/fp2QjfP.png" />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://beta.flaresocial.app/" />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-        <meta
-          property="twitter:image"
-          content="https://i.imgur.com/fp2QjfP.png"
-        />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Roboto Mono"
-          rel="stylesheet"
-        />
-      </Head>
-
-      <main>
-        <Box
-          height="100vh"
-          backgroundImage="url('./bg.svg')"
-          backgroundSize="cover"
-          justifyContent="center"
-          alignItems="center"
-          display="flex"
-          flexDirection={{ base: "column", md: "row" }}
-          padding={4}
-          paddingTop={{ base: 14, md: 4 }}
+    <Box
+      height="100vh"
+      backgroundImage="url('./bg.svg')"
+      backgroundSize="cover"
+      justifyContent="center"
+      alignItems="center"
+      display="flex"
+      flexDirection={{ base: "column", md: "row" }}
+      padding={4}
+      paddingTop={{ base: 14, md: 4 }}
+    >
+      <Box
+        flex={{ base: undefined, md: 1 }}
+        display="flex"
+        alignItems={{ base: undefined, md: "center" }}
+        justifyContent={{ md: "center" }}
+        pb={{ base: 8, md: 0 }}
+      >
+        <Text
+          as="h1"
+          fontSize={{ base: "4xl", md: "148px" }}
+          color="white"
+          transform={{ base: undefined, md: "rotate(-90deg)" }}
+          fontWeight="bold"
+          letterSpacing="widest"
         >
+          FLARE
+        </Text>
+      </Box>
+      <Box flex={1}>
+        <Box
+          mx="auto"
+          py={{ base: 4, md: 8 }}
+          px={{ base: 8, md: 16 }}
+          borderRadius={8}
+          backgroundColor="white"
+          width="fit-content"
+          boxShadow="2xl"
+        >
+          <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
+            June 26th
+          </Text>
+          <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
+            Berkeley, CA
+          </Text>
           <Box
-            flex={{ base: undefined, md: 1 }}
-            display="flex"
-            alignItems={{ base: undefined, md: "center" }}
-            justifyContent={{ md: "center" }}
-            pb={{ base: 8, md: 0 }}
+            as="ul"
+            style={{ listStylePosition: "inside", color: "#958E86" }}
+            mt={2}
           >
-            <Text
-              as="h1"
-              fontSize={{ base: "4xl", md: "148px" }}
-              color="white"
-              transform={{ base: undefined, md: "rotate(-90deg)" }}
-              fontWeight="bold"
-              letterSpacing="widest"
-            >
-              FLARE
-            </Text>
+            <Text as="li">Jungle Juice</Text>
+            <Text as="li">Music</Text>
+            <Text as="li">One big ass house</Text>
+            <Text as="li">Addy dropped 8PM</Text>
           </Box>
-          <Box flex={1}>
-            <Box
-              mx="auto"
-              py={{ base: 4, md: 8 }}
-              px={{ base: 8, md: 16 }}
-              borderRadius={8}
-              backgroundColor="white"
-              width="fit-content"
-              boxShadow="2xl"
-            >
-              <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
-                June 26th
+          {phone ? (
+            <Box mt={4}>
+              <Text fontSize="lg" color="green.500">
+                Registered under {phone}
               </Text>
-              <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
-                Berkeley, CA
-              </Text>
-              <Box
-                as="ul"
-                style={{ listStylePosition: "inside", color: "#958E86" }}
-                mt={2}
-              >
-                <Text as="li">Jungle Juice</Text>
-                <Text as="li">Music</Text>
-                <Text as="li">One big ass house</Text>
-                <Text as="li">Addy dropped 8PM</Text>
-              </Box>
-              {phone ? (
-                <Box mt={4}>
-                  <Text fontSize="lg" color="green.500">
-                    Registered under {phone}
-                  </Text>
-                </Box>
-              ) : (
-                <Box
-                  as="form"
-                  onSubmit={handleSubmit(onSubmit)}
-                  maxWidth={{ base: undefined, md: "300px" }}
-                >
-                  <Text fontSize="xs" mt={4}>
-                    Name
-                  </Text>
-                  <Input
-                    placeholder="Carol Christ"
-                    type="text"
-                    border="2px solid #979797"
-                    borderColor="#979797"
-                    _hover={{ color: "#777777" }}
-                    _placeholder={{ color: "#979797" }}
-                    mt={2}
-                    {...register("name", {
-                      required: true,
-                    })}
-                  />
-
-                  <Text fontSize="xs" mt={4}>
-                    Phone
-                  </Text>
-
-                  <Input
-                    placeholder="5106427464"
-                    type="text"
-                    border="2px solid #979797"
-                    borderColor="#979797"
-                    _hover={{ color: "#777777" }}
-                    _placeholder={{ color: "#979797" }}
-                    mt={2}
-                    {...register("phone", {
-                      required: true,
-                      pattern: /^[0-9]*$/i,
-                    })}
-                  />
-                  <Text fontSize="xs" mt={4}>
-                    IG Handle
-                  </Text>
-                  <Input
-                    placeholder="@ucberkeley"
-                    type="text"
-                    border="2px solid #979797"
-                    borderColor="#979797"
-                    _hover={{ color: "#777777" }}
-                    _placeholder={{ color: "#979797" }}
-                    mt={2}
-                    {...register("instagram", {
-                      required: true,
-                    })}
-                  />
-                  <Input
-                    as="input"
-                    type="submit"
-                    borderColor="transparent"
-                    backgroundColor="#F49D37"
-                    color="white"
-                    mt={4}
-                    value="RSVP"
-                  />
-                </Box>
-              )}
             </Box>
-          </Box>
+          ) : (
+            <Box
+              as="form"
+              onSubmit={handleSubmit(onSubmit)}
+              maxWidth={{ base: undefined, md: "300px" }}
+            >
+              <Text fontSize="xs" mt={4}>
+                Name
+              </Text>
+              <Input
+                placeholder="Carol Christ"
+                type="text"
+                border="2px solid #979797"
+                borderColor="#979797"
+                _hover={{ color: "#777777" }}
+                _placeholder={{ color: "#979797" }}
+                mt={2}
+                {...register("name", {
+                  required: true,
+                })}
+              />
+
+              <Text fontSize="xs" mt={4}>
+                Phone
+              </Text>
+
+              <Input
+                placeholder="5106427464"
+                type="text"
+                border="2px solid #979797"
+                borderColor="#979797"
+                _hover={{ color: "#777777" }}
+                _placeholder={{ color: "#979797" }}
+                mt={2}
+                {...register("phone", {
+                  required: true,
+                  pattern: /^[0-9]*$/i,
+                })}
+              />
+              <Text fontSize="xs" mt={4}>
+                IG Handle
+              </Text>
+              <Input
+                placeholder="@ucberkeley"
+                type="text"
+                border="2px solid #979797"
+                borderColor="#979797"
+                _hover={{ color: "#777777" }}
+                _placeholder={{ color: "#979797" }}
+                mt={2}
+                {...register("instagram", {
+                  required: true,
+                })}
+              />
+              <Input
+                as="input"
+                type="submit"
+                borderColor="transparent"
+                backgroundColor="#F49D37"
+                color="white"
+                mt={4}
+                value="RSVP"
+              />
+            </Box>
+          )}
         </Box>
-      </main>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
