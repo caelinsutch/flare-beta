@@ -62,35 +62,30 @@ const Home = () => {
     await post("/register", data);
   };
 
+  // const title = 'Flare - Find Berkeley Parties';
+  // const description = 'Flare makes it easy to find and host awesome parties in Berkeley. Join today for exclusive access to great parties near you.'
+
+  const title = "Berkeley. June 26th. Jungle Juice";
+  const description =
+    "RSVP for the best Berkeley parties. Starting June 26th, get exclusive access today.";
+
   return (
     <div>
       <Head>
         <title>Flare - Find Berkeley Parties</title>
-        <meta name="title" content="Flare - Find Berkeley Parties" />
-        <meta
-          name="description"
-          content="Flare makes it easy to find and host awesome parties in Berkeley. Join today for exclusive access to great parties near you. "
-        />
+        <meta name="title" content={title} />
+        <meta name="description" content={description} />
 
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://beta.flaresocial.app/" />
-        <meta property="og:title" content="Flare - Find Berkeley Parties" />
-        <meta
-          property="og:description"
-          content="Flare makes it easy to find and host awesome parties in Berkeley. Join today for exclusive access to great parties near you. "
-        />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:image" content="https://i.imgur.com/fp2QjfP.png" />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://beta.flaresocial.app/" />
-        <meta
-          property="twitter:title"
-          content="Flare - Find Berkeley Parties"
-        />
-        <meta
-          property="twitter:description"
-          content="Flare makes it easy to find and host awesome parties in Berkeley. Join today for exclusive access to great parties near you. "
-        />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
         <meta
           property="twitter:image"
           content="https://i.imgur.com/fp2QjfP.png"
