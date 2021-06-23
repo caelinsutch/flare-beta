@@ -109,21 +109,22 @@ const Home = () => {
           backgroundSize="cover"
           justifyContent="center"
           alignItems="center"
-          display={{ base: "block", md: "flex" }}
-          flexDirection="row"
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
           padding={4}
           paddingTop={{ base: 14, md: 4 }}
         >
           <Box
-            flex={1}
+            flex={{ base: undefined, md: 1 }}
             display="flex"
             alignItems={{ base: undefined, md: "center" }}
             justifyContent={{ md: "center" }}
+            pb={{ base: 8, md: 0 }}
           >
             <Text
               as="h1"
               fontSize={{ base: "4xl", md: "148px" }}
-              color={{ base: "gray.700,", md: "white" }}
+              color="white"
               transform={{ base: undefined, md: "rotate(-90deg)" }}
               fontWeight="bold"
               letterSpacing="widest"
@@ -132,103 +133,113 @@ const Home = () => {
             </Text>
           </Box>
           <Box flex={1}>
-            <Text
-              as="h1"
-              fontWeight="bold"
-              fontSize="3xl"
-              color={{ base: "gray.700", md: "#F49D37" }}
-            >
-              June 26th
-            </Text>
-            <Text
-              as="h1"
-              fontWeight="bold"
-              fontSize="3xl"
-              color={{ base: "gray.700", md: "#F49D37" }}
-            >
-              Berkeley, CA
-            </Text>
             <Box
-              as="ul"
-              style={{ listStylePosition: "inside", color: "#958E86" }}
-              mt={2}
+              mx="auto"
+              py={{ base: 4, md: 8 }}
+              px={{ base: 8, md: 16 }}
+              borderRadius={8}
+              backgroundColor="white"
+              width="fit-content"
+              boxShadow="2xl"
             >
-              <Text as="li">Jungle Juice</Text>
-              <Text as="li">Music</Text>
-              <Text as="li">One big ass house</Text>
-              <Text as="li">Addy dropped 8PM</Text>
-            </Box>
-            {phone ? (
-              <Box mt={4}>
-                <Text fontSize="lg" color="green.500">
-                  Registered under {phone}
-                </Text>
-              </Box>
-            ) : (
-              <Box
-                as="form"
-                onSubmit={handleSubmit(onSubmit)}
-                maxWidth={{ base: undefined, md: "300px" }}
+              <Text
+                as="h1"
+                fontWeight="bold"
+                fontSize="3xl"
+                color={{ base: "gray.700", md: "#F49D37" }}
               >
-                <Text fontSize="xs" mt={4}>
-                  Name
-                </Text>
-                <Input
-                  placeholder="Caelin Sutch"
-                  type="text"
-                  border="2px solid #979797"
-                  borderColor="#979797"
-                  _hover={{ color: "#777777" }}
-                  _placeholder={{ color: "#979797" }}
-                  mt={2}
-                  {...register("name", {
-                    required: true,
-                  })}
-                />
-
-                <Text fontSize="xs" mt={4}>
-                  Phone
-                </Text>
-
-                <Input
-                  placeholder="9163174484"
-                  type="text"
-                  border="2px solid #979797"
-                  borderColor="#979797"
-                  _hover={{ color: "#777777" }}
-                  _placeholder={{ color: "#979797" }}
-                  mt={2}
-                  {...register("phone", {
-                    required: true,
-                    pattern: /^[0-9]*$/i,
-                  })}
-                />
-                <Text fontSize="xs" mt={4}>
-                  IG Handle
-                </Text>
-                <Input
-                  placeholder="@caelinsutch"
-                  type="text"
-                  border="2px solid #979797"
-                  borderColor="#979797"
-                  _hover={{ color: "#777777" }}
-                  _placeholder={{ color: "#979797" }}
-                  mt={2}
-                  {...register("instagram", {
-                    required: true,
-                  })}
-                />
-                <Input
-                  as="input"
-                  type="submit"
-                  borderColor="transparent"
-                  backgroundColor="#F49D37"
-                  color="white"
-                  mt={4}
-                  value="RSVP"
-                />
+                June 26th
+              </Text>
+              <Text
+                as="h1"
+                fontWeight="bold"
+                fontSize="3xl"
+                color={{ base: "gray.700", md: "#F49D37" }}
+              >
+                Berkeley, CA
+              </Text>
+              <Box
+                as="ul"
+                style={{ listStylePosition: "inside", color: "#958E86" }}
+                mt={2}
+              >
+                <Text as="li">Jungle Juice</Text>
+                <Text as="li">Music</Text>
+                <Text as="li">One big ass house</Text>
+                <Text as="li">Addy dropped 8PM</Text>
               </Box>
-            )}
+              {phone ? (
+                <Box mt={4}>
+                  <Text fontSize="lg" color="green.500">
+                    Registered under {phone}
+                  </Text>
+                </Box>
+              ) : (
+                <Box
+                  as="form"
+                  onSubmit={handleSubmit(onSubmit)}
+                  maxWidth={{ base: undefined, md: "300px" }}
+                >
+                  <Text fontSize="xs" mt={4}>
+                    Name
+                  </Text>
+                  <Input
+                    placeholder="Caelin Sutch"
+                    type="text"
+                    border="2px solid #979797"
+                    borderColor="#979797"
+                    _hover={{ color: "#777777" }}
+                    _placeholder={{ color: "#979797" }}
+                    mt={2}
+                    {...register("name", {
+                      required: true,
+                    })}
+                  />
+
+                  <Text fontSize="xs" mt={4}>
+                    Phone
+                  </Text>
+
+                  <Input
+                    placeholder="9163174484"
+                    type="text"
+                    border="2px solid #979797"
+                    borderColor="#979797"
+                    _hover={{ color: "#777777" }}
+                    _placeholder={{ color: "#979797" }}
+                    mt={2}
+                    {...register("phone", {
+                      required: true,
+                      pattern: /^[0-9]*$/i,
+                    })}
+                  />
+                  <Text fontSize="xs" mt={4}>
+                    IG Handle
+                  </Text>
+                  <Input
+                    placeholder="@caelinsutch"
+                    type="text"
+                    border="2px solid #979797"
+                    borderColor="#979797"
+                    _hover={{ color: "#777777" }}
+                    _placeholder={{ color: "#979797" }}
+                    mt={2}
+                    {...register("instagram", {
+                      required: true,
+                    })}
+                  />
+                  <Input
+                    as="input"
+                    type="submit"
+                    borderColor="transparent"
+                    backgroundColor="#F49D37"
+                    color="white"
+                    mt={4}
+                    value="RSVP"
+                  />
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
       </main>

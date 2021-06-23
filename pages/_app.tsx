@@ -1,10 +1,6 @@
 import React from "react";
 import type { AppProps } from "next/app";
-import {
-  ChakraProvider,
-  extendTheme,
-  withDefaultProps,
-} from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
