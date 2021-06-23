@@ -1,7 +1,24 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import React from "react";
+import type { AppProps } from "next/app";
+import {
+  ChakraProvider,
+  extendTheme,
+  withDefaultProps,
+} from "@chakra-ui/react";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
-export default MyApp
+const theme = extendTheme({
+  fonts: {
+    body: "Roboto Mono, monospace",
+    mono: "Menlo, monospace",
+  },
+});
+
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <ChakraProvider theme={theme}>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  );
+};
+
+export default App;
