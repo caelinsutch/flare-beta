@@ -1,4 +1,5 @@
 import { userCollection } from "../Firebase/firestore";
+import { User } from "../Models/User";
 
 const register = async (user: User) => {
   const u = await userCollection.where("phone", "==", user.phone).get();
