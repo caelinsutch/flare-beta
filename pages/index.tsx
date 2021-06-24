@@ -1,66 +1,20 @@
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { Box, Input, Text, useToast } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import useFetch from "use-http";
-import { serverUrl } from "../src/constants";
+import { Box, Input, Spinner, Text, useToast } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
+import { AuthForm, LeftSide } from "../src/PageComponents/Home";
+import { selectUser, setUser } from "../src/Redux";
+import { useGetUser } from "../src/Hooks";
 
 const Home = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const toast = useToast();
-  const [phone, setPhone] = useState<string>();
-  const { post, data = undefined, error } = useFetch(serverUrl);
+  const user = useSelector(selectUser);
+  const { getUser, loading } = useGetUser();
 
   useEffect(() => {
     const p = localStorage.getItem("phone");
-    if (p) setPhone(p);
+    if (p) {
+      getUser(p);
+    }
   }, []);
-
-  useEffect(() => {
-    if (Object.keys(errors).length !== 0) {
-      if (errors.phone.pattern) {
-        toast({
-          status: "error",
-          title: "Phone must be 9163174484 format!",
-        });
-      } else {
-        toast({
-          status: "error",
-          title: "Invalid form!",
-        });
-      }
-    }
-  }, [errors]);
-
-  useEffect(() => {
-    if (data && Object.keys(data).length > 0) {
-      console.log(data);
-      toast({
-        status: "success",
-        title: "RSVP Confirmed",
-      });
-      setPhone(data.phone);
-      localStorage.setItem("phone", data.phone);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        status: "error",
-        title: "Error registering!",
-        description: "Note you can only signup once per phone",
-      });
-    }
-  }, [error]);
-
-  const onSubmit = async (data: any) => {
-    await post("/register", data);
-  };
 
   return (
     <Box
@@ -74,24 +28,7 @@ const Home = () => {
       padding={4}
       paddingTop={{ base: 14, md: 4 }}
     >
-      <Box
-        flex={{ base: undefined, md: 1 }}
-        display="flex"
-        alignItems={{ base: undefined, md: "center" }}
-        justifyContent={{ md: "center" }}
-        pb={{ base: 8, md: 0 }}
-      >
-        <Text
-          as="h1"
-          fontSize={{ base: "4xl", md: "148px" }}
-          color="white"
-          transform={{ base: undefined, md: "rotate(-90deg)" }}
-          fontWeight="bold"
-          letterSpacing="widest"
-        >
-          FLARE
-        </Text>
-      </Box>
+      <LeftSide />
       <Box flex={1}>
         <Box
           mx="auto"
@@ -118,77 +55,19 @@ const Home = () => {
             <Text as="li">One big ass house</Text>
             <Text as="li">Addy dropped 8PM</Text>
           </Box>
-          {phone ? (
-            <Box mt={4}>
-              <Text fontSize="lg" color="green.500">
-                Registered under {phone}
-              </Text>
-            </Box>
-          ) : (
-            <Box
-              as="form"
-              onSubmit={handleSubmit(onSubmit)}
-              maxWidth={{ base: undefined, md: "300px" }}
-            >
-              <Text fontSize="xs" mt={4}>
-                Name
-              </Text>
-              <Input
-                placeholder="Carol Christ"
-                type="text"
-                border="2px solid #979797"
-                borderColor="#979797"
-                _hover={{ color: "#777777" }}
-                _placeholder={{ color: "#979797" }}
-                mt={2}
-                {...register("name", {
-                  required: true,
-                })}
-              />
-
-              <Text fontSize="xs" mt={4}>
-                Phone
-              </Text>
-
-              <Input
-                placeholder="5106427464"
-                type="text"
-                border="2px solid #979797"
-                borderColor="#979797"
-                _hover={{ color: "#777777" }}
-                _placeholder={{ color: "#979797" }}
-                mt={2}
-                {...register("phone", {
-                  required: true,
-                  pattern: /^[0-9]*$/i,
-                })}
-              />
-              <Text fontSize="xs" mt={4}>
-                IG Handle
-              </Text>
-              <Input
-                placeholder="@ucberkeley"
-                type="text"
-                border="2px solid #979797"
-                borderColor="#979797"
-                _hover={{ color: "#777777" }}
-                _placeholder={{ color: "#979797" }}
-                mt={2}
-                {...register("instagram", {
-                  required: true,
-                })}
-              />
-              <Input
-                as="input"
-                type="submit"
-                borderColor="transparent"
-                backgroundColor="#F49D37"
-                color="white"
-                mt={4}
-                value="RSVP"
-              />
+          {loading && (
+            <Box mt={4} textAlign="center" size="xl">
+              <Spinner color="orange.500" />
             </Box>
           )}
+          {user && (
+            <Box mt={4}>
+              <Text fontSize="lg" color="green.500">
+                Registered under {user.phone}
+              </Text>
+            </Box>
+          )}
+          {!user && !loading && <AuthForm />}
         </Box>
       </Box>
     </Box>
