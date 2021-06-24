@@ -12,6 +12,7 @@ const Register = async (req: NextApiRequest, res: NextApiResponse) => {
         instagram,
         points: 0,
       });
+
       return res.status(200).send({ user });
     } catch (e) {
       return res.status(500).send({ error: e.toString() });

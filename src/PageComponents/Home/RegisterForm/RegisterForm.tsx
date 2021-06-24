@@ -1,4 +1,4 @@
-import { Box, Link, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Link, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { serverUrl } from "../../../constants";
@@ -21,15 +21,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
   });
   const dispatch = useDispatch();
   const toast = useToast();
-  const { post, error, data } = useFetch(serverUrl);
+  const { post, error, data, loading } = useFetch(serverUrl);
 
   useEffect(() => {
-    if (data?.error) {
-      toast({
-        status: "error",
-        title: "Invalid form!",
-      });
-    } else if (data?.user) {
+    if (data?.user) {
       toast({
         status: "success",
         title: "RSVP Confirmed",
@@ -88,20 +83,25 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
         })}
         error={errors.instagram ? "Must submit an Instagram" : undefined}
       />
-      <Input
-        as="input"
+      <Button
         type="submit"
         borderColor="transparent"
-        backgroundColor="orange.400"
+        backgroundColor={
+          Object.keys(errors).length > 0 ? "orange.200" : "orange.400"
+        }
+        pointerEvents={Object.keys(errors).length > 0 ? "none" : undefined}
         color="white"
-        value="RSVP"
-        disabled={Object.keys(errors).length > 0}
         _hover={{
           color: "white",
-          backgroundColor: "orange.500",
+          backgroundColor:
+            Object.keys(errors).length > 0 ? undefined : "orange.500",
         }}
         mt={2}
-      />
+        isLoading={loading}
+        width="100%"
+      >
+        RSVP
+      </Button>
       <Text fontSize="xs" mt={2} color="gray.400">
         Already RSVP&apos;d? <Link onClick={onSetLogin}>Check your status</Link>
       </Text>
