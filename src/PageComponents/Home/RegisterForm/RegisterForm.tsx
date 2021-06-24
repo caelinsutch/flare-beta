@@ -34,15 +34,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
     }
   }, [data]);
 
-  const onSubmit = async (submittedData: any) => {
-    const res = await post("/register", submittedData);
+  useEffect(() => {
     if (error) {
       toast({
         status: "error",
         title: "Error registering!",
-        description: res?.error,
+        description: data?.error,
       });
     }
+  }, [error]);
+
+  const onSubmit = async (submittedData: any) => {
+    await post("/register", submittedData);
   };
 
   return (
