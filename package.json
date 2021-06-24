@@ -14,6 +14,7 @@
     "@emotion/styled": "^11",
     "@reduxjs/toolkit": "^1.6.0",
     "@svgr/webpack": "^5.5.0",
+    "dotenv": "^10.0.0",
     "firebase": "^8.6.8",
     "firebase-admin": "^9.9.0",
     "framer-motion": "^4",
@@ -24,6 +25,7 @@
     "react-hook-form": "^7.9.0",
     "react-qr-code": "^1.1.1",
     "react-redux": "^7.2.4",
+    "twilio": "^3.64.0",
     "use-http": "^1.0.21"
   },
   "devDependencies": {

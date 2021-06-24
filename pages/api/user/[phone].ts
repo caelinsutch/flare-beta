@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import getUser from "../../../src/Handlers/getUser";
+import getUser from "../../../src/Api/Handlers/getUser";
 
 const GetUser = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
@@ -7,8 +7,8 @@ const GetUser = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       if (typeof phone === "string") {
-        const response = await getUser(phone as string);
-        return res.status(200).send(response);
+        const user = await getUser(phone as string);
+        return res.status(200).send({ user });
       }
       return res.status(500).send({ error: "Error parsing email" });
     } catch (e) {
