@@ -23,6 +23,7 @@ const useGetUser = (): UseGetUser => {
 
   const getUser = async (phone: string) => {
     const user = await get(`/user/${phone}`);
+
     if (response.ok) {
       dispatch(setUser(user));
       return user;

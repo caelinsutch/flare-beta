@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Box } from "@chakra-ui/layout";
 import { useForm } from "react-hook-form";
-import { Input, Link, Text, Button, useToast } from "@chakra-ui/react";
+import { Input, Link, Text, useToast } from "@chakra-ui/react";
 import { useGetUser } from "../../../Hooks";
 
 type RegisterFormProps = {
@@ -14,12 +14,16 @@ const LoginForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { getUser, error } = useGetUser();
+  const { getUser, error, data } = useGetUser();
   const toast = useToast();
 
   const onSubmit = async ({ phone }: any) => {
     await getUser(phone);
   };
+
+  useEffect(() => {
+    if (data?.phone) localStorage.setItem("phone", data.phone);
+  }, [data]);
 
   useEffect(() => {
     if (error) {

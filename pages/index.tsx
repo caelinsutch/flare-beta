@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, Input, Spinner, Text, useToast } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
-import { AuthForm, LeftSide } from "../src/PageComponents/Home";
-import { selectUser, setUser } from "../src/Redux";
+import { Box, Spinner, Text } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { AuthForm, LeftSide, UserInfo } from "../src/PageComponents/Home";
+import { selectUser } from "../src/Redux";
 import { useGetUser } from "../src/Hooks";
 
 const Home = () => {
@@ -60,13 +60,7 @@ const Home = () => {
               <Spinner color="orange.500" />
             </Box>
           )}
-          {user && (
-            <Box mt={4}>
-              <Text fontSize="lg" color="green.500">
-                Registered under {user.phone}
-              </Text>
-            </Box>
-          )}
+          {user && <UserInfo />}
           {!user && !loading && <AuthForm />}
         </Box>
       </Box>
