@@ -6,7 +6,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   return isLogin ? (
-    <LoginForm />
+    <LoginForm onSetLogin={() => setIsLogin(false)} />
   ) : (
     <RegisterForm onSetLogin={() => setIsLogin(true)} />
   );
