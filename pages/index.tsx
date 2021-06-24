@@ -40,7 +40,7 @@ const Home = () => {
           boxShadow="2xl"
         >
           <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
-            June 26th
+            Friday, June 25th
           </Text>
           <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
             Berkeley, CA
