@@ -6,7 +6,7 @@ const register = async (user: User) => {
   if (u.size > 0) {
     throw Error("User exists");
   }
-  const res = await userCollection.add(user);
+  const res = await userCollection.add({ createdAt: Date.now(), ...user });
 
   return (await res.get()).data();
 };
