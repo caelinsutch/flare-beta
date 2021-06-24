@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({ label, error, ...props }) => (
       color="gray.400"
       mb={2}
     >
-      {label}i
+      {label}
     </Text>
     <ChakraInput
       border="2px solid"
