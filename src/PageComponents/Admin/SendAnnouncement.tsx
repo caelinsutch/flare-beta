@@ -1,14 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../../Redux";
 import { Box, Text } from "@chakra-ui/layout";
-import { Button, Textarea } from "@chakra-ui/react";
+import { Button, Textarea, useToast } from "@chakra-ui/react";
+import { useSendMessage } from "../../Hooks";
 
 const SendAnnouncement = () => {
   const users = useSelector(selectUsers);
+  const { sendMessage, error, loading } = useSendMessage();
+  const toast = useToast();
   const [text, setText] = useState<string>("");
+  const [failedNumbers, setFailedNumbers] = useState<string[]>();
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    if (users) {
+      const res = await sendMessage(
+        users.map((u) => u.phone),
+        text
+      );
+      if (res.status === "ok") {
+        setText("");
+      }
+      if (res?.failedNumbers) {
+        setFailedNumbers(res.failedNumbers);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+      toast({
+        status: "error",
+        title: "Error sending message!",
+      });
+    }
+  }, [error]);
 
   return (
     <Box mt={4} width="fit-content">
@@ -24,9 +51,18 @@ const SendAnnouncement = () => {
         {text.length} Characters
       </Text>
 
-      <Button colorScheme="orange" onClick={handleSubmit} mt={4}>
+      <Button
+        colorScheme="orange"
+        onClick={handleSubmit}
+        mt={4}
+        isLoading={loading}
+      >
         Send
       </Button>
+
+      <Text fontSize="sm" color="red.400">
+        {failedNumbers && failedNumbers.join(", ")}
+      </Text>
     </Box>
   );
 };

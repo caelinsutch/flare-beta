@@ -1,6 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/layout";
-import { Table, Tbody, Thead, Tr, Th, Td, Checkbox } from "@chakra-ui/react";
+import {
+  Checkbox,
+  Skeleton,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { useGetUsers } from "../src/Hooks";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../src/Redux";
@@ -58,9 +67,9 @@ const Admin: React.FC = () => {
                 <Th flex={1}>Insta Handle</Th>
               </Tr>
             </Thead>
-            <Tbody>
-              {sortedUsers &&
-                sortedUsers.map((user) => (
+            {sortedUsers ? (
+              <Tbody>
+                {sortedUsers.map((user) => (
                   <Tr key={user.name}>
                     <Td>
                       <Checkbox
@@ -73,7 +82,25 @@ const Admin: React.FC = () => {
                     <Td>{user.instagram}</Td>
                   </Tr>
                 ))}
-            </Tbody>
+              </Tbody>
+            ) : (
+              new Array(10).fill(0).map(() => (
+                <Tr>
+                  <Td>
+                    <Skeleton height="30px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="30px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="30px" />
+                  </Td>
+                  <Td>
+                    <Skeleton height="30px" />
+                  </Td>
+                </Tr>
+              ))
+            )}
           </Table>
         </Box>
       </Box>

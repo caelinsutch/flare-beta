@@ -8,11 +8,20 @@ const send = async (req: NextApiRequest) => {
     throw new Error("phoneNumbers and message are required");
   }
 
+  const failedNumbers: string[] = [];
+
   await Promise.all(
-    phoneNumbers.map((number: string) => sendText(number, message))
+    phoneNumbers.map(async (number: string) => {
+      try {
+        await sendText(number, message);
+      } catch (e) {
+        failedNumbers.push(number);
+        console.error(e);
+      }
+    })
   );
 
-  return { status: "ok" };
+  return { status: "ok", failedNumbers };
 };
 
 export default send;

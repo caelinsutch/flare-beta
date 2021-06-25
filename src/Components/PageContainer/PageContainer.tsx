@@ -7,7 +7,7 @@ type PageContainerProps = {
 };
 
 const PageContainer: React.FC<PageContainerProps> = ({
-  title = "Berkeley. June 26th. Jungle Juice",
+  title = "Berkeley. June 25th. Jungle Juice",
   description = "RSVP for the best Berkeley parties. Starting June 26th, get exclusive access today.",
   children,
 }) => {
