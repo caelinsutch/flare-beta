@@ -2,19 +2,25 @@ import { userCollection } from "../Firebase/firestore";
 import { User } from "../../Models/User";
 import { sendText } from "../Twilio";
 
-const register = async (user: Omit<User, "createdAt" | "userId">) => {
+const register = async (accountId: string, user: User) => {
   const u = await userCollection.where("phone", "==", user.phone).get();
 
   if (u.size > 0) {
     throw Error("User exists");
   }
 
-  const res = await userCollection.add({ ...user, createdAt: Date.now() });
+  await userCollection.doc(accountId).set({
+    accountId,
+    createdAt: Date.now(),
+    ...user,
+  });
 
   // Send Welcome SMS
   await sendText(user.phone, "This is confirming you've joined the waitlist!");
 
-  return (await res.get()).data();
+  const newUser = await userCollection.doc(accountId).get();
+
+  return newUser.data();
 };
 
 export default register;

@@ -9,9 +9,10 @@ import React from "react";
 type InputProps = {
   label?: string;
   error?: string;
+  info?: string;
 } & ChakraInputProps;
 
-const Input: React.FC<InputProps> = ({ label, error, ...props }) => (
+const Input: React.FC<InputProps> = ({ info, label, error, ...props }) => (
   <Box>
     <Text
       display={label ? "block" : "none"}
@@ -29,8 +30,13 @@ const Input: React.FC<InputProps> = ({ label, error, ...props }) => (
       _placeholder={{ color: "gray.400" }}
       {...props}
     />
-    <Text opacity={error ? 1 : 0} color="red.400" fontSize="xs">
-      {error ?? "a"}
+    <Text
+      mt={2}
+      opacity={error || info ? 1 : 0}
+      color={error ? "red.400" : "gray.400"}
+      fontSize="xs"
+    >
+      {(error || info) ?? "a"}
     </Text>
   </Box>
 );

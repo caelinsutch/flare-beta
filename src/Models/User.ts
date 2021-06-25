@@ -3,6 +3,7 @@ export type User = {
   phone: string;
   instagram: string;
   points: number;
+  isAdmin?: boolean;
   createdAt: number;
   userId: string;
 };

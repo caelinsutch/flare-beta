@@ -1,11 +1,11 @@
 import { Box, Button, Link, Text, useToast } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { serverUrl } from "../../../constants";
 import useFetch from "use-http";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../Redux";
-import { Input } from "../../../Components";
+import { Input, VerifyPhone } from "../../../Components";
 
 type RegisterFormProps = {
   onSetLogin: () => void;
@@ -22,6 +22,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
   const dispatch = useDispatch();
   const toast = useToast();
   const { post, error, data, loading } = useFetch(serverUrl);
+
+  const [phoneEntry, setPhoneEntry] = useState(true);
+  const [phone, setPhone] = useState<string>();
+  const [accountId, setAccountId] = useState<string>();
 
   useEffect(() => {
     if (data?.user) {
@@ -45,8 +49,22 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
   }, [error]);
 
   const onSubmit = async (submittedData: any) => {
-    await post("/register", submittedData);
+    await post("/register", {
+      phone,
+      accountId,
+      ...submittedData,
+    });
   };
+
+  const handleVerify = (accountId: string, phone: string) => {
+    setAccountId(accountId);
+    setPhone(phone);
+    setPhoneEntry(false);
+  };
+
+  if (phoneEntry) {
+    return <VerifyPhone onVerify={handleVerify} />;
+  }
 
   return (
     <Box
@@ -63,19 +81,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
           required: true,
         })}
         error={errors.phone ? "Must have a name" : undefined}
-      />
-
-      <Input
-        label="Phone"
-        placeholder="5106427464"
-        type="text"
-        {...register("phone", {
-          required: true,
-          pattern: /^[0-9]*$/i,
-        })}
-        error={
-          errors.phone ? "Must have a properly formatted phone #" : undefined
-        }
       />
       <Input
         label="IG Handle"
