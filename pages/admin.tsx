@@ -62,6 +62,7 @@ const Admin: React.FC = () => {
             <Thead>
               <Tr fontWeight="bold">
                 <Th w="52px" p={0} />
+                <Th w="52px" p={0} />
                 <Th flex={1}>Name</Th>
                 <Th flex={1}>Phone</Th>
                 <Th flex={1}>Insta Handle</Th>
@@ -69,8 +70,9 @@ const Admin: React.FC = () => {
             </Thead>
             {sortedUsers ? (
               <Tbody>
-                {sortedUsers.map((user) => (
+                {sortedUsers.map((user, i) => (
                   <Tr key={user.name}>
+                    <Td>{i}</Td>
                     <Td>
                       <Checkbox
                         isChecked={selected.includes(user.phone)}
@@ -84,8 +86,8 @@ const Admin: React.FC = () => {
                 ))}
               </Tbody>
             ) : (
-              new Array(10).fill(0).map(() => (
-                <Tr>
+              new Array(10).fill(0).map((_, i) => (
+                <Tr key={`fakerow-${i}`}>
                   <Td>
                     <Skeleton height="30px" />
                   </Td>
