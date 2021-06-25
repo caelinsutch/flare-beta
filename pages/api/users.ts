@@ -1,15 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getUsers } from "../../src/Api/Handlers";
+import { wrapper } from "../../src/Api/Utils";
 
-const Users = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
-    try {
-      const users = await getUsers();
-      return res.status(200).send({ users });
-    } catch (e) {
-      return res.status(500).send({ error: e.toString() });
-    }
-  }
-};
+const Users = async (req: NextApiRequest, res: NextApiResponse) =>
+  wrapper(req, res, "GET", getUsers);
 
 export default Users;

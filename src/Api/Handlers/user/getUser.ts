@@ -1,4 +1,4 @@
-import { userCollection } from "../Firebase/firestore";
+import { userCollection } from "../../Firebase/firestore";
 
 const getUser = async (phone: string) => {
   const userSnapshot = await userCollection.where("phone", "==", phone).get();

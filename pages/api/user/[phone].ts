@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import getUser from "../../../src/Api/Handlers/getUser";
+import getUser from "../../../src/Api/Handlers/user/getUser";
 
 const GetUser = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
