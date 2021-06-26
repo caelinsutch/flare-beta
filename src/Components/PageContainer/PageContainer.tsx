@@ -1,15 +1,17 @@
 import React from "react";
 import Head from "next/head";
+import { Box, BoxProps } from "@chakra-ui/layout";
 
 type PageContainerProps = {
   title?: string;
   description?: string;
-};
+} & BoxProps;
 
 const PageContainer: React.FC<PageContainerProps> = ({
   title = "Berkeley. June 25th. Jungle Juice",
   description = "RSVP for the best Berkeley parties. Starting June 26th, get exclusive access today.",
   children,
+  ...props
 }) => {
   return (
     <>
@@ -65,7 +67,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
           }}
         />
       </Head>
-      {children}
+      <Box {...props}>{children}</Box>
     </>
   );
 };

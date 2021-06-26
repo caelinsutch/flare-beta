@@ -3,53 +3,28 @@ import {
   Box,
   OrderedList,
   Text,
-  Button,
-  Checkbox,
   ListItem,
-  Skeleton,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
+  TabPanel,
+  TabPanels,
+  Tab,
+  Tabs,
+  TabList,
 } from "@chakra-ui/react";
-import { useDeleteUsers, useGetUsers } from "../src/Hooks";
+import { useGetUsers } from "../src/Hooks";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../src/Redux";
-import { Input, PageContainer, PasswordProtection } from "../src/Components";
-import { User } from "../src/Models/User";
-import searchArrayObject from "../src/Utils/searchArrayObject";
-import { SendAnnouncement } from "../src/PageComponents/Admin";
+import { PageContainer, PasswordProtection } from "../src/Components";
+import { SendAnnouncement, UserTable } from "../src/PageComponents/Admin";
 
 const Admin: React.FC = () => {
   const { getUsers } = useGetUsers();
-  const { deleteUsers } = useDeleteUsers();
   const users = useSelector(selectUsers);
-  const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState<string[]>([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     getUsers();
+    if (localStorage.getItem("auth") == "true") setLoggedIn(true);
   }, []);
-
-  const filteredUsers: User[] = users ? searchArrayObject(users, search) : [];
-
-  const sortedUsers = filteredUsers.sort((b, a) => b.createdAt - a.createdAt);
-
-  const handleSelect = (userId: string) => {
-    if (selected.includes(userId)) {
-      setSelected((p) => p.filter((a) => a !== userId));
-    } else {
-      setSelected((p) => [userId, ...p]);
-    }
-  };
-
-  const handleDelete = async () => {
-    await deleteUsers(selected);
-    setSelected([]);
-  };
 
   return (
     <PageContainer>
@@ -95,73 +70,21 @@ const Admin: React.FC = () => {
               </Text>
             </Box>
           </Box>
-          <Box mt={4}>
-            <Text fontSize="xl" mb={2}>
-              Users
-            </Text>
-            <Box display="flex" flexDirection="row">
-              <Input
-                placeholder="Search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Box flex={1} />
-              <Button
-                colorScheme="red"
-                disabled={selected.length === 0}
-                onClick={handleDelete}
-              >
-                Delete
-              </Button>
-            </Box>
-            <Box overflowX="auto">
-              <Table variant="simple" size="sm">
-                <Thead>
-                  <Tr fontWeight="bold">
-                    <Th w="52px" p={0} />
-                    <Th flex={1}>Name</Th>
-                    <Th flex={1}>Phone</Th>
-                    <Th flex={1}>Insta Handle</Th>
-                    <Th flex={1}>Actions</Th>
-                  </Tr>
-                </Thead>
-                {sortedUsers ? (
-                  <Tbody>
-                    {sortedUsers.map((user) => (
-                      <Tr key={user.userId}>
-                        <Td>
-                          <Checkbox
-                            isChecked={selected.includes(user.userId)}
-                            onChange={() => handleSelect(user.userId)}
-                          />
-                        </Td>
-                        <Td>{user.name}</Td>
-                        <Td>{user.phone}</Td>
-                        <Td>{user.instagram}</Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
-                ) : (
-                  new Array(10).fill(0).map((_, i) => (
-                    <Tr key={`fakerow-${i}`}>
-                      <Td>
-                        <Skeleton height="30px" />
-                      </Td>
-                      <Td>
-                        <Skeleton height="30px" />
-                      </Td>
-                      <Td>
-                        <Skeleton height="30px" />
-                      </Td>
-                      <Td>
-                        <Skeleton height="30px" />
-                      </Td>
-                    </Tr>
-                  ))
-                )}
-              </Table>
-            </Box>
-          </Box>
+          <Tabs variant="line" mt={4}>
+            <TabList>
+              <Tab>Users</Tab>
+              <Tab>Song Requests</Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel>
+                <UserTable />
+              </TabPanel>
+              <TabPanel>
+                <p>two!</p>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </Box>
       )}
     </PageContainer>
