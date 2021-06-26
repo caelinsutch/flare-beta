@@ -3,10 +3,10 @@ import register from "../../src/Api/Handlers/register";
 
 const Register = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const { name, phone, instagram, accountId } = req.body;
+    const { name, phone, instagram, userId } = req.body;
 
     try {
-      const user = await register(accountId, {
+      const user = await register(userId, {
         name,
         phone,
         instagram,

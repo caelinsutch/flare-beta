@@ -12,6 +12,8 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
   const [verifyMode, setVerifyMode] = useState<any>(false);
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
+  const [sendSmsLoading, setSendSmsLoading] = useState(false);
+  const [verifyCodeLoading, setVerifyCodeLoading] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
@@ -26,6 +28,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
 
   const onSendCode = async (phoneNumber: string) => {
     // get captcha object
+    setSendSmsLoading(true);
     const appVerifier = (window as any).recaptchaVerifier;
     try {
       const cR = await firebase
@@ -33,12 +36,14 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
         .signInWithPhoneNumber(phoneNumber, appVerifier);
       setConfirmationResult(cR);
       setVerifyMode(true);
+      setSendSmsLoading(false);
     } catch (err) {
       toast({
         title: "Error signing up",
         description: err.message,
         status: "error",
       });
+      setSendSmsLoading(false);
       if ((window as any).captchaWidgetId) {
         (window as any).grecaptcha.reset((window as any).captchaWidgetId);
       } else {
@@ -55,24 +60,26 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
     }
   };
 
+  const verifyCodeError = () =>
+    toast({
+      status: "error",
+      title: "Error verifying code!",
+    });
+
   const onVerifyCode = async (enteredCode: string) => {
+    setVerifyCodeLoading(true);
     try {
       if (confirmationResult) {
-        confirmationResult
-          .confirm(enteredCode)
-          .then((result: any) => {
-            // User signed in successfully.
-            const user = result.user;
-            onVerify(user.uid, user.phone);
-          })
-          .catch((error: any) => {
-            console.error(error);
-          });
+        const result = await confirmationResult.confirm(enteredCode);
+        const user = result.user;
+        onVerify(user.uid, phone);
+        setVerifyCodeLoading(false);
       } else {
         throw new Error("SMS code cannot be verified. Please try again.");
       }
     } catch (err) {
-      console.error(err);
+      verifyCodeError();
+      setVerifyCodeLoading(false);
     }
   };
 
@@ -92,6 +99,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
           type="button"
           onClick={() => onVerifyCode(code)}
           isDisabled={code === ""}
+          isLoading={verifyCodeLoading}
         >
           Verify Code
         </Button>
@@ -113,7 +121,8 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
         mt={4}
         colorScheme="orange"
         type="button"
-        onClick={() => onSendCode("+19163174484")}
+        onClick={() => onSendCode(phone)}
+        isLoading={sendSmsLoading}
       >
         Send SMS code
       </Button>

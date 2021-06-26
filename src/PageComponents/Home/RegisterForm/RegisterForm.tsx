@@ -6,6 +6,7 @@ import useFetch from "use-http";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../Redux";
 import { Input, VerifyPhone } from "../../../Components";
+import firebase from "firebase";
 
 type RegisterFormProps = {
   onSetLogin: () => void;
@@ -25,7 +26,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
 
   const [phoneEntry, setPhoneEntry] = useState(true);
   const [phone, setPhone] = useState<string>();
-  const [accountId, setAccountId] = useState<string>();
+  const [userId, setUserId] = useState<string>();
 
   useEffect(() => {
     if (data?.user) {
@@ -51,17 +52,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
   const onSubmit = async (submittedData: any) => {
     await post("/register", {
       phone,
-      accountId,
+      userId,
       ...submittedData,
     });
   };
 
-  const handleVerify = (accountId: string, phone: string) => {
-    setAccountId(accountId);
+  const handleVerify = (userId: string, phone: string) => {
+    setUserId(userId);
     setPhone(phone);
     setPhoneEntry(false);
   };
 
+  // const user = firebase.auth().currentUser;
+  // console.log(user);
   if (phoneEntry) {
     return <VerifyPhone onVerify={handleVerify} />;
   }
