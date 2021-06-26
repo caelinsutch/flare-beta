@@ -15,18 +15,22 @@ const Party: React.FC = () => {
         <Text fontSize="2xl">House Rules</Text>
         <OrderedList stylePosition="inside" mt={2}>
           <ListItem>
-            If you yack don't just leave it, we have plenty of paper towels you
-            can use
-          </ListItem>
-          <ListItem>
             If you see something say something, you all have my instagram and
             feel free to talk to me at any point in the night
           </ListItem>
           <ListItem>
+            If you yack don't just leave it, we have plenty of paper towels you
+            can use
+          </ListItem>
+          <ListItem>
+            We care about the environment, please don't waste solo cups!
+          </ListItem>
+          <ListItem>Smoke outside, no hard drugs</ListItem>
+          <ListItem>
             Don't just stand on the side of the room, drink and have fun
           </ListItem>
-          <ListItem>Don't be a dick and have a good time</ListItem>{" "}
           <ListItem>Take a shot at the door</ListItem>
+          <ListItem>Don't be a dick and have a good time</ListItem>
         </OrderedList>
       </Box>
       <Box mt={4}>
