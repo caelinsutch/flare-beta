@@ -1,7 +1,6 @@
 import useFetch from "use-http";
-import { User } from "../Models/User";
-import { serverUrl } from "../constants";
-import { setUser } from "../Redux/Slices";
+import { User } from "../../Models/User";
+import { serverUrl } from "../../constants";
 
 type UseSendMessage = {
   sendMessage: (

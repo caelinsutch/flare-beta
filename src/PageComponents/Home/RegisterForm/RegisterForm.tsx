@@ -1,12 +1,8 @@
 import { Box, Button, Link, Text, useToast } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { serverUrl } from "../../../constants";
-import useFetch from "use-http";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../../Redux";
 import { Input, VerifyPhone } from "../../../Components";
-import firebase from "firebase";
+import { useAddUser } from "../../../Hooks/user";
 
 type RegisterFormProps = {
   onSetLogin: () => void;
@@ -20,41 +16,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
   } = useForm({
     reValidateMode: "onChange",
   });
-  const dispatch = useDispatch();
-  const toast = useToast();
-  const { post, error, data, loading } = useFetch(serverUrl);
+  const { addUser, loading } = useAddUser();
 
   const [phoneEntry, setPhoneEntry] = useState(true);
   const [phone, setPhone] = useState<string>();
   const [userId, setUserId] = useState<string>();
 
-  useEffect(() => {
-    if (data?.user) {
-      toast({
-        status: "success",
-        title: "RSVP Confirmed",
-      });
-      dispatch(setUser(data.user));
-      localStorage.setItem("phone", data.user.phone);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (error) {
-      toast({
-        status: "error",
-        title: "Error registering!",
-        description: data?.error,
-      });
-    }
-  }, [error]);
-
   const onSubmit = async (submittedData: any) => {
-    await post("/register", {
-      phone,
-      userId,
-      ...submittedData,
-    });
+    if (userId) {
+      await addUser(userId, {
+        phone,
+        ...submittedData,
+      });
+    }
   };
 
   const handleVerify = (userId: string, phone: string) => {
@@ -63,8 +37,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
     setPhoneEntry(false);
   };
 
-  // const user = firebase.auth().currentUser;
-  // console.log(user);
   if (phoneEntry) {
     return <VerifyPhone onVerify={handleVerify} />;
   }

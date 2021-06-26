@@ -3,19 +3,13 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { AuthForm, LeftSide, UserInfo } from "../src/PageComponents/Home";
 import { selectUser } from "../src/Redux";
-import { useGetUser } from "../src/Hooks";
+import { useSiteSetup } from "../src/Hooks";
 import { PageContainer } from "../src/Components";
 
 const Home = () => {
-  const user = useSelector(selectUser);
-  const { getUser, loading } = useGetUser();
+  const loading = useSiteSetup();
 
-  useEffect(() => {
-    const p = localStorage.getItem("phone");
-    if (p) {
-      getUser(p);
-    }
-  }, []);
+  const user = useSelector(selectUser);
 
   return (
     <PageContainer>

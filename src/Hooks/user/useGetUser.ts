@@ -1,11 +1,11 @@
 import useFetch from "use-http";
 import { useDispatch } from "react-redux";
-import { User } from "../Models/User";
-import { setUser } from "../Redux";
-import { serverUrl } from "../constants";
+import { User } from "../../Models/User";
+import { setUser } from "../../Redux";
+import { serverUrl } from "../../constants";
 
 type UseGetUser = {
-  getUser: (phone: string) => Promise<User | undefined>;
+  getUser: (userId: string) => Promise<User | undefined>;
   loading?: boolean;
   error?: any;
   data?: User;
@@ -21,8 +21,8 @@ const useGetUser = (): UseGetUser => {
   } = useFetch(serverUrl);
   const dispatch = useDispatch();
 
-  const getUser = async (phone: string) => {
-    const { user } = await get(`/user/${phone}`);
+  const getUser = async (userId: string) => {
+    const { user } = await get(`/user/${userId}`);
 
     if (response.ok) {
       dispatch(setUser(user));

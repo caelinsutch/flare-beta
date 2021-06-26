@@ -3,8 +3,8 @@ export type User = {
   name: string;
   phone: string;
   instagram: string;
-  points: number;
   isAdmin?: boolean;
   createdAt: number;
-  userId: string;
 };
+
+export type NewUser = Omit<User, "createdAt" | "userId" | "points">;
