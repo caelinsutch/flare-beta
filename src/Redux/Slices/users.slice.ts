@@ -16,10 +16,15 @@ export const usersSlice = createSlice({
     setUsers: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
     },
+    deleteUsers: (state, action: PayloadAction<string[]>) => {
+      state.users = state?.users?.filter(
+        (a) => !action.payload.includes(a.userId)
+      );
+    },
   },
 });
 
-export const { setUsers } = usersSlice.actions;
+export const { setUsers, deleteUsers } = usersSlice.actions;
 
 const usersReducer = usersSlice.reducer;
 

@@ -4,4 +4,5 @@ export type User = {
   instagram: string;
   points: number;
   createdAt: number;
+  userId: string;
 };
