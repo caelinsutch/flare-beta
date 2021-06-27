@@ -1,12 +1,32 @@
 import { userCollection } from "../../Firebase/firestore";
-import { NextApiRequest } from "next";
+import { UserDbo } from "../../../Models/User";
+import { getParty } from "../party";
 
-const getUser = async (req: NextApiRequest) => {
-  const { id } = req.query;
-  const userSnapshot = await userCollection.where("userId", "==", id).get();
-  const u = await Promise.all(userSnapshot.docs.map((a) => a.data()));
+const getUser = async (userId: string) => {
+  const userSnapshot = await userCollection.doc(userId).get();
 
-  return { user: u[0] };
+  if (!userSnapshot.exists) {
+    return { user: undefined };
+  }
+
+  const userDbo = userSnapshot.data() as UserDbo;
+
+  const hosting = await Promise.all(
+    userDbo.hosting?.map(async (partyId) => (await getParty(partyId)).party) ??
+      []
+  );
+
+  const attending = await Promise.all(
+    userDbo.attending.map(async (partyId) => (await getParty(partyId)).party)
+  );
+
+  const user = {
+    ...userDbo,
+    hosting,
+    attending,
+  };
+
+  return { user };
 };
 
 export default getUser;

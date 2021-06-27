@@ -33,24 +33,10 @@ const Home = () => {
             borderRadius={8}
             backgroundColor="white"
             width="fit-content"
+            minWidth="350px"
+            minHeight="400px"
             boxShadow="2xl"
           >
-            <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
-              Friday, June 25th
-            </Text>
-            <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
-              Berkeley, CA
-            </Text>
-            <Box
-              as="ul"
-              style={{ listStylePosition: "inside", color: "#958E86" }}
-              mt={2}
-            >
-              <Text as="li">Jungle Juice</Text>
-              <Text as="li">Music</Text>
-              <Text as="li">One big ass house</Text>
-              <Text as="li">Addy dropped 8PM</Text>
-            </Box>
             {loading && (
               <Box mt={4} textAlign="center" size="xl">
                 <Spinner color="orange.500" />

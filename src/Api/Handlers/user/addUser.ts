@@ -1,16 +1,27 @@
 import { NextApiRequest } from "next";
 import { userCollection } from "../../Firebase/firestore";
 import { sendText } from "../../Twilio";
+import { User } from "../../../Models/User";
 
 const addUser = async (req: NextApiRequest) => {
-  const { name, phone, instagram, userId } = req.body;
+  const { name, phone, instagram } = req.body;
 
-  await userCollection.doc(userId).set({
-    userId,
-    createdAt: Date.now(),
+  const newUser: Omit<User, "userId"> = {
     name,
     phone,
     instagram,
+    reviews: [],
+    attending: [],
+    hosting: [],
+    createdAt: Date.now(),
+  };
+
+  const res = await userCollection.add(newUser);
+
+  const userId = res.id;
+
+  await userCollection.doc(userId).update({
+    userId,
   });
 
   // Send Welcome SMS
@@ -19,9 +30,9 @@ const addUser = async (req: NextApiRequest) => {
     "Thanks for registering with Flare! We'll be using this phone number to send updates"
   );
 
-  const newUser = await userCollection.doc(userId).get();
+  const updatedUser = await userCollection.doc(userId).get();
 
-  return { user: newUser.data() };
+  return { user: updatedUser };
 };
 
 export default addUser;

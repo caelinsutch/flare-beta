@@ -1,18 +1,35 @@
 import {
   InputProps as ChakraInputProps,
   Input as ChakraInput,
+  Textarea,
+  TextareaProps,
   Box,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
 
-type InputProps = {
+type IProps = {
   label?: string;
   error?: string;
   info?: string;
+  area?: false;
 } & ChakraInputProps;
+type AreaProps = {
+  label?: string;
+  error?: string;
+  info?: string;
+  area: true;
+} & TextareaProps;
 
-const Input: React.FC<InputProps> = ({ info, label, error, ...props }) => (
+type InputProps = IProps | AreaProps;
+
+const Input: React.FC<InputProps> = ({
+  info,
+  label,
+  error,
+  area,
+  ...props
+}) => (
   <Box>
     <Text
       display={label ? "block" : "none"}
@@ -22,14 +39,18 @@ const Input: React.FC<InputProps> = ({ info, label, error, ...props }) => (
     >
       {label}
     </Text>
-    <ChakraInput
-      border="2px solid"
-      borderColor="gray.400"
-      _hover={{ borderColor: "gray.500" }}
-      _focus={{ borderColor: "gray.500" }}
-      _placeholder={{ color: "gray.400" }}
-      {...props}
-    />
+    {area ? (
+      <Textarea {...(props as AreaProps)} />
+    ) : (
+      <ChakraInput
+        border="2px solid"
+        borderColor="gray.400"
+        _hover={{ borderColor: "gray.500" }}
+        _focus={{ borderColor: "gray.500" }}
+        _placeholder={{ color: "gray.400" }}
+        {...(props as IProps)}
+      />
+    )}
     <Text
       mt={2}
       opacity={error || info ? 1 : 0}

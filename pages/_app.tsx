@@ -4,13 +4,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Head from "next/head";
 import { Provider } from "react-redux";
 import { store } from "../src/Redux";
-
-const theme = extendTheme({
-  fonts: {
-    body: "Roboto Mono, monospace",
-    mono: "Menlo, monospace",
-  },
-});
+import theme from "../src/Theme";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>

@@ -9,8 +9,9 @@ const wrapper = async (
   if (req.method === method) {
     try {
       const data = await handler(req);
-      res.status(200).send(data);
+      return res.status(200).send(data);
     } catch (e) {
+      if (e.name === "404") return res.status(404).send({ message: e.message });
       return res.status(500).send({ error: e.toString() });
     }
   }

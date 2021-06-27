@@ -2,7 +2,6 @@ import { NextApiRequest } from "next";
 import { userCollection } from "../../Firebase/firestore";
 
 const deleteUsers = async (req: NextApiRequest) => {
-  console.log(JSON.parse(req.body).userIds);
   const { userIds }: { userIds: string[] } = JSON.parse(req.body);
 
   if (!userIds) {
@@ -10,6 +9,8 @@ const deleteUsers = async (req: NextApiRequest) => {
   }
 
   await Promise.all(userIds.map((id) => userCollection.doc(id).delete()));
+
+  // TODO Sync parties where the user is and delete from that obj
 
   return { userIds };
 };
