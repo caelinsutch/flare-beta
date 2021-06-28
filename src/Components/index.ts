@@ -6,3 +6,4 @@ export { default as SongRequest } from "./SongRequest";
 export { default as Markdown } from "./Markdown";
 export { default as LoadingScreen } from "./LoadingScreen";
 export { default as ReviewCard } from "./ReviewCard";
+export { default as Navbar } from "./Navbar";

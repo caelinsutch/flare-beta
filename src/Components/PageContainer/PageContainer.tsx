@@ -2,16 +2,19 @@ import React from "react";
 import Head from "next/head";
 import { Box, BoxProps } from "@chakra-ui/layout";
 import { useSiteSetup } from "../../Hooks";
+import { Navbar } from "../index";
 
 type PageContainerProps = {
   title?: string;
   description?: string;
+  noNav?: boolean;
 } & BoxProps;
 
 const PageContainer: React.FC<PageContainerProps> = ({
   title = "Flare - The Best Berkeley Parties",
   description = "RSVP for the best Berkeley parties. Get exclusive access today.",
   children,
+  noNav = false,
   ...props
 }) => {
   useSiteSetup();
@@ -70,6 +73,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
           }}
         />
       </Head>
+      {!noNav && <Navbar />}
       <Box {...props}>{children}</Box>
     </>
   );

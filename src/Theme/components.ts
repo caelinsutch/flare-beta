@@ -7,6 +7,7 @@ const components = {
   Link: {
     baseStyle: {
       textDecoration: "underline",
+      color: "orange.400",
     },
   },
   Text: {

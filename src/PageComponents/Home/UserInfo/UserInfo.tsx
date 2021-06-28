@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   Link,
+  ListItem,
   Spinner,
   Text,
   UnorderedList,
@@ -42,9 +43,9 @@ const UserInfo: React.FC = () => {
             </Text>
             <UnorderedList>
               {user.attending.map((party: Party) => (
-                <Link as="li" key={party.name} href={`/party/${party.partyId}`}>
-                  {party.name}
-                </Link>
+                <ListItem key={party.name}>
+                  <Link href={`/party/${party.partyId}`}>{party.name}</Link>
+                </ListItem>
               ))}
             </UnorderedList>
           </Box>
@@ -56,9 +57,9 @@ const UserInfo: React.FC = () => {
             </Text>
             <UnorderedList>
               {user.hosting.map((party: Party) => (
-                <Link as="li" key={party.name} href={`/party/${party.partyId}`}>
-                  {party.name}
-                </Link>
+                <ListItem key={party.name}>
+                  <Link href={`/party/${party.partyId}`}>{party.name}</Link>
+                </ListItem>
               ))}
             </UnorderedList>
           </Box>

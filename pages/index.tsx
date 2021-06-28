@@ -10,7 +10,7 @@ const Home = () => {
   const user = useSelector(selectUser);
 
   return (
-    <PageContainer>
+    <PageContainer noNav>
       <Box
         height="100vh"
         backgroundImage="url('./bg.svg')"

@@ -68,7 +68,10 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
             <Text>
               Hosted by{" "}
               {party.admin.map((user, i) => (
-                <Link href={`/user/${user.userId}`} key={user.userId}>
+                <Link
+                  href={`/user/${user?.url ?? user.userId}`}
+                  key={user.userId}
+                >
                   {user.name}
                   {party.admin.length > 0 &&
                     i !== party.admin.length - 1 &&
