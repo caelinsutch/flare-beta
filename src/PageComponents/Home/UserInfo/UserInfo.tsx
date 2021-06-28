@@ -45,8 +45,10 @@ const UserInfo: React.FC = () => {
             <UnorderedList>
               {user.attending.map((party: Party) => (
                 <ListItem key={party.name}>
-                  <Link as={NextLink} href={`/party/${party.partyId}`}>
-                    {party.name}
+                  <Link as="p">
+                    <NextLink href={`/party/${party.partyId}`}>
+                      {party.name}
+                    </NextLink>
                   </Link>
                 </ListItem>
               ))}
@@ -61,8 +63,10 @@ const UserInfo: React.FC = () => {
             <UnorderedList>
               {user.hosting.map((party: Party) => (
                 <ListItem key={party.name}>
-                  <Link as={NextLink} href={`/party/${party.partyId}`}>
-                    {party.name}
+                  <Link as="p">
+                    <NextLink href={`/party/${party.partyId}`}>
+                      {party.name}
+                    </NextLink>
                   </Link>
                 </ListItem>
               ))}

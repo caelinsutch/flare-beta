@@ -71,7 +71,6 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
               Hosted by{" "}
               {party.admin.map((user, i) => (
                 <Link
-                  as={NextLink}
                   href={`/user/${user?.url ?? user.userId}`}
                   key={user.userId}
                 >

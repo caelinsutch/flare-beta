@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RegisterForm from "../RegisterForm";
 import { Box, Link, Text } from "@chakra-ui/react";
-import { VerifyPhone } from "../../../Components";
+import { PasswordProtection, VerifyPhone } from "../../../Components";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -12,17 +12,10 @@ const AuthForm = () => {
         Flare
       </Text>
       <Text as="h2" fontWeight="bold" fontSize="2xl" color="gray.500">
-        The Party Finding Platform
+        The Party Platform
       </Text>
-      <Box
-        as="ul"
-        style={{ listStylePosition: "inside", color: "#958E86" }}
-        mt={2}
-      >
-        <Text as="li">Find Parties</Text>
-        <Text as="li">Attend Parties</Text>
-        <Text as="li">Review Parties</Text>
-      </Box>
+      <Text mt={2}>Find and attend the best parties in Berkeley.</Text>
+
       {isLogin ? <VerifyPhone /> : <RegisterForm />}
       {isLogin ? (
         <Text fontSize="xs" mt={2} color="gray.400">

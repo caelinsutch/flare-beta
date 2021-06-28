@@ -6,15 +6,15 @@ const Navbar = () => (
   <Container p={4}>
     <Flex row>
       <Link
+        as="p"
         fontSize="3xl"
         color="orange.400"
         fontWeight="bold"
         letterSpacing="widest"
         textDecoration="none"
         href="/"
-        as={NextLink}
       >
-        FLARE
+        <NextLink href="/">FLARE</NextLink>
       </Link>
     </Flex>
   </Container>

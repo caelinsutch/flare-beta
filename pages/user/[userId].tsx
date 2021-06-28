@@ -140,8 +140,10 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
                 <OrderedList stylePosition="inside" mt={2}>
                   {thisUser.attending.map((party) => (
                     <ListItem key={party.partyId}>
-                      <Link as={NextLink} href={`/party/${party.partyId}`}>
-                        {party.name}
+                      <Link as="p">
+                        <NextLink href={`/party/${party.partyId}`}>
+                          {party.name}
+                        </NextLink>
                       </Link>
                     </ListItem>
                   ))}
@@ -154,8 +156,10 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
                 <UnorderedList mt={2}>
                   {thisUser.hosting.map((party) => (
                     <ListItem key={party.partyId}>
-                      <Link as={NextLink} href={`/party/${party.partyId}`}>
-                        {party.name}
+                      <Link as="p">
+                        <NextLink href={`/party/${party.partyId}`}>
+                          {party.name}
+                        </NextLink>
                       </Link>
                     </ListItem>
                   ))}

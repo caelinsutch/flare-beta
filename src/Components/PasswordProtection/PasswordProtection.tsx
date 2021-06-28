@@ -1,5 +1,6 @@
-import { Box, Input, Text, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Text, Button } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import Input from "../Input";
 
 type PasswordProtectionProps = {
   onAuth: () => void;
@@ -8,8 +9,13 @@ type PasswordProtectionProps = {
 const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onAuth }) => {
   const [text, setText] = useState("");
 
+  useEffect(() => {
+    if (localStorage.getItem("auth") === "ihop") onAuth();
+  });
+
   const handleSubmit = () => {
     if (text === "ihop") {
+      localStorage.setItem("auth", "ihop");
       onAuth();
     }
   };
@@ -19,17 +25,27 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onAuth }) => {
       <Box
         boxShadow="2xl"
         py={{ base: 4, md: 8 }}
-        px={{ base: 8, md: 16 }}
+        px={{ base: 4, md: 8 }}
         borderRadius={8}
         backgroundColor="white"
         width="fit-content"
+        maxW="500px"
       >
-        <Text fontSize="2xl">Log In</Text>
+        <Text as="h1" fontWeight="bold" fontSize="5xl" color="orange.400">
+          Flare
+        </Text>
+        <Text as="h2" fontWeight="bold" fontSize="2xl" color="gray.500">
+          The Party Platform
+        </Text>
+        <Text mb={2}>
+          Find and attend the best parties in Berkeley. Currently on closed
+          beta. DM @caelinsutch on insta for access.
+        </Text>
         <Input
+          label="Password"
           type="password"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          my={4}
         />
         <Button colorScheme="orange" onClick={handleSubmit}>
           Submit

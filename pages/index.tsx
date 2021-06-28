@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { AuthForm, LeftSide, UserInfo } from "../src/PageComponents/Home";
 import { selectUser } from "../src/Redux";
-import { PageContainer } from "../src/Components";
+import { PageContainer, PasswordProtection } from "../src/Components";
 
 const Home = () => {
   const user = useSelector(selectUser);
+  const [auth, setAuth] = useState(false);
+
+  if (!auth) return <PasswordProtection onAuth={() => setAuth(true)} />;
 
   return (
     <PageContainer noNav>
