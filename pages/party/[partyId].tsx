@@ -34,7 +34,7 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
   const router = useRouter();
   const { getParty, loading } = useGetParty();
 
-  const [party, setParty] = useState<Party>(initialParty);
+  const [party, setParty] = useState<Party | undefined>(initialParty);
 
   useEffect(() => {
     if (!router.isReady || party) return;
@@ -46,6 +46,8 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
       if (p) setParty(p);
     });
   }, [router.isReady]);
+
+  if (!party) return null;
 
   return (
     <PageContainer p={4} title={`${party.name} - Hosted with Flare`}>
@@ -72,15 +74,15 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
             <Text fontSize="xl" color="gray.500" mt={1}>
               {dayjs(party.date).format("MMM D HH A")} - {party.address}
             </Text>
-            <Box mt={2}>
-              <Markdown>
-                {`
-# Placeholder
-1. Test
-2. Test
-`}
-              </Markdown>
-            </Box>
+            {/*            <Box mt={2}>*/}
+            {/*              <Markdown>*/}
+            {/*                {`*/}
+            {/*# Placeholder*/}
+            {/*1. Test*/}
+            {/*2. Test*/}
+            {/*`}*/}
+            {/*              </Markdown>*/}
+            {/*            </Box>*/}
           </Box>
         </Container>
       )}
