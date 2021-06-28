@@ -31,6 +31,7 @@ const useReviewUser = (): UseReviewUser => {
       toast({
         status: "success",
         title: "Review submitted!",
+        description: "Thanks for your input on this host!",
       });
       return user;
     }

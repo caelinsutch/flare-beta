@@ -7,7 +7,6 @@ type RootUser = {
   instagram: string;
   isAdmin?: boolean;
   createdAt: number;
-  reviews: UserReview[];
   address?: string;
   bio?: string;
   host?: boolean;
@@ -17,11 +16,13 @@ type RootUser = {
 export type UserDbo = {
   hosting: string[];
   attending: string[];
+  reviews: string[];
 } & RootUser;
 
 export type User = {
   hosting: Party[];
   attending: Party[];
+  reviews: UserReview[];
 } & RootUser;
 
 export type UserReview = {
@@ -29,8 +30,9 @@ export type UserReview = {
   body: string;
   images?: string[];
   createdAt: number;
+  userId: string;
 };
 
-export type NewUserReview = Omit<UserReview, "createdAt">;
+export type NewUserReview = Omit<UserReview, "createdAt" | "userId">;
 
 export type NewUser = Omit<User, "createdAt" | "userId" | "points">;

@@ -6,7 +6,6 @@ import {
   ModalContent,
   ModalOverlay,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { Input } from "../../Components";
@@ -31,7 +30,6 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const toast = useToast();
 
   const { reviewUser, loading } = useReviewUser();
 
@@ -44,11 +42,6 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
     if (user) {
       onReviewSubmitted(user);
       onClose();
-      toast({
-        status: "success",
-        title: "Review submitted!",
-        description: "Thanks for your input on this host!",
-      });
     }
   };
 

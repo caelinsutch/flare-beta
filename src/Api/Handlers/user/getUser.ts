@@ -1,4 +1,4 @@
-import { userCollection } from "../../Firebase/firestore";
+import { reviewCollection, userCollection } from "../../Firebase/firestore";
 import { UserDbo } from "../../../Models/User";
 import { getParty } from "../party";
 
@@ -11,9 +11,8 @@ const getUser = async (userId: string) => {
     throw e;
   }
 
-  const reviewSnapshot = await userCollection
-    .doc(userId)
-    .collection("reviews")
+  const reviewSnapshot = await reviewCollection
+    .where("userId", "==", userId)
     .get();
 
   const reviews = reviewSnapshot.docs.map((doc) => doc.data());

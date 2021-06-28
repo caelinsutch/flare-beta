@@ -1,6 +1,6 @@
 import { NewUserReview, UserReview } from "../../../Models/User";
 import { getUser } from "./index";
-import { userCollection } from "../../Firebase/firestore";
+import { reviewCollection, userCollection } from "../../Firebase/firestore";
 
 const reviewUser = async (userId: string, newReview: NewUserReview) => {
   const { user } = await getUser(userId);
@@ -8,15 +8,18 @@ const reviewUser = async (userId: string, newReview: NewUserReview) => {
     const review: UserReview = {
       name: "Anonymous",
       ...newReview,
+      userId,
       createdAt: Date.now().valueOf(),
     };
-    const res = await userCollection
-      .doc(userId)
-      .collection("reviews")
-      .add(review);
 
-    await userCollection.doc(userId).collection("reviews").doc(res.id).update({
+    const res = await reviewCollection.add(review);
+
+    await reviewCollection.doc(res.id).update({
       reviewId: res.id,
+    });
+
+    await userCollection.doc(userId).update({
+      reviews: [...user.reviews, res.id],
     });
 
     return getUser(userId);
