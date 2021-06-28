@@ -1,20 +1,25 @@
-import { Box, Button, useToast } from "@chakra-ui/react";
+import { Box, Button, useToast, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import firebase from "../../Firebase";
 import Input from "../Input";
+import { useGetUserByPhone } from "../../Hooks/user";
 
 type VerifyPhoneProps = {
-  onVerify: (authId: string, phone: string) => void;
+  onVerify?: (authId: string, phone: string) => void;
+  register?: boolean;
 };
 
-const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
+const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
+  const { getUserByPhone } = useGetUserByPhone();
+  const toast = useToast();
+
   const [confirmationResult, setConfirmationResult] = useState<any>();
   const [verifyMode, setVerifyMode] = useState<any>(false);
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [sendSmsLoading, setSendSmsLoading] = useState(false);
   const [verifyCodeLoading, setVerifyCodeLoading] = useState(false);
-  const toast = useToast();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     (window as any).recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -28,6 +33,13 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
 
   const onSendCode = async (phoneNumber: string) => {
     // get captcha object
+    const users = await getUserByPhone(phoneNumber);
+
+    if (users.length > 0 && register) {
+      setError("Phone already registered");
+      return;
+    }
+
     setSendSmsLoading(true);
     const appVerifier = (window as any).recaptchaVerifier;
     try {
@@ -72,7 +84,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
       if (confirmationResult) {
         const result = await confirmationResult.confirm(enteredCode);
         const user = result.user;
-        onVerify(user.uid, phone);
+        if (onVerify) onVerify(user.uid, phone);
         setVerifyCodeLoading(false);
       } else {
         throw new Error("SMS code cannot be verified. Please try again.");
@@ -94,7 +106,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
           onChange={(e) => setCode(e.target.value)}
         />
         <Button
-          mt={4}
+          mt={2}
           colorScheme="orange"
           type="button"
           onClick={() => onVerifyCode(code)}
@@ -109,12 +121,22 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify }) => {
 
   return (
     <Box mt={4}>
+      {register ? (
+        <Text variant="title3" mb={2}>
+          Register
+        </Text>
+      ) : (
+        <Text variant="title3" mb={2}>
+          Log In
+        </Text>
+      )}
       <Input
         label="Phone"
         type="phone"
         placeholder="+15106427464"
         info="Make sure you match the +15106427464 format"
         value={phone}
+        error={error}
         onChange={(e) => setPhone(e.target.value)}
       />
       <Button

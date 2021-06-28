@@ -4,11 +4,7 @@ import { useForm } from "react-hook-form";
 import { Input, VerifyPhone } from "../../../Components";
 import { useAddUser } from "../../../Hooks/user";
 
-type RegisterFormProps = {
-  onSetLogin: () => void;
-};
-
-const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
+const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -38,7 +34,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
   };
 
   if (phoneEntry) {
-    return <VerifyPhone onVerify={handleVerify} />;
+    return <VerifyPhone onVerify={handleVerify} register />;
   }
 
   return (
@@ -85,9 +81,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
       >
         RSVP
       </Button>
-      <Text fontSize="xs" mt={2} color="gray.400">
-        Already RSVP&apos;d? <Link onClick={onSetLogin}>Check your status</Link>
-      </Text>
     </Box>
   );
 };

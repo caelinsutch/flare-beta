@@ -4,17 +4,40 @@ import { Party } from "../../src/Models/Party";
 import { useGetParty } from "../../src/Hooks/party";
 import { Markdown, PageContainer } from "../../src/Components";
 import * as React from "react";
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box, Container, Link, Spinner, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { getParty } from "../../src/Api/Handlers/party";
+import getParties from "../../src/Api/Handlers/party/getParties";
 
-const PartyPage = () => {
+export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
+  params,
+}) => {
+  const { party } = await getParty(params?.partyId as string);
+
+  return {
+    props: {
+      party,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths<{ partyId: string }> = async () => {
+  const { parties } = await getParties();
+  return {
+    paths: parties.map((u) => ({ params: { partyId: u.partyId } })),
+    fallback: "blocking",
+  };
+};
+
+const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
   const router = useRouter();
   const { getParty, loading } = useGetParty();
 
-  const [party, setParty] = useState<Party>();
+  const [party, setParty] = useState<Party>(initialParty);
 
   useEffect(() => {
-    if (!router.isReady) return;
+    if (!router.isReady || party) return;
 
     const { partyId } = router.query;
 
@@ -25,30 +48,41 @@ const PartyPage = () => {
   }, [router.isReady]);
 
   return (
-    <PageContainer p={4}>
+    <PageContainer p={4} title={`${party.name} - Hosted with Flare`}>
       {loading && (
         <Box mt={4} textAlign="center" size="xl">
           <Spinner color="orange.500" />
         </Box>
       )}
       {party && (
-        <Box>
-          <Text fontSize="3xl" fontWeight="bold">
-            {party.name}
-          </Text>
-          <Text fontSize="xl" color="gray.500">
-            {dayjs(party.date).format("MMM D HH A")} - {party.address}
-          </Text>
+        <Container>
           <Box>
-            <Markdown>
-              {`
+            <Text variant="title1">{party.name}</Text>
+            <Text>
+              Hosted by{" "}
+              {party.admin.map((user, i) => (
+                <Link href={`/user/${user.userId}`} key={user.userId}>
+                  {user.name}
+                  {party.admin.length > 0 &&
+                    i !== party.admin.length - 1 &&
+                    ", "}
+                </Link>
+              ))}
+            </Text>
+            <Text fontSize="xl" color="gray.500" mt={1}>
+              {dayjs(party.date).format("MMM D HH A")} - {party.address}
+            </Text>
+            <Box mt={2}>
+              <Markdown>
+                {`
 # Placeholder
 1. Test
 2. Test
 `}
-            </Markdown>
+              </Markdown>
+            </Box>
           </Box>
-        </Box>
+        </Container>
       )}
     </PageContainer>
   );

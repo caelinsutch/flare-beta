@@ -1,13 +1,22 @@
-export type Party = {
+import { User, UserDbo } from "./User";
+
+type RootParty = {
   partyId: string;
   address: string;
   date: number;
   name: string;
   createdAt: number;
-  admin: string[];
   attendees: PartyAttendee[];
   info: string;
 };
+
+export type PartyDbo = {
+  admin: string[];
+} & RootParty;
+
+export type Party = {
+  admin: UserDbo[];
+} & RootParty;
 
 export type PartyAttendee = {
   userId: string;

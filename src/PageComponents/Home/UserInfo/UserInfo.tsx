@@ -1,12 +1,21 @@
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../Redux";
-import { Box, Link, Spinner, Text } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser, selectUser } from "../../../Redux";
+import {
+  Box,
+  Button,
+  Divider,
+  Link,
+  Spinner,
+  Text,
+  UnorderedList,
+} from "@chakra-ui/react";
 import React from "react";
-import QRCode from "react-qr-code";
 import { Party } from "../../../Models/Party";
+import firebase from "firebase/app";
 
 const UserInfo: React.FC = () => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   if (!user)
     return (
@@ -14,6 +23,11 @@ const UserInfo: React.FC = () => {
         <Spinner />
       </Box>
     );
+
+  const handleLogout = async () => {
+    await firebase.auth().signOut();
+    dispatch(clearUser());
+  };
 
   return (
     <>
@@ -26,11 +40,13 @@ const UserInfo: React.FC = () => {
             <Text fontSize="2xl" color="gray.800" mb={2}>
               Attending
             </Text>
-            {user.attending.map((party: Party) => (
-              <Link key={party.name} href={`/party/${party.partyId}`}>
-                {party.name}
-              </Link>
-            ))}
+            <UnorderedList>
+              {user.attending.map((party: Party) => (
+                <Link as="li" key={party.name} href={`/party/${party.partyId}`}>
+                  {party.name}
+                </Link>
+              ))}
+            </UnorderedList>
           </Box>
         )}
         {user.hosting.length !== 0 && (
@@ -38,13 +54,19 @@ const UserInfo: React.FC = () => {
             <Text fontSize="2xl" color="gray.800" mb={2}>
               Hosted
             </Text>
-            {user.hosting.map((party: Party) => (
-              <Link key={party.name} href={`/party/${party.partyId}`}>
-                {party.name}
-              </Link>
-            ))}
+            <UnorderedList>
+              {user.hosting.map((party: Party) => (
+                <Link as="li" key={party.name} href={`/party/${party.partyId}`}>
+                  {party.name}
+                </Link>
+              ))}
+            </UnorderedList>
           </Box>
         )}
+        <Divider my={4} />
+        <Button colorScheme="red" onClick={handleLogout}>
+          Log Out
+        </Button>
       </Box>
     </>
   );

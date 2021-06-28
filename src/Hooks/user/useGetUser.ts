@@ -5,7 +5,7 @@ import { setUser } from "../../Redux";
 import { serverUrl } from "../../constants";
 
 type UseGetUser = {
-  getUser: (userId: string) => Promise<User | undefined>;
+  getUser: (userId: string, currentUser?: boolean) => Promise<User | undefined>;
   loading?: boolean;
   error?: any;
   data?: User;
@@ -21,11 +21,11 @@ const useGetUser = (): UseGetUser => {
   } = useFetch(serverUrl);
   const dispatch = useDispatch();
 
-  const getUser = async (userId: string) => {
+  const getUser = async (userId: string, currentUser = false) => {
     const { user } = await get(`/user/${userId}`);
 
     if (response.ok) {
-      dispatch(setUser(user));
+      if (currentUser) dispatch(setUser(user));
       return user;
     }
   };

@@ -100,7 +100,7 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
             {thisUser.hosting?.length !== 0 && (
               <Box mt={4}>
                 <Text variant="title3">Parties Hosted</Text>
-                <UnorderedList stylePosition="inside" mt={2}>
+                <UnorderedList mt={2}>
                   {thisUser.hosting.map((party) => (
                     <ListItem key={party.partyId}>
                       <Link href={`/party/${party.partyId}`}>{party.name}</Link>

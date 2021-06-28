@@ -9,7 +9,7 @@ const useSiteSetup = (): boolean => {
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        getUser(user.uid).then(() => setLoading(false));
+        getUser(user.uid, true).then(() => setLoading(false));
       } else {
         setLoading(false);
       }
