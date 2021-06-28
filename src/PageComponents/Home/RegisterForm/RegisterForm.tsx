@@ -79,7 +79,7 @@ const RegisterForm: React.FC = () => {
         isLoading={loading}
         width="100%"
       >
-        RSVP
+        Register
       </Button>
     </Box>
   );

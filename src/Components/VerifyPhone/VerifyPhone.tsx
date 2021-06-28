@@ -146,7 +146,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
         onClick={() => onSendCode(phone)}
         isLoading={sendSmsLoading}
       >
-        Send SMS code
+        {register ? "Register" : "Log In"}
       </Button>
       <div id="captchaContainer" />
     </Box>

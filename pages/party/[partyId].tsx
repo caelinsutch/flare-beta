@@ -19,6 +19,7 @@ export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
       props: {
         party,
       },
+      revalidate: 5,
     };
   } catch (e) {
     return {
