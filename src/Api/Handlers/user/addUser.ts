@@ -1,24 +1,22 @@
 import { NextApiRequest } from "next";
 import { userCollection } from "../../Firebase/firestore";
 import { sendText } from "../../Twilio";
-import { User } from "../../../Models/User";
+import { NewUserDbo, User } from "../../../Models";
 
 const addUser = async (req: NextApiRequest) => {
-  const { name, phone, instagram } = req.body;
+  const { name, phone, socials, userId } = req.body;
 
-  const newUser: Omit<User, "userId"> = {
+  const newUser: NewUserDbo = {
     name,
     phone,
-    instagram,
     reviews: [],
     attending: [],
     hosting: [],
     createdAt: Date.now(),
+    socials,
   };
 
-  const res = await userCollection.add(newUser);
-
-  const userId = res.id;
+  await userCollection.doc(userId).set(newUser);
 
   await userCollection.doc(userId).update({
     userId,

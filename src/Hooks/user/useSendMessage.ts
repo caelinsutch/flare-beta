@@ -1,5 +1,5 @@
 import useFetch from "use-http";
-import { User } from "../../Models/User";
+import { User } from "../../Models";
 import { serverUrl } from "../../constants";
 
 type UseSendMessage = {

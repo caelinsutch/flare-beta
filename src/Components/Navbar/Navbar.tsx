@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Flex, Container } from "@chakra-ui/react";
+import NextLink from "next/link";
 
 const Navbar = () => (
   <Container p={4}>
@@ -11,6 +12,7 @@ const Navbar = () => (
         letterSpacing="widest"
         textDecoration="none"
         href="/"
+        as={NextLink}
       >
         FLARE
       </Link>

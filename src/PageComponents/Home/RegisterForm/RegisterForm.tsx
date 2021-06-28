@@ -19,10 +19,13 @@ const RegisterForm: React.FC = () => {
   const [userId, setUserId] = useState<string>();
 
   const onSubmit = async (submittedData: any) => {
-    if (userId) {
+    if (userId && phone) {
+      const { instagram } = submittedData;
+      const socials = instagram === "" ? {} : { instagram };
       await addUser(userId, {
-        phone,
-        ...submittedData,
+        phone: phone,
+        name: submittedData.name,
+        socials,
       });
     }
   };
@@ -55,12 +58,16 @@ const RegisterForm: React.FC = () => {
       />
       <Input
         label="IG Handle"
-        placeholder="@ucberkeley"
+        placeholder="ucberkeley"
         type="text"
         {...register("instagram", {
-          required: true,
+          pattern: /[a-zA-Z]/,
         })}
-        error={errors.instagram ? "Must submit an Instagram" : undefined}
+        error={
+          errors.instagram
+            ? "Must submit a properly formatted Instagram"
+            : undefined
+        }
       />
       <Button
         type="submit"

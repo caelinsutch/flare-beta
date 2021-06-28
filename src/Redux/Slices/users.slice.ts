@@ -1,4 +1,4 @@
-import { User } from "../../Models/User";
+import { User } from "../../Models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UsersSliceState = {

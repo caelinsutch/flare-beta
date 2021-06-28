@@ -1,16 +1,22 @@
 import { Party } from "./Party";
+import { Review } from "./Review";
 
 type RootUser = {
   userId: string;
   name: string;
   phone: string;
-  instagram: string;
   isAdmin?: boolean;
   createdAt: number;
   address?: string;
   bio?: string;
   host?: boolean;
   url?: string;
+  socials: {
+    tiktok?: string;
+    instagram?: string;
+  };
+  deleted?: boolean;
+  deletedAt?: number;
 };
 
 export type UserDbo = {
@@ -22,17 +28,8 @@ export type UserDbo = {
 export type User = {
   hosting: Party[];
   attending: Party[];
-  reviews: UserReview[];
+  reviews: Review[];
 } & RootUser;
 
-export type UserReview = {
-  name?: string;
-  body: string;
-  images?: string[];
-  createdAt: number;
-  userId: string;
-};
-
-export type NewUserReview = Omit<UserReview, "createdAt" | "userId">;
-
-export type NewUser = Omit<User, "createdAt" | "userId" | "points">;
+export type NewUser = Pick<User, "name" | "phone" | "socials">;
+export type NewUserDbo = Omit<User, "userId">;

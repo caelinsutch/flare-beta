@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Input } from "../../Components";
-import { useReviewUser } from "../../Hooks/user";
-import { User } from "../../Models/User";
+import { User } from "../../Models";
+import { useReviewUser } from "../../Hooks/review";
 
 type SubmitReviewProps = {
   userId: string;

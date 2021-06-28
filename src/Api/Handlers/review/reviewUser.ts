@@ -1,11 +1,11 @@
-import { NewUserReview, UserReview } from "../../../Models/User";
-import { getUser } from "./index";
+import { NewReview, NewReviewDbo } from "../../../Models";
+import { getUser } from "../user";
 import { reviewCollection, userCollection } from "../../Firebase/firestore";
 
-const reviewUser = async (userId: string, newReview: NewUserReview) => {
+const reviewUser = async (userId: string, newReview: NewReview) => {
   const { user } = await getUser(userId);
   if (user) {
-    const review: UserReview = {
+    const review: NewReviewDbo = {
       name: "Anonymous",
       ...newReview,
       userId,

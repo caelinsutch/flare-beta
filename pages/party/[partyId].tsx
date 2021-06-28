@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Party } from "../../src/Models/Party";
+import { Party } from "../../src/Models";
 import { useGetParty } from "../../src/Hooks/party";
 import { Markdown, PageContainer } from "../../src/Components";
 import * as React from "react";
@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getParty } from "../../src/Api/Handlers/party";
 import getParties from "../../src/Api/Handlers/party/getParties";
+import NextLink from "next/link";
 
 export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
   params,
@@ -70,6 +71,7 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
               Hosted by{" "}
               {party.admin.map((user, i) => (
                 <Link
+                  as={NextLink}
                   href={`/user/${user?.url ?? user.userId}`}
                   key={user.userId}
                 >

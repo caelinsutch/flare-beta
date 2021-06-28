@@ -1,6 +1,6 @@
 import useFetch from "use-http";
 import { useDispatch } from "react-redux";
-import { User } from "../../Models/User";
+import { User } from "../../Models";
 import { setUser } from "../../Redux";
 import { serverUrl } from "../../constants";
 

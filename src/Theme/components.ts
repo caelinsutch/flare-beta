@@ -1,4 +1,10 @@
 const components = {
+  IconButton: {
+    baseStyle: {
+      variant: "ghost",
+      borderRadius: "lg",
+    },
+  },
   UnorderedList: {
     baseStyle: {
       stylePosition: "inside",

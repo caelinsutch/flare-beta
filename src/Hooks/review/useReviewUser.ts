@@ -1,14 +1,11 @@
-import { NewUserReview, User } from "../../Models/User";
+import { NewReview, User } from "../../Models";
 import { serverUrl } from "../../constants";
 import useFetch from "use-http";
 import { useEffect } from "react";
 import { useToast } from "@chakra-ui/toast";
 
 type UseReviewUser = {
-  reviewUser: (
-    userId: string,
-    review: NewUserReview
-  ) => Promise<User | undefined>;
+  reviewUser: (userId: string, review: NewReview) => Promise<User | undefined>;
   loading?: boolean;
   error?: any;
   data?: User;
@@ -24,7 +21,7 @@ const useReviewUser = (): UseReviewUser => {
   } = useFetch(serverUrl);
   const toast = useToast();
 
-  const reviewUser = async (userId: string, review: NewUserReview) => {
+  const reviewUser = async (userId: string, review: NewReview) => {
     const { user } = await post(`/user/${userId}/review`, { review });
 
     if (response.ok) {

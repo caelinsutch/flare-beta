@@ -1,5 +1,5 @@
 import useFetch from "use-http";
-import { NewUser, User } from "../../Models/User";
+import { NewUser, User } from "../../Models";
 import { serverUrl } from "../../constants";
 import { useEffect } from "react";
 import { setUser } from "../../Redux/Slices";

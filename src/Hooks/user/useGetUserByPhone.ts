@@ -1,4 +1,4 @@
-import { User } from "../../Models/User";
+import { User } from "../../Models";
 import { serverUrl } from "../../constants";
 import useFetch from "use-http";
 import { setUser } from "../../Redux/Slices";

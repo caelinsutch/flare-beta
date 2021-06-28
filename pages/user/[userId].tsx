@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PageContainer, ReviewCard } from "../../src/Components";
-import { User, UserDbo } from "../../src/Models/User";
+import { User } from "../../src/Models";
 import {
   Box,
   Button,
@@ -21,8 +21,10 @@ import { SubmitReviewModal } from "../../src/PageComponents";
 import { useGetUser } from "../../src/Hooks/user";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectUser, selectUsers } from "../../src/Redux";
+import { selectUser } from "../../src/Redux";
 import { userCollection } from "../../src/Api/Firebase/firestore";
+import { useDeleteReview } from "../../src/Hooks/review";
+import NextLink from "next/link";
 
 export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
   params,
@@ -91,6 +93,7 @@ type UserPageProps = {
 const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
   const router = useRouter();
   const { getUser } = useGetUser();
+  const { deleteReview } = useDeleteReview();
   const me = useSelector(selectUser);
 
   const [thisUser, setThisUser] = useState<User | undefined>(initialUser);
@@ -99,9 +102,9 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
 
   useEffect(() => {
     if (!thisUser) {
-      const { partyId } = router.query;
+      const { userId } = router.query;
 
-      getUser(partyId as string).then((user) => user && setThisUser(user));
+      getUser(userId as string).then((user) => user && setThisUser(user));
     }
   }, []);
 
@@ -111,7 +114,12 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
     setThisUser(newUser);
   };
 
-  const handleReviewDelete = (reviewId: string) => {};
+  const handleReviewDelete = async (reviewId: string) => {
+    await deleteReview(reviewId);
+
+    if (thisUser)
+      await getUser(thisUser.userId).then((user) => user && setThisUser(user));
+  };
 
   return (
     <PageContainer p={4}>
@@ -132,7 +140,9 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
                 <OrderedList stylePosition="inside" mt={2}>
                   {thisUser.attending.map((party) => (
                     <ListItem key={party.partyId}>
-                      <Link href={`/party/${party.partyId}`}>{party.name}</Link>
+                      <Link as={NextLink} href={`/party/${party.partyId}`}>
+                        {party.name}
+                      </Link>
                     </ListItem>
                   ))}
                 </OrderedList>
@@ -144,7 +154,9 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
                 <UnorderedList mt={2}>
                   {thisUser.hosting.map((party) => (
                     <ListItem key={party.partyId}>
-                      <Link href={`/party/${party.partyId}`}>{party.name}</Link>
+                      <Link as={NextLink} href={`/party/${party.partyId}`}>
+                        {party.name}
+                      </Link>
                     </ListItem>
                   ))}
                 </UnorderedList>
@@ -168,7 +180,13 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
               </Flex>
               {thisUser.reviews &&
                 thisUser.reviews.map((a) => (
-                  <ReviewCard review={a} key={a.body + a.createdAt} />
+                  <ReviewCard
+                    onDelete={
+                      isUser ? () => handleReviewDelete(a.reviewId) : undefined
+                    }
+                    review={a}
+                    key={a.body + a.createdAt}
+                  />
                 ))}
             </>
           )}

@@ -27,12 +27,16 @@ const AuthForm = () => {
       {isLogin ? (
         <Text fontSize="xs" mt={2} color="gray.400">
           Dont&apos;t have an account?{" "}
-          <Link onClick={() => setIsLogin(false)}>Register</Link>
+          <Link as="p" onClick={() => setIsLogin(false)}>
+            Register
+          </Link>
         </Text>
       ) : (
         <Text fontSize="xs" mt={2} color="gray.400">
           Already Registered?{" "}
-          <Link onClick={() => setIsLogin(true)}>Log in</Link>
+          <Link as="p" onClick={() => setIsLogin(true)}>
+            Log in
+          </Link>
         </Text>
       )}
     </>

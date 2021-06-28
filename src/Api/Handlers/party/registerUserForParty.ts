@@ -1,6 +1,6 @@
 import { partyCollection, userCollection } from "../../Firebase/firestore";
-import { Party, PartyAttendee } from "../../../Models/Party";
-import { UserDbo } from "../../../Models/User";
+import { Party, PartyAttendee } from "../../../Models";
+import { UserDbo } from "../../../Models";
 
 const registerUserForParty = async (partyId: string, userId: string) => {
   const partySnapshot = await partyCollection.doc(partyId).get();

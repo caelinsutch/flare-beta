@@ -1,11 +1,11 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
-import { UserReview } from "../../Models/User";
+import { Review } from "../../Models";
 import { AiFillDelete } from "react-icons/ai";
 
 type ReviewCardProps = {
-  review: UserReview;
-  onDelete?: () => void;
+  review: Review;
+  onDelete?: () => any;
 };
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review, onDelete }) => (
@@ -13,9 +13,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, onDelete }) => (
     <Flex alignContent="center" justifyContent="space-between" row>
       <Text variant="subtitle2">{review.name}</Text>
       {onDelete && (
-        <Box onClick={onDelete}>
-          <AiFillDelete />
-        </Box>
+        <IconButton
+          variant="ghost"
+          aria-label="Delete"
+          onClick={onDelete}
+          icon={<AiFillDelete />}
+        />
       )}
     </Flex>
     <Text mt={2}>{review.body}</Text>

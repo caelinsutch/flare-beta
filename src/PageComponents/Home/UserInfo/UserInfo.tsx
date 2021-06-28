@@ -11,14 +11,15 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import React from "react";
-import { Party } from "../../../Models/Party";
+import { Party } from "../../../Models";
 import firebase from "firebase/app";
+import NextLink from "next/link";
 
 const UserInfo: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  if (!user)
+  if (!user || Object.keys(user).length === 0)
     return (
       <Box mt={4}>
         <Spinner />
@@ -44,7 +45,9 @@ const UserInfo: React.FC = () => {
             <UnorderedList>
               {user.attending.map((party: Party) => (
                 <ListItem key={party.name}>
-                  <Link href={`/party/${party.partyId}`}>{party.name}</Link>
+                  <Link as={NextLink} href={`/party/${party.partyId}`}>
+                    {party.name}
+                  </Link>
                 </ListItem>
               ))}
             </UnorderedList>
@@ -58,7 +61,9 @@ const UserInfo: React.FC = () => {
             <UnorderedList>
               {user.hosting.map((party: Party) => (
                 <ListItem key={party.name}>
-                  <Link href={`/party/${party.partyId}`}>{party.name}</Link>
+                  <Link as={NextLink} href={`/party/${party.partyId}`}>
+                    {party.name}
+                  </Link>
                 </ListItem>
               ))}
             </UnorderedList>

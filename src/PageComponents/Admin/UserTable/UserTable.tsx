@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Code,
   Skeleton,
   Table,
   Tbody,
@@ -16,7 +17,7 @@ import React, { useState } from "react";
 import { useDeleteUsers } from "../../../Hooks";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../../../Redux";
-import { User } from "../../../Models/User";
+import { User } from "../../../Models";
 import searchArrayObject from "../../../Utils/searchArrayObject";
 
 const UserTable: React.FC = () => {
@@ -67,9 +68,9 @@ const UserTable: React.FC = () => {
           <Thead>
             <Tr fontWeight="bold">
               <Th w="52px" p={0} />
+              <Th flex={1}>id</Th>
               <Th flex={1}>Name</Th>
               <Th flex={1}>Phone</Th>
-              <Th flex={1}>Insta Handle</Th>
             </Tr>
           </Thead>
           {sortedUsers ? (
@@ -82,9 +83,11 @@ const UserTable: React.FC = () => {
                       onChange={() => handleSelect(user.userId)}
                     />
                   </Td>
+                  <Td>
+                    <Code>{user.userId}</Code>
+                  </Td>
                   <Td>{user.name}</Td>
                   <Td>{user.phone}</Td>
-                  <Td>{user.instagram}</Td>
                 </Tr>
               ))}
             </Tbody>

@@ -1,21 +1,18 @@
-import { reviewCollection, userCollection } from "../../Firebase/firestore";
-import { UserDbo } from "../../../Models/User";
+import { userCollection } from "../../Firebase/firestore";
+import { User, UserDbo, Review } from "../../../Models";
 import { getParty } from "../party";
+import { getUserReviews } from "../review";
 
 const getUser = async (userId: string) => {
   const userSnapshot = await userCollection.doc(userId).get();
 
   if (!userSnapshot.exists) {
-    const e = new Error("Party does not exist");
+    const e = new Error("User does not exist");
     e.name = "404";
     throw e;
   }
 
-  const reviewSnapshot = await reviewCollection
-    .where("userId", "==", userId)
-    .get();
-
-  const reviews = reviewSnapshot.docs.map((doc) => doc.data());
+  const reviews = (await getUserReviews(userId)) as Review[];
 
   if (!userSnapshot.exists) {
     return { user: undefined };
@@ -32,7 +29,7 @@ const getUser = async (userId: string) => {
     userDbo.attending.map(async (partyId) => (await getParty(partyId)).party)
   );
 
-  const user = {
+  const user: User = {
     ...userDbo,
     hosting,
     attending,

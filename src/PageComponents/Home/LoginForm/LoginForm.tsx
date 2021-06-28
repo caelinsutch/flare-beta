@@ -76,7 +76,10 @@ const LoginForm: React.FC<RegisterFormProps> = ({ onSetLogin }) => {
         value="Check Registration"
       />
       <Text fontSize="xs" mt={4} color="gray.400">
-        Haven&apos;t RSVP&apos;d? <Link onClick={onSetLogin}>RSVP</Link>
+        Haven&apos;t RSVP&apos;d?{" "}
+        <Link as="p" onClick={onSetLogin}>
+          RSVP
+        </Link>
       </Text>
     </Box>
   );

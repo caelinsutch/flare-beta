@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { AuthForm, LeftSide, UserInfo } from "../src/PageComponents/Home";
 import { selectUser } from "../src/Redux";
-import { useSiteSetup } from "../src/Hooks";
 import { PageContainer } from "../src/Components";
 
 const Home = () => {
