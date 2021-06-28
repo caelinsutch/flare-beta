@@ -1,6 +1,11 @@
 const components = {
+  Link: {
+    baseStyle: {
+      textDecoration: "underline",
+    },
+  },
   Text: {
-    global: {
+    baseStyle: {
       color: "gray.800",
     },
     variants: {

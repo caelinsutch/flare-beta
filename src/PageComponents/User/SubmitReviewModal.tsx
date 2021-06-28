@@ -37,7 +37,7 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
     const user = await reviewUser(userId, {
       body: data.text,
       images: [],
-      name: "Anonymous",
+      name: data.name ?? "Anonymous",
     });
     if (user) {
       onReviewSubmitted(user);
@@ -50,8 +50,18 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
       <ModalOverlay />
       <ModalContent p={4}>
         <Box as="form" onSubmit={handleSubmit(onSubmit)} mt={2}>
-          <Text variant="title3">Submit a Review</Text>
-          <Input mt={2} area {...register("text", { required: true })} />
+          <Text variant="title3" mb={2}>
+            Submit a Review
+          </Text>
+          <Input
+            label="Name (optional)"
+            {...register("name", { required: false })}
+          />
+          <Input
+            label="Review"
+            area
+            {...register("text", { required: true })}
+          />
           <Button
             colorScheme="orange"
             type="submit"

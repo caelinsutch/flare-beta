@@ -10,6 +10,7 @@ type RootUser = {
   reviews: UserReview[];
   address?: string;
   bio?: string;
+  host?: boolean;
 };
 
 export type UserDbo = {

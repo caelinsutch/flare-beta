@@ -11,6 +11,7 @@ import {
   ListItem,
   OrderedList,
   Text,
+  UnorderedList,
   useDisclosure,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
@@ -19,6 +20,8 @@ import { getUser, getUsers } from "../../src/Api/Handlers/user";
 import { SubmitReviewModal } from "../../src/PageComponents";
 import { useGetUser } from "../../src/Hooks/user";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { selectUser, selectUsers } from "../../src/Redux";
 
 export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
   params,
@@ -47,41 +50,46 @@ type UserPageProps = {
 const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
   const router = useRouter();
   const { getUser } = useGetUser();
+  const me = useSelector(selectUser);
 
-  const [user, setUser] = useState<User>(initialUser);
+  const [thisUser, setThisUser] = useState<User | undefined>(initialUser);
+
+  const isUser = me?.userId === thisUser?.userId;
 
   useEffect(() => {
-    if (!user) {
+    if (!thisUser) {
       const { partyId } = router.query;
 
-      getUser(partyId as string).then((user) => user && setUser(user));
+      getUser(partyId as string).then((user) => user && setThisUser(user));
     }
   }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleReviewSubmitted = (newUser: User) => {
-    setUser(newUser);
+    setThisUser(newUser);
   };
+
+  const handleReviewDelete = (reviewId: string) => {};
 
   return (
     <PageContainer p={4}>
-      {user && (
+      {thisUser && (
         <Container>
           <Box>
-            <Text variant="title1">{user.name}</Text>
+            <Text variant="title1">{thisUser.name}</Text>
             <Text variant="title3" mt={2}>
-              {user.address}
+              {thisUser.address}
             </Text>
             <Text variant="subtitle2" mt={2}>
-              Flare partier since {dayjs(user.createdAt).format("MMM YYYY")}
+              Flare partier since {dayjs(thisUser.createdAt).format("MMM YYYY")}
             </Text>
-            <Text mt={4}>{user?.bio}</Text>
-            {user.attending?.length !== 0 && (
+            <Text mt={4}>{thisUser?.bio}</Text>
+            {thisUser.attending?.length !== 0 && (
               <Box mt={4}>
                 <Text variant="title3">Parties Attended</Text>
                 <OrderedList stylePosition="inside" mt={2}>
-                  {user.attending.map((party) => (
+                  {thisUser.attending.map((party) => (
                     <ListItem key={party.partyId}>
                       <Link href={`/party/${party.partyId}`}>{party.name}</Link>
                     </ListItem>
@@ -89,36 +97,40 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
                 </OrderedList>
               </Box>
             )}
-            {user.hosting?.length !== 0 && (
+            {thisUser.hosting?.length !== 0 && (
               <Box mt={4}>
                 <Text variant="title3">Parties Hosted</Text>
-                <OrderedList stylePosition="inside" mt={2}>
-                  {user.hosting.map((party) => (
+                <UnorderedList stylePosition="inside" mt={2}>
+                  {thisUser.hosting.map((party) => (
                     <ListItem key={party.partyId}>
                       <Link href={`/party/${party.partyId}`}>{party.name}</Link>
                     </ListItem>
                   ))}
-                </OrderedList>
+                </UnorderedList>
               </Box>
             )}
           </Box>
           <Divider my={4} />
-          <SubmitReviewModal
-            userId={user.userId}
-            onReviewSubmitted={handleReviewSubmitted}
-            isOpen={isOpen}
-            onClose={onClose}
-          />
-          <Flex justifyContent="space-between" alignItems="center">
-            <Text variant="title3">Reviews</Text>
-            <Button colorScheme="orange" onClick={onOpen}>
-              Submit Review
-            </Button>
-          </Flex>
-          {user.reviews &&
-            user.reviews.map((a) => (
-              <ReviewCard review={a} key={a.body + a.createdAt} />
-            ))}
+          {thisUser.host && (
+            <>
+              <SubmitReviewModal
+                userId={thisUser.userId}
+                onReviewSubmitted={handleReviewSubmitted}
+                isOpen={isOpen}
+                onClose={onClose}
+              />
+              <Flex justifyContent="space-between" alignItems="center">
+                <Text variant="title3">Reviews</Text>
+                <Button colorScheme="orange" onClick={onOpen}>
+                  Submit Review
+                </Button>
+              </Flex>
+              {thisUser.reviews &&
+                thisUser.reviews.map((a) => (
+                  <ReviewCard review={a} key={a.body + a.createdAt} />
+                ))}
+            </>
+          )}
         </Container>
       )}
     </PageContainer>
