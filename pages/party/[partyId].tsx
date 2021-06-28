@@ -13,13 +13,18 @@ import getParties from "../../src/Api/Handlers/party/getParties";
 export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
   params,
 }) => {
-  const { party } = await getParty(params?.partyId as string);
-
-  return {
-    props: {
-      party,
-    },
-  };
+  try {
+    const { party } = await getParty(params?.partyId as string);
+    return {
+      props: {
+        party,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export const getStaticPaths: GetStaticPaths<{ partyId: string }> = async () => {

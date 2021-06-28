@@ -1,4 +1,4 @@
-import { Box, Button, Link, Text, useToast } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input, VerifyPhone } from "../../../Components";

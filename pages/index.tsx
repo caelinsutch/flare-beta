@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { AuthForm, LeftSide, UserInfo } from "../src/PageComponents/Home";
@@ -7,8 +7,6 @@ import { useSiteSetup } from "../src/Hooks";
 import { PageContainer } from "../src/Components";
 
 const Home = () => {
-  const loading = useSiteSetup();
-
   const user = useSelector(selectUser);
 
   return (
@@ -37,13 +35,8 @@ const Home = () => {
             minHeight="400px"
             boxShadow="2xl"
           >
-            {loading && (
-              <Box mt={4} textAlign="center" size="xl">
-                <Spinner color="orange.500" />
-              </Box>
-            )}
             {user && <UserInfo />}
-            {!user && !loading && <AuthForm />}
+            {!user && <AuthForm />}
           </Box>
         </Box>
       </Box>

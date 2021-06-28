@@ -5,6 +5,12 @@ import { UserDbo } from "../../../Models/User";
 const getParty = async (partyId: string): Promise<{ party: Party }> => {
   const snapshot = await partyCollection.doc(partyId).get();
 
+  if (!snapshot.exists) {
+    const e = new Error("Party does not exist");
+    e.name = "404";
+    throw e;
+  }
+
   const partyDbo: PartyDbo = snapshot.data() as PartyDbo;
 
   const admin = await Promise.all(
@@ -19,12 +25,6 @@ const getParty = async (partyId: string): Promise<{ party: Party }> => {
     admin,
   };
 
-  if (snapshot.exists) {
-    return { party };
-  } else {
-    const e = new Error("Party does not exist");
-    e.name = "404";
-    throw e;
-  }
+  return { party };
 };
 export default getParty;

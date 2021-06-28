@@ -26,13 +26,18 @@ import { selectUser, selectUsers } from "../../src/Redux";
 export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
   params,
 }) => {
-  const { user } = await getUser(params?.userId as string);
-
-  return {
-    props: {
-      user,
-    },
-  };
+  try {
+    const { user } = await getUser(params?.userId as string);
+    return {
+      props: {
+        user,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export const getStaticPaths: GetStaticPaths<{ userId: string }> = async () => {

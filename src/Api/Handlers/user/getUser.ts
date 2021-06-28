@@ -5,6 +5,12 @@ import { getParty } from "../party";
 const getUser = async (userId: string) => {
   const userSnapshot = await userCollection.doc(userId).get();
 
+  if (!userSnapshot.exists) {
+    const e = new Error("Party does not exist");
+    e.name = "404";
+    throw e;
+  }
+
   const reviewSnapshot = await userCollection
     .doc(userId)
     .collection("reviews")

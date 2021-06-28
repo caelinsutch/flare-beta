@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { Box, BoxProps } from "@chakra-ui/layout";
+import { useSiteSetup } from "../../Hooks";
 
 type PageContainerProps = {
   title?: string;
@@ -13,6 +14,8 @@ const PageContainer: React.FC<PageContainerProps> = ({
   children,
   ...props
 }) => {
+  useSiteSetup();
+
   return (
     <>
       <Head>
