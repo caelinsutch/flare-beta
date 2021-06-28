@@ -6,6 +6,7 @@ import {
   ModalContent,
   ModalOverlay,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { Input } from "../../Components";
@@ -30,6 +31,7 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const toast = useToast();
 
   const { reviewUser, loading } = useReviewUser();
 
@@ -37,11 +39,16 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
     const user = await reviewUser(userId, {
       body: data.text,
       images: [],
-      name: data.name ?? "Anonymous",
+      name: data.name !== "" ? data.name : "Anonymous",
     });
     if (user) {
       onReviewSubmitted(user);
       onClose();
+      toast({
+        status: "success",
+        title: "Review submitted!",
+        description: "Thanks for your input on this host!",
+      });
     }
   };
 
@@ -61,6 +68,7 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
             label="Review"
             area
             {...register("text", { required: true })}
+            error={errors.text ? "Review text is required!" : undefined}
           />
           <Button
             colorScheme="orange"
