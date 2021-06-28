@@ -1,12 +1,16 @@
 import { userCollection } from "../../Firebase/firestore";
+import { UserDbo } from "../../../Models/User";
 
-const getUsers = async () => {
+const getUsers = async (): Promise<{ users: UserDbo[] }> => {
   const userSnapshots = await userCollection.get();
   const users = await Promise.all(
-    userSnapshots.docs.map((d) => ({
-      userId: d.id,
-      ...d.data(),
-    }))
+    userSnapshots.docs.map(
+      (d) =>
+        ({
+          userId: d.id,
+          ...d.data(),
+        } as UserDbo)
+    )
   );
   return { users };
 };

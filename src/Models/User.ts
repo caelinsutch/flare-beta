@@ -11,6 +11,7 @@ type RootUser = {
   address?: string;
   bio?: string;
   host?: boolean;
+  url?: string;
 };
 
 export type UserDbo = {

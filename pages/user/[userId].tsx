@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PageContainer, ReviewCard } from "../../src/Components";
-import { User } from "../../src/Models/User";
+import { User, UserDbo } from "../../src/Models/User";
 import {
   Box,
   Button,
@@ -22,17 +22,45 @@ import { useGetUser } from "../../src/Hooks/user";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { selectUser, selectUsers } from "../../src/Redux";
+import { userCollection } from "../../src/Api/Firebase/firestore";
 
 export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
   params,
 }) => {
-  try {
-    const { user } = await getUser(params?.userId as string);
+  if (!params?.userId) {
     return {
-      props: {
-        user,
-      },
+      notFound: true,
     };
+  }
+
+  try {
+    const userIdSnapshot = await userCollection.doc(params.userId).get();
+
+    if (userIdSnapshot.exists) {
+      const { user: idUser } = await getUser(params.userId);
+      return {
+        props: {
+          user: idUser,
+        },
+      };
+    } else {
+      const s = await userCollection.where("url", "==", params.userId).get();
+
+      if (s.docs.length > 0) {
+        const d = s.docs[0].data();
+        const { user } = await getUser(d.userId);
+
+        return {
+          props: {
+            user,
+          },
+        };
+      } else {
+        return {
+          notFound: true,
+        };
+      }
+    }
   } catch (e) {
     return {
       notFound: true,
@@ -40,10 +68,16 @@ export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
   }
 };
 
-export const getStaticPaths: GetStaticPaths<{ userId: string }> = async () => {
+export const getStaticPaths: GetStaticPaths<{ userId?: string }> = async () => {
   const { users } = await getUsers();
+  const paths = [
+    ...users.map((u) => ({
+      params: { userId: u.userId },
+    })),
+    ...users.filter((u) => u.url).map((u) => ({ params: { userId: u.url } })),
+  ];
   return {
-    paths: users.map((u) => ({ params: { userId: u.userId } })),
+    paths,
     fallback: "blocking",
   };
 };
