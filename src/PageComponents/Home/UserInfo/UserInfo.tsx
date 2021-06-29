@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Divider,
+  Flex,
   Link,
   ListItem,
   Spinner,
@@ -33,51 +34,57 @@ const UserInfo: React.FC = () => {
 
   return (
     <>
-      <Box mt={4}>
-        <Text fontSize="lg" color="gray.400">
-          Hey {user.name}
-        </Text>
-        {user.attending.length !== 0 && (
-          <Box mt={2}>
-            <Text fontSize="2xl" color="gray.800" mb={2}>
-              Attending
-            </Text>
-            <UnorderedList>
-              {user.attending.map((party: Party) => (
-                <ListItem key={party.name}>
-                  <Link as="p">
-                    <NextLink href={`/party/${party.partyId}`}>
-                      {party.name}
-                    </NextLink>
-                  </Link>
-                </ListItem>
-              ))}
-            </UnorderedList>
-          </Box>
-        )}
-        {user.hosting.length !== 0 && (
-          <Box mt={2}>
-            <Text fontSize="2xl" color="gray.800" mb={2}>
-              Hosted
-            </Text>
-            <UnorderedList>
-              {user.hosting.map((party: Party) => (
-                <ListItem key={party.name}>
-                  <Link as="p">
-                    <NextLink href={`/party/${party.partyId}`}>
-                      {party.name}
-                    </NextLink>
-                  </Link>
-                </ListItem>
-              ))}
-            </UnorderedList>
-          </Box>
-        )}
+      <Flex flexDirection="column" mt={4} minHeight="400px" maxWidth="350px">
+        <Box flex={1}>
+          <Text fontSize="lg" color="gray.400">
+            Hey {user.name}
+          </Text>
+          <Text fontSize="xl" mt={2}>
+            We'll text you when the next party drops.
+          </Text>
+          {user.attending.length !== 0 && (
+            <Box mt={2}>
+              <Text variant="subtitle2" mb={2}>
+                Attending
+              </Text>
+              <UnorderedList>
+                {user.attending.map((party: Party) => (
+                  <ListItem key={party.name}>
+                    <Link as="p">
+                      <NextLink href={`/party/${party.partyId}`}>
+                        {party.name}
+                      </NextLink>
+                    </Link>
+                  </ListItem>
+                ))}
+              </UnorderedList>
+            </Box>
+          )}
+          {user.hosting.length !== 0 && (
+            <Box mt={2}>
+              <Text variant="subtitle2" mb={2}>
+                Hosted
+              </Text>
+              <UnorderedList>
+                {user.hosting.map((party: Party) => (
+                  <ListItem key={party.name}>
+                    <Link as="p">
+                      <NextLink href={`/party/${party.partyId}`}>
+                        {party.name}
+                      </NextLink>
+                    </Link>
+                  </ListItem>
+                ))}
+              </UnorderedList>
+            </Box>
+          )}
+        </Box>
+
         <Divider my={4} />
         <Button colorScheme="red" onClick={handleLogout}>
           Log Out
         </Button>
-      </Box>
+      </Flex>
     </>
   );
 };
