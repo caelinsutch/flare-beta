@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetUser } from "./user";
 import firebase from "firebase/app";
+import nookies from "nookies";
 
 const useSiteSetup = (): boolean => {
   const { getUser } = useGetUser();
@@ -25,14 +26,28 @@ const useSiteSetup = (): boolean => {
       "color: orange;"
     );
 
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
+        const token = await user.getIdToken();
+        nookies.set(undefined, "token", token, { path: "/" });
         getUser(user.uid, true).then(() => setLoading(false));
       } else {
+        nookies.set(undefined, "token", "", { path: "/" });
         setLoading(false);
       }
     });
+
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const user = firebase.auth().currentUser;
+      if (user) await user.getIdToken(true);
+    }, 10 * 60 * 1000);
+
+    // clean up setInterval
+    return () => clearInterval(handle);
   }, []);
 
   return loading;

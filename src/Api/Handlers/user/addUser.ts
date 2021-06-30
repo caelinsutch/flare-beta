@@ -4,7 +4,7 @@ import { sendText } from "../../Twilio";
 import { NewUserDbo, User } from "../../../Models";
 
 const addUser = async (req: NextApiRequest) => {
-  const { name, phone, socials, userId } = req.body;
+  const { name, phone, socials, userId, bio } = req.body;
 
   const newUser: NewUserDbo = {
     name,
@@ -13,7 +13,8 @@ const addUser = async (req: NextApiRequest) => {
     attending: [],
     hosting: [],
     createdAt: Date.now(),
-    socials,
+    socials: socials ?? {},
+    bio: bio ?? "",
   };
 
   await userCollection.doc(userId).set(newUser);

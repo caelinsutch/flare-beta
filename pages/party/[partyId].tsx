@@ -9,7 +9,6 @@ import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getParty } from "../../src/Api/Handlers/party";
 import getParties from "../../src/Api/Handlers/party/getParties";
-import NextLink from "next/link";
 
 export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
   params,
@@ -20,7 +19,7 @@ export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
       props: {
         party,
       },
-      revalidate: 5,
+      revalidate: 1,
     };
   } catch (e) {
     return {

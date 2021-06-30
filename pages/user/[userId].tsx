@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
         props: {
           user: idUser,
         },
-        revalidate: 5,
+        revalidate: 1,
       };
     } else {
       const s = await userCollection.where("url", "==", params.userId).get();
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
           props: {
             user,
           },
-          revalidate: 5,
+          revalidate: 1,
         };
       } else {
         return {
