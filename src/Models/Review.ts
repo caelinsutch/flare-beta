@@ -7,6 +7,7 @@ export type Review = {
   deleted?: boolean;
   deletedAt?: number;
   reviewId: string;
+  partyId?: string;
 };
 
 export type NewReview = Omit<Review, "createdAt" | "userId" | "reviewId">;

@@ -1,5 +1,9 @@
 import React from "react";
-import {GetServerSidePropsContext, InferGetServerSidePropsType, NextPage} from "next";
+import {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import nookies from "nookies";
 import { firebaseAdmin } from "../src/Api/Firebase";
 
@@ -22,10 +26,12 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 
-const Dashboard: NextPage<InferGetServerSidePropsType<typeof getServerSideProps> = (props)=> (
+const Dashboard: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = (props) => (
   <div>
     <p>{props.message}</p>
   </div>
-)
+);
 
 export default Dashboard;

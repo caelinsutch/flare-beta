@@ -1,4 +1,4 @@
-import { User, UserDbo } from "./User";
+import { UserDbo } from "./User";
 
 type RootParty = {
   partyId: string;
@@ -22,5 +22,5 @@ export type PartyAttendee = {
   userId: string;
   status?: "attending" | "applied";
   name: string;
-  respondedAt: number;
+  createdAt: number;
 };

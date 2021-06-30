@@ -11,7 +11,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onAuth }) => {
 
   useEffect(() => {
     if (localStorage.getItem("auth") === "ihop") onAuth();
-  });
+  }, []);
 
   const handleSubmit = () => {
     if (text === "ihop") {

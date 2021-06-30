@@ -13,7 +13,7 @@ const registerUserForParty = async (partyId: string, userId: string) => {
     const newAttendee: PartyAttendee = {
       userId,
       name: user.name,
-      respondedAt: Date.now().valueOf(),
+      createdAt: Date.now().valueOf(),
     };
 
     await partyCollection.doc(partyId).update({
