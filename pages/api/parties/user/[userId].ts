@@ -3,6 +3,6 @@ import { wrapper } from "../../../../src/Api/Utils";
 import { getUsersParties } from "../../../../src/Api/Handlers";
 
 const UserParties = async (req: NextApiRequest, res: NextApiResponse) =>
-  wrapper(req, res, "GET", getUsersParties);
+  wrapper(req, res, "GET", getUsersParties, true);
 
 export default UserParties;

@@ -1,12 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import nookies from "nookies";
+import { firebaseAdmin } from "../Firebase";
 
 const wrapper = async (
   req: NextApiRequest,
   res: NextApiResponse,
   method: string,
-  handler: (req: NextApiRequest) => Promise<any>
+  handler: (req: NextApiRequest, uid?: string) => Promise<any>,
+  isProtected = false
 ) => {
   if (req.method === method) {
+    if (isProtected) {
+      const cookies = nookies.get({ req });
+      try {
+        const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+        const { uid } = token;
+        const data = await handler(req, uid);
+        return res.status(200).send(data);
+      } catch (e) {
+        return res.status(401).send({ message: "Please log in!" });
+      }
+    }
     try {
       const data = await handler(req);
       return res.status(200).send(data);
