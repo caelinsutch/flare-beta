@@ -1,7 +1,7 @@
-import { User } from "../../Models";
-import { serverUrl } from "../../constants";
 import useFetch from "use-http";
-import { setUser } from "../../Redux/Slices";
+
+import { serverUrl } from "@Constants";
+import { User } from "@Models";
 
 type UseGetUser = {
   getUserByPhone: (phone: string) => Promise<User | undefined>;

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { useGetUser } from "./user";
+
 import firebase from "firebase/app";
 import nookies from "nookies";
+
+import { useGetUser } from "./user";
 
 const useSiteSetup = (): boolean => {
   const { getUser } = useGetUser();

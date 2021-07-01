@@ -1,6 +1,7 @@
 import useFetch from "use-http";
-import { serverUrl } from "../../constants";
-import { Party } from "../../Models";
+
+import { serverUrl } from "@Constants";
+import { Party } from "@Models";
 
 type UseGetParty = {
   getParty: (partId: string) => Promise<Party | void>;

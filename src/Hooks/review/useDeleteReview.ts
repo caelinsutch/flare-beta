@@ -1,8 +1,10 @@
-import useFetch from "use-http";
-import { Review } from "../../Models";
-import { serverUrl } from "../../constants";
-import { useToast } from "@chakra-ui/toast";
 import { useEffect } from "react";
+
+import { useToast } from "@chakra-ui/toast";
+import useFetch from "use-http";
+
+import { serverUrl } from "@Constants";
+import { Review } from "@Models";
 
 type UseDeleteReview = {
   deleteReview: (reviewId: string) => Promise<Review | undefined>;

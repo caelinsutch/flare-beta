@@ -1,8 +1,10 @@
-import { Box, Button } from "@chakra-ui/react";
 import React, { useState } from "react";
+
+import { Box, Button } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Input, VerifyPhone } from "../../../Components";
-import { useAddUser } from "../../../Hooks/user";
+
+import { Input, VerifyPhone } from "@Components";
+import { useAddUser } from "@Hooks";
 
 const RegisterForm: React.FC = () => {
   const {

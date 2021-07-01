@@ -12,7 +12,29 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@Components": ["src/Components"],
+      "@Components/*": ["src/Components/*"],
+      "@Hooks": ["src/Hooks"],
+      "@Hooks/*": ["src/Hooks/*"],
+      "@Models": ["src/Models"],
+      "@Models/*": ["src/Models/*"],
+      "@PageComponents": ["src/PageComponents"],
+      "@PageComponents/*": ["src/PageComponents/*"],
+      "@Redux": ["src/Redux"],
+      "@Redux/*": ["src/Redux/*"],
+      "@Theme": ["src/Theme"],
+      "@Theme/*": ["src/Theme/*"],
+      "@Utils": ["src/Utils"],
+      "@Utils/*": ["src/Utils/*"],
+      "@Api": ["src/Api"],
+      "@Api/*": ["src/Api/*"],
+      "@Firebase": ["src/Firebase"],
+      "@Firebase/*": ["src/Firebase/*"],
+      "@Constants": ["src/Constants"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

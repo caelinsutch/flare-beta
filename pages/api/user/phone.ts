@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getUserByPhone } from "../../../src/Api/Handlers/user";
-import { wrapper } from "../../../src/Api/Utils";
+
+import { getUserByPhone } from "@Api/Handlers/user";
+import { wrapper } from "@Api/Utils";
 
 const Phone = async (req: NextApiRequest, res: NextApiResponse) =>
   wrapper(req, res, "GET", () => {

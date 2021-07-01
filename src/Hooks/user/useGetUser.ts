@@ -1,8 +1,9 @@
-import useFetch from "use-http";
 import { useDispatch } from "react-redux";
-import { User } from "../../Models";
-import { setUser } from "../../Redux";
-import { serverUrl } from "../../constants";
+import useFetch from "use-http";
+
+import { serverUrl } from "@Constants";
+import { User } from "@Models";
+import { setUser } from "@Redux";
 
 type UseGetUser = {
   getUser: (userId: string, currentUser?: boolean) => Promise<User | undefined>;

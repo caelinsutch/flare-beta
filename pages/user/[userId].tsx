@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PageContainer, ReviewCard } from "../../src/Components";
-import { User } from "../../src/Models";
+
 import {
   Box,
   Button,
@@ -16,15 +15,18 @@ import {
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { getUser, getUsers } from "../../src/Api/Handlers/user";
-import { SubmitReviewModal } from "../../src/PageComponents";
-import { useGetUser } from "../../src/Hooks/user";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../src/Redux";
-import { userCollection } from "../../src/Api/Firebase/firestore";
-import { useDeleteReview } from "../../src/Hooks/review";
-import NextLink from "next/link";
+
+import { PageContainer, ReviewCard } from "@Components";
+import { useGetUser, useDeleteReview } from "@Hooks";
+import { User } from "@Models";
+import { SubmitReviewModal } from "@PageComponents";
+import { selectUser } from "@Redux";
+
+import { userCollection } from "@Api/Firebase";
+import { getUser, getUsers } from "@Api/Handlers";
 
 export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
   params,

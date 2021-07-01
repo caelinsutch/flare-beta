@@ -1,6 +1,8 @@
-import { NewReview, NewReviewDbo } from "../../../Models";
+import { NewReview, NewReviewDbo } from "@Models";
+
+import { reviewCollection, userCollection } from "@Api/Firebase";
+
 import { getUser } from "../user";
-import { reviewCollection, userCollection } from "../../Firebase/firestore";
 
 const reviewUser = async (userId: string, newReview: NewReview) => {
   const { user } = await getUser(userId);

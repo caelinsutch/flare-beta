@@ -1,8 +1,10 @@
-import { NewReview, User } from "../../Models";
-import { serverUrl } from "../../constants";
-import useFetch from "use-http";
 import { useEffect } from "react";
+
 import { useToast } from "@chakra-ui/toast";
+import useFetch from "use-http";
+
+import { serverUrl } from "@Constants";
+import { NewReview, User } from "@Models";
 
 type UseReviewUser = {
   reviewUser: (userId: string, review: NewReview) => Promise<User | undefined>;

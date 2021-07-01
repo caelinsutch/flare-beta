@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+
 import { Box } from "@chakra-ui/layout";
-import { useForm } from "react-hook-form";
 import { Input, Link, Text, useToast } from "@chakra-ui/react";
-import { useGetUser } from "../../../Hooks";
+import { useForm } from "react-hook-form";
+
+import { useGetUser } from "@Hooks";
 
 type RegisterFormProps = {
   onSetLogin: () => void;

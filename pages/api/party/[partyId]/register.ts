@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { wrapper } from "../../../../src/Api/Utils";
-import { registerUserForParty } from "../../../../src/Api/Handlers/party";
+
+import { registerUserForParty } from "@Api/Handlers/party";
+import { wrapper } from "@Api/Utils";
 
 const UserRegisterParty = async (req: NextApiRequest, res: NextApiResponse) =>
   wrapper(

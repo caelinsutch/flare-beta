@@ -1,16 +1,17 @@
 import { GetServerSidePropsContext } from "next";
 import nookies from "nookies";
-import { firebaseAdmin } from "../Api/Firebase";
-import { getUser } from "../Api/Handlers/user";
+
+import { firebaseAdmin } from "@Api/Firebase";
+import { getUser } from "@Api/Handlers/user";
 
 const authorizeServerSide = async (ctx: GetServerSidePropsContext) => {
   try {
     const cookies = nookies.get(ctx);
     const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
 
-    const { uid, email } = token;
+    const { uid } = token;
 
-    const user = getUser(uid);
+    const { user } = await getUser(uid);
 
     return {
       user,

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nookies from "nookies";
-import { firebaseAdmin } from "../Firebase";
+
+import { firebaseAdmin } from "@Api/Firebase";
 
 const wrapper = async (
   req: NextApiRequest,

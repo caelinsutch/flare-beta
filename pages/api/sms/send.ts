@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { wrapper } from "../../../src/Api/Utils";
-import { send } from "../../../src/Api/Handlers";
+
+import { send } from "@Api/Handlers";
+import { wrapper } from "@Api/Utils";
 
 const SendHandler = (req: NextApiRequest, res: NextApiResponse) =>
   wrapper(req, res, "POST", send, true);

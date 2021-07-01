@@ -1,5 +1,7 @@
-import { Box, Text, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+
+import { Box, Text, Button } from "@chakra-ui/react";
+
 import Input from "../Input";
 
 type PasswordProtectionProps = {

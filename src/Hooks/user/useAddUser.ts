@@ -1,10 +1,12 @@
-import useFetch from "use-http";
-import { NewUser, User } from "../../Models";
-import { serverUrl } from "../../constants";
 import { useEffect } from "react";
-import { setUser } from "../../Redux/Slices";
+
 import { useToast } from "@chakra-ui/react";
+import { setUser } from "@Redux/Slices";
 import { useDispatch } from "react-redux";
+import useFetch from "use-http";
+
+import { serverUrl } from "@Constants";
+import { NewUser, User } from "@Models";
 
 type UseAddUser = {
   addUser: (userId: string, user: NewUser) => Promise<User | undefined>;

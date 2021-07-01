@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { wrapper } from "../../../../src/Api/Utils";
-import { reviewUser } from "../../../../src/Api/Handlers";
+
+import { reviewUser } from "@Api/Handlers";
+import { wrapper } from "@Api/Utils";
 
 const ReviewUser = async (req: NextApiRequest, res: NextApiResponse) =>
   wrapper(req, res, "POST", async () => {

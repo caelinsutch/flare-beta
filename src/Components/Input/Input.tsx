@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   InputProps as ChakraInputProps,
   Input as ChakraInput,
@@ -6,7 +8,6 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
 
 type IProps = {
   label?: string;

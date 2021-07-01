@@ -1,4 +1,5 @@
-import { useForm } from "react-hook-form";
+import React from "react";
+
 import {
   Box,
   Button,
@@ -7,10 +8,11 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
-import { Input } from "../../Components";
-import { User } from "../../Models";
-import { useReviewUser } from "../../Hooks/review";
+import { useForm } from "react-hook-form";
+
+import { Input } from "@Components";
+import { useReviewUser } from "@Hooks";
+import { User } from "@Models";
 
 type SubmitReviewProps = {
   userId: string;

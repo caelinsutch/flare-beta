@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+
+import { Link, Text } from "@chakra-ui/react";
+
+import { VerifyPhone } from "@Components";
+
 import RegisterForm from "../RegisterForm";
-import { Box, Link, Text } from "@chakra-ui/react";
-import { PasswordProtection, VerifyPhone } from "../../../Components";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);

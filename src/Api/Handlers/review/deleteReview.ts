@@ -1,6 +1,8 @@
+import { UserDbo, Review } from "@Models";
+
+import { reviewCollection, userCollection } from "@Api/Firebase";
+
 import getReview from "./getReview";
-import { reviewCollection, userCollection } from "../../Firebase/firestore";
-import { UserDbo, Review } from "../../../Models";
 
 const deleteReview = async (
   reviewId: string

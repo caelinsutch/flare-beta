@@ -1,5 +1,6 @@
-import { reviewCollection } from "../../Firebase/firestore";
-import { Review } from "../../../Models";
+import { Review } from "@Models";
+
+import { reviewCollection } from "@Api/Firebase/firestore";
 
 const getReview = async (reviewId: string): Promise<Review | undefined> => {
   const snapshot = await reviewCollection.doc(reviewId).get();

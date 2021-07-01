@@ -1,5 +1,6 @@
 import { NextApiRequest } from "next";
-import { partyCollection } from "../../Firebase/firestore";
+
+import { partyCollection } from "@Api/Firebase";
 
 const getUsersParties = async (req: NextApiRequest) => {
   const { userId } = req.query;

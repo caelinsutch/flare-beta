@@ -1,5 +1,6 @@
-import { Review } from "../../../Models";
-import { reviewCollection } from "../../Firebase/firestore";
+import { Review } from "@Models";
+
+import { reviewCollection } from "@Api/Firebase";
 
 const getUserReviews = async (
   userId: string

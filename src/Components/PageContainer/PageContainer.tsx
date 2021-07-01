@@ -1,8 +1,10 @@
 import React from "react";
-import Head from "next/head";
+
 import { Box, BoxProps } from "@chakra-ui/layout";
-import { useSiteSetup } from "../../Hooks";
-import { Navbar } from "../index";
+import Head from "next/head";
+
+import { Navbar } from "@Components";
+import { useSiteSetup } from "@Hooks";
 
 type PageContainerProps = {
   title?: string;

@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {
   Box,
   Button,
@@ -12,13 +14,13 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Input } from "../../../Components";
-import React, { useState } from "react";
-import { useDeleteUsers } from "../../../Hooks";
 import { useSelector } from "react-redux";
-import { selectUsers } from "../../../Redux";
-import { User } from "../../../Models";
-import searchArrayObject from "../../../Utils/searchArrayObject";
+
+import { Input } from "@Components";
+import { useDeleteUsers } from "@Hooks";
+import { User } from "@Models";
+import { selectUsers } from "@Redux";
+import { searchArrayObject } from "@Utils";
 
 const UserTable: React.FC = () => {
   const users = useSelector(selectUsers);

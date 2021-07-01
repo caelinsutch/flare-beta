@@ -1,7 +1,8 @@
-import useFetch from "use-http";
-import { serverUrl } from "../../constants";
-import { deleteUsers } from "../../Redux";
 import { useDispatch } from "react-redux";
+import useFetch from "use-http";
+
+import { serverUrl } from "@Constants";
+import { deleteUsers } from "@Redux";
 
 type UseDeleteUsers = {
   deleteUsers: (userIds: string[]) => Promise<string>;

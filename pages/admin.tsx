@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Box,
   OrderedList,
@@ -10,11 +11,12 @@ import {
   Tabs,
   TabList,
 } from "@chakra-ui/react";
-import { useGetUsers } from "../src/Hooks";
+import { SendAnnouncement, UserTable } from "@PageComponents/Admin";
 import { useSelector } from "react-redux";
-import { selectUsers } from "../src/Redux";
-import { PageContainer, PasswordProtection } from "../src/Components";
-import { SendAnnouncement, UserTable } from "../src/PageComponents/Admin";
+
+import { PageContainer, PasswordProtection } from "@Components";
+import { useGetUsers } from "@Hooks";
+import { selectUsers } from "@Redux";
 
 const Admin: React.FC = () => {
   const { getUsers } = useGetUsers();

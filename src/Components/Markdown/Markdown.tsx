@@ -1,7 +1,8 @@
 import React from "react";
+
+import { Box, ListItem, OrderedList, Text } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
 import { Components } from "react-markdown/src/ast-to-react";
-import { Box, ListItem, OrderedList, Text } from "@chakra-ui/react";
 
 type MarkdownProps = {
   children: string;

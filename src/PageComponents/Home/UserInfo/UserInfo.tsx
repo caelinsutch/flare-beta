@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { clearUser, selectUser } from "../../../Redux";
+import React from "react";
+
 import {
   Box,
   Button,
@@ -11,10 +11,12 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
-import React from "react";
-import { Party } from "../../../Models";
 import firebase from "firebase/app";
 import NextLink from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Party } from "@Models";
+import { clearUser, selectUser } from "@Redux";
 
 const UserInfo: React.FC = () => {
   const user = useSelector(selectUser);

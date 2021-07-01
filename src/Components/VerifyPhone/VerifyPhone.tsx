@@ -1,8 +1,11 @@
-import { Box, Button, useToast, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import firebase from "../../Firebase";
+
+import { Box, Button, useToast, Text } from "@chakra-ui/react";
+
+import firebase from "@Firebase";
+import { useGetUserByPhone } from "@Hooks";
+
 import Input from "../Input";
-import { useGetUserByPhone } from "../../Hooks/user";
 
 type VerifyPhoneProps = {
   onVerify?: (authId: string, phone: string) => void;

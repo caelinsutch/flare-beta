@@ -1,5 +1,6 @@
 import { NextApiRequest } from "next";
-import { userCollection } from "../../Firebase/firestore";
+
+import { userCollection } from "@Api/Firebase";
 
 const deleteUsers = async (req: NextApiRequest) => {
   const { userIds }: { userIds: string[] } = JSON.parse(req.body);

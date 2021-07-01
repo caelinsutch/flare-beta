@@ -1,5 +1,6 @@
-import { userCollection } from "../../Firebase/firestore";
-import { UserDbo } from "../../../Models";
+import { UserDbo } from "@Models";
+
+import { userCollection } from "@Api/Firebase";
 
 const getUsers = async (): Promise<{ users: UserDbo[] }> => {
   const userSnapshots = await userCollection.get();

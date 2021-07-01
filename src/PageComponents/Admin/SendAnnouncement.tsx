@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUsers } from "../../Redux";
+
 import { Box, Text } from "@chakra-ui/layout";
 import { Button, Textarea, useToast } from "@chakra-ui/react";
-import { useSendMessage } from "../../Hooks";
+import { useSelector } from "react-redux";
+
+import { useSendMessage } from "@Hooks";
+import { selectUsers } from "@Redux";
 
 const SendAnnouncement = () => {
   const users = useSelector(selectUsers);

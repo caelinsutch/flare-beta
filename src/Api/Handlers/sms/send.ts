@@ -1,5 +1,6 @@
 import { NextApiRequest } from "next";
-import { sendText } from "../../Twilio";
+
+import { sendText } from "@Api/Twilio";
 
 const send = async (req: NextApiRequest) => {
   const { message, phoneNumbers } = JSON.parse(req.body);

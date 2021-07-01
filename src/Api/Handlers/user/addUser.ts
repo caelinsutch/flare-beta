@@ -1,7 +1,9 @@
 import { NextApiRequest } from "next";
-import { userCollection } from "../../Firebase/firestore";
-import { sendText } from "../../Twilio";
-import { NewUserDbo, User } from "../../../Models";
+
+import { NewUserDbo, User } from "@Models";
+
+import { userCollection } from "@Api/Firebase";
+import { sendText } from "@Api/Twilio";
 
 const addUser = async (req: NextApiRequest) => {
   const { name, phone, socials, userId, bio } = req.body;

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { wrapper } from "../../../src/Api/Utils";
-import { deleteReview } from "../../../src/Api/Handlers";
+
+import { deleteReview } from "@Api/Handlers";
+import { wrapper } from "@Api/Utils";
 
 const Review = async (req: NextApiRequest, res: NextApiResponse) =>
   wrapper(

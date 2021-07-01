@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { Party } from "../../src/Models";
-import { useGetParty } from "../../src/Hooks/party";
-import { Markdown, PageContainer } from "../../src/Components";
 import * as React from "react";
+
 import { Box, Container, Link, Spinner, Text } from "@chakra-ui/react";
+import { useGetParty } from "@Hooks/party";
 import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { getParty } from "../../src/Api/Handlers/party";
-import getParties from "../../src/Api/Handlers/party/getParties";
+import { useRouter } from "next/router";
+
+import { PageContainer } from "@Components";
+import { Party } from "@Models";
+
+import { getParty } from "@Api/Handlers/party";
+import getParties from "@Api/Handlers/party/getParties";
 
 export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
   params,

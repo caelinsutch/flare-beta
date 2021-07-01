@@ -1,7 +1,9 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import React from "react";
-import { Review } from "../../Models";
+
+import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import { AiFillDelete } from "react-icons/ai";
+
+import { Review } from "@Models";
 
 type ReviewCardProps = {
   review: Review;

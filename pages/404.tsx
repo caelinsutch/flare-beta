@@ -1,6 +1,8 @@
-import { Box, Container, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import { PageContainer } from "../src/Components";
+
+import { Container, Image, Text } from "@chakra-ui/react";
+
+import { PageContainer } from "@Components";
 
 const NotFound: React.FC = () => (
   <PageContainer>

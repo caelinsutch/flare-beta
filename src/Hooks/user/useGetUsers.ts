@@ -1,7 +1,9 @@
-import useFetch from "use-http";
-import { serverUrl } from "../../constants";
-import { setUsers } from "../../Redux";
 import { useDispatch } from "react-redux";
+import useFetch from "use-http";
+
+import { serverUrl } from "@Constants";
+
+import { setUsers } from "../../Redux";
 
 const useGetUsers = () => {
   const dispatch = useDispatch();

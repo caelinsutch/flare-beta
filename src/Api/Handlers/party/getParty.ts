@@ -1,6 +1,6 @@
-import { partyCollection, userCollection } from "../../Firebase/firestore";
-import { Party, PartyDbo } from "../../../Models";
-import { UserDbo } from "../../../Models";
+import { Party, PartyDbo, UserDbo } from "@Models";
+
+import { partyCollection, userCollection } from "@Api/Firebase";
 
 const getParty = async (partyId: string): Promise<{ party: Party }> => {
   const snapshot = await partyCollection.doc(partyId).get();

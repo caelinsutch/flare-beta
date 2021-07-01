@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { wrapper } from "../../../../src/Api/Utils";
-import { getUsersParties } from "../../../../src/Api/Handlers";
+
+import { getUsersParties } from "@Api/Handlers";
+import { wrapper } from "@Api/Utils";
 
 const UserParties = async (req: NextApiRequest, res: NextApiResponse) =>
   wrapper(req, res, "GET", getUsersParties, true);

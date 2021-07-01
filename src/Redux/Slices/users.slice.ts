@@ -1,5 +1,6 @@
-import { User } from "../../Models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { User } from "@Models";
 
 type UsersSliceState = {
   users?: User[];

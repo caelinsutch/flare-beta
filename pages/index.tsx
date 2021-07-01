@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+
 import { Box } from "@chakra-ui/react";
+import { AuthForm, LeftSide, UserInfo } from "@PageComponents/Home";
 import { useSelector } from "react-redux";
-import { AuthForm, LeftSide, UserInfo } from "../src/PageComponents/Home";
-import { selectUser } from "../src/Redux";
-import { PageContainer, PasswordProtection } from "../src/Components";
+
+import { PageContainer, PasswordProtection } from "@Components";
+import { selectUser } from "@Redux";
 
 const Home = () => {
   const user = useSelector(selectUser);

@@ -1,5 +1,7 @@
-import { userCollection } from "../../Firebase/firestore";
-import { User, UserDbo, Review } from "../../../Models";
+import { User, UserDbo, Review } from "@Models";
+
+import { userCollection } from "@Api/Firebase";
+
 import { getParty } from "../party";
 import { getUserReviews } from "../review";
 
