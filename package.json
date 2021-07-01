@@ -10,6 +10,10 @@
     "lint:fix": "eslint \"**/*.ts{,x}\" --ignore-pattern node_modules",
     "prepare": "husky install"
   },
+  "browser": {
+    "firebase-admin": false,
+    "twilio": false
+  },
   "dependencies": {
     "@chakra-ui/react": "^1.6.4",
     "@emotion/react": "^11",
