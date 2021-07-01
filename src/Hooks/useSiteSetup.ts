@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 
 import firebase from "firebase/app";
 import nookies from "nookies";
+import { useDispatch } from "react-redux";
+
+import { User } from "@Models";
+import { setUser } from "@Redux";
 
 import { useGetUser } from "./user";
 
-const useSiteSetup = (): boolean => {
+const useSiteSetup = (initialUser?: User): boolean => {
   const { getUser } = useGetUser();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,8 +33,10 @@ const useSiteSetup = (): boolean => {
       "color: orange;"
     );
 
+    if (initialUser) dispatch(setUser(initialUser));
+
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
+      if (user && !initialUser) {
         const token = await user.getIdToken();
         nookies.set(undefined, "token", token, { path: "/" });
         getUser(user.uid, true).then(() => setLoading(false));

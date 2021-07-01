@@ -5,11 +5,13 @@ import Head from "next/head";
 
 import { Navbar } from "@Components";
 import { useSiteSetup } from "@Hooks";
+import { User } from "@Models";
 
 type PageContainerProps = {
   title?: string;
   description?: string;
   noNav?: boolean;
+  initialUser?: User;
 } & BoxProps;
 
 const PageContainer: React.FC<PageContainerProps> = ({
@@ -17,9 +19,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
   description = "RSVP for the best Berkeley parties. Get exclusive access today.",
   children,
   noNav = false,
+  initialUser,
   ...props
 }) => {
-  useSiteSetup();
+  useSiteSetup(initialUser);
 
   return (
     <>
