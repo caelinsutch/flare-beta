@@ -1,6 +1,7 @@
-import { Box, Text, Button } from "@chakra-ui/react";
+import { Box, Text, Button, Link } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Input from "../Input";
+import { Icon } from "../Icon";
 
 type PasswordProtectionProps = {
   onAuth: () => void;
@@ -21,35 +22,55 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onAuth }) => {
   };
 
   return (
-    <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
+    <Box
+      h="100vh"
+      display="flex"
+      float="right"
+      mr="300"
+      alignItems="center"
+      fontFamily="Avenir"
+      fontSize="xl"
+    >
       <Box
         boxShadow="2xl"
-        py={{ base: 4, md: 8 }}
-        px={{ base: 4, md: 8 }}
+        p="20"
         borderRadius={8}
         backgroundColor="white"
         width="fit-content"
-        maxW="500px"
+        maxW="550px"
       >
-        <Text as="h1" fontWeight="bold" fontSize="5xl" color="orange.400">
-          Flare
+        <Box ml={-4}>
+          <Icon name="FlareLogo"></Icon>
+        </Box>
+        <Text as="h2" fontWeight="bold" fontSize="3xl" color="gray.600">
+          Closed Beta
         </Text>
-        <Text as="h2" fontWeight="bold" fontSize="2xl" color="gray.500">
-          The Party Platform
+        <Text mb={2} color="gray.500">
+          Invited to a Flare party?
         </Text>
-        <Text mb={2}>
-          Find and attend the best parties in Berkeley. Currently on closed
-          beta. DM @caelinsutch on insta for access.
+        <Text mb={2} color="gray.500">
+          Enter your beta invite code here.
+        </Text>
+        <Text mt={8} mb={2}>
+          Enter Beta Code{" "}
+        </Text>
+        <Text mb={2} fontSize="md" fontFamily="monospace">
+          Beta Code{" "}
         </Text>
         <Input
-          label="Password"
-          type="password"
+          placeholder="abcdef"
+          type="betacode"
           value={text}
+          pb={-3}
+          variant="filled"
           onChange={(e) => setText(e.target.value)}
         />
-        <Button colorScheme="orange" onClick={handleSubmit}>
+        <Button colorScheme="orange" pt={-10} w="100%" onClick={handleSubmit}>
           Submit
         </Button>
+        <Text my={3} fontFamily="monospace" fontSize="md">
+          Already part of Flare? <Link color="orange.400">Sign In</Link>{" "}
+        </Text>
       </Box>
     </Box>
   );
