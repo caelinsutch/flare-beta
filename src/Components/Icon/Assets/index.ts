@@ -1,5 +1,5 @@
-import { FlareLogo } from "./Icons/flare_logo.js";
+import { Test } from "./Icons/test.js";
 
 export default {
-  FlareLogo,
+  Test,
 };

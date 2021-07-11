@@ -3,9 +3,9 @@ import {
   Icon as ChakraIcon,
   IconProps as ChakraIconProps,
 } from "@chakra-ui/react";
-import Icons from "./Assets";
+import Illustrations from "./Assets";
 
-export type IconNames = keyof typeof Icons;
+export type IconNames = keyof typeof Illustrations;
 
 export type CustomIcon = {
   type?: "custom";
@@ -19,12 +19,13 @@ export type ReactIcons = {
 
 export type IconProps = CustomIcon | ReactIcons;
 
-const Icon: React.FC<IconProps> = (props) => {
+const Illustration: React.FC<IconProps> = (props) => {
   if (props.type === "react-icons") {
     return <ChakraIcon {...props} />;
   } else {
-    const SVG = Icons[(props as CustomIcon).name];
+    const SVG = Illustrations[(props as CustomIcon).name];
     return <SVG />;
+    // return <ChakraIcon {...props} />;
   }
 };
-export default Icon;
+export default Illustration;
