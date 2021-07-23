@@ -55,7 +55,7 @@ const Home = () => {
               <Text as="li">Alcohol</Text>
               <Text as="li">Music</Text>
               <Text as="li">One big ass house</Text>
-              <Text as="li">Addy dropped 8PM</Text>
+              <Text as="li">Addy dropped 8PM, Pull Up at 10PM</Text>
             </Box>
             {loading && (
               <Box mt={4} textAlign="center" size="xl">
