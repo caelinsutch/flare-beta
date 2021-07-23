@@ -42,7 +42,7 @@ const Home = () => {
             boxShadow="2xl"
           >
             <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
-              Friday, June 25th
+              Saturday, July 24th
             </Text>
             <Text as="h1" fontWeight="bold" fontSize="3xl" color="#F49D37">
               Berkeley, CA
@@ -52,7 +52,7 @@ const Home = () => {
               style={{ listStylePosition: "inside", color: "#958E86" }}
               mt={2}
             >
-              <Text as="li">Jungle Juice</Text>
+              <Text as="li">Alcohol</Text>
               <Text as="li">Music</Text>
               <Text as="li">One big ass house</Text>
               <Text as="li">Addy dropped 8PM</Text>

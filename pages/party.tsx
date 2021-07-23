@@ -6,7 +6,7 @@ const Party: React.FC = () => {
   return (
     <PageContainer p={4}>
       <Text fontWeight="bold" fontSize="4xl">
-        iHop v1
+        iHop v2
       </Text>
       <Text fontSize="xl" color="gray.500">
         2448 Prospect St - 10PM
@@ -36,8 +36,8 @@ const Party: React.FC = () => {
       <Box mt={4}>
         <Text fontSize="2xl">Need Something?</Text>
         <Text mt={2}>
-          Feel free to text Caelin at 9163174484 anytime throughout the night if
-          you need something
+          Feel free to text Riley at +1 (559) 554-5667 anytime throughout the
+          night if you need something
         </Text>
       </Box>
       {/*<SongRequest />*/}
