@@ -6,5 +6,4 @@ export type User = {
   points: number;
   isAdmin?: boolean;
   createdAt: number;
-  userId: string;
 };

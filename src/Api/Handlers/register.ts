@@ -2,7 +2,10 @@ import { userCollection } from "../Firebase/firestore";
 import { User } from "../../Models/User";
 import { sendText } from "../Twilio";
 
-const register = async (userId: string, user: Omit<User, "userId">) => {
+const register = async (
+  userId: string,
+  user: Omit<User, "userId" | "createdAt">
+) => {
   await userCollection.doc(userId).set({
     userId,
     createdAt: Date.now(),
