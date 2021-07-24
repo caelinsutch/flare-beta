@@ -15,7 +15,7 @@ const register = async (
   // Send Welcome SMS
   await sendText(
     user.phone,
-    "Thanks for registering with Flare! We'll be using this phone number to send updates"
+    "Thanks for registering with Plots! We'll be using this phone number to send updates"
   );
 
   const newUser = await userCollection.doc(userId).get();

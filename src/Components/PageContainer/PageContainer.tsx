@@ -16,7 +16,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   return (
     <>
       <Head>
-        <title>Flare - Find Berkeley Parties</title>
+        <title>Plots - Find Great Parties</title>
         <meta name="title" content={title} />
         <meta name="description" content={description} />
 
