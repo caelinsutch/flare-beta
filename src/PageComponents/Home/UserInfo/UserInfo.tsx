@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import firebase from "firebase/app";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Party } from "@Models";
@@ -21,6 +22,7 @@ import { clearUser, selectUser } from "@Redux";
 const UserInfo: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   if (!user || Object.keys(user).length === 0)
     return (
@@ -32,7 +34,13 @@ const UserInfo: React.FC = () => {
   const handleLogout = async () => {
     await firebase.auth().signOut();
     dispatch(clearUser());
+
+    router.reload();
   };
+
+  if (router.query?.redirectParty) {
+    router.push(`/party/${router.query.redirectParty}`);
+  }
 
   return (
     <>
@@ -69,8 +77,8 @@ const UserInfo: React.FC = () => {
               </Text>
               <UnorderedList>
                 {user.hosting.map((party: Party) => (
-                  <ListItem key={party.name}>
-                    <Link as="p">
+                  <ListItem key={party.name} color="white">
+                    <Link as="p" color="white">
                       <NextLink href={`/party/${party.partyId}`}>
                         {party.name}
                       </NextLink>

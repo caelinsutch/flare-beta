@@ -136,8 +136,8 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             {user ? (
               getUserButton()
             ) : (
-              <NextLink href="/">
-                <Button>Signup for Plots to Access</Button>
+              <NextLink href={`/?redirectParty=${party.partyId}`}>
+                <Button>Signup for Plots to RSVP</Button>
               </NextLink>
             )}
           </Box>

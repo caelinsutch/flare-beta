@@ -19,6 +19,15 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     const { user } = await getUser(uid);
 
+    if (user && ctx.query?.redirectParty) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: `/party/${ctx.query.redirectParty}`,
+        },
+      };
+    }
+
     return {
       props: { user },
     };
@@ -27,8 +36,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 const Home = ({ user: initialUser }: any) => {
-  const localUser = useSelector(selectUser);
-
+  const user = useSelector(selectUser);
   return (
     <PageContainer noNav bgColor="brand.500">
       <Box
@@ -46,10 +54,7 @@ const Home = ({ user: initialUser }: any) => {
             Plots
           </Text>
         </Box>
-        <Box flex={1}>
-          {initialUser && localUser && <UserInfo />}
-          {!localUser && <AuthForm />}
-        </Box>
+        <Box flex={1}>{initialUser || user ? <UserInfo /> : <AuthForm />}</Box>
         <Box flex={1} justifyContent="flex-end" flexDirection="column">
           <Text variant="body" color="white">
             Issues? DM @caelinsutch on Insta

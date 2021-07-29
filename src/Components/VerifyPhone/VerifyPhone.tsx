@@ -8,6 +8,7 @@ import {
   PinInputField,
   useToast,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 import firebase from "@Firebase";
 import { useGetUserByPhone } from "@Hooks";
@@ -22,6 +23,7 @@ type VerifyPhoneProps = {
 const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
   const { getUserByPhone } = useGetUserByPhone();
   const toast = useToast();
+  const router = useRouter();
 
   const [confirmationResult, setConfirmationResult] = useState<any>();
   const [verifyMode, setVerifyMode] = useState<any>(false);
@@ -94,7 +96,9 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
       if (confirmationResult) {
         const result = await confirmationResult.confirm(enteredCode);
         const user = result.user;
-        if (onVerify) onVerify(user.uid, phone);
+        if (onVerify) {
+          onVerify(user.uid, phone);
+        }
         setVerifyCodeLoading(false);
       } else {
         throw new Error("SMS code cannot be verified. Please try again.");
