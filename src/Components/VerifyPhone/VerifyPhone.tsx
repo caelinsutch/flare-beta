@@ -126,7 +126,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
     <Box mt={4}>
       {register ? (
         <Text variant="title3" mb={2}>
-          Register
+          Join Waitlist
         </Text>
       ) : (
         <Text variant="title3" mb={2}>

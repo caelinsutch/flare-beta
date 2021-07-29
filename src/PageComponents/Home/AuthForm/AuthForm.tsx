@@ -12,7 +12,7 @@ const AuthForm = () => {
   return (
     <>
       <Text as="h1" fontWeight="bold" fontSize="5xl" color="orange.400">
-        Flare
+        Plots
       </Text>
       <Text as="h2" fontWeight="bold" fontSize="2xl" color="gray.500">
         The Party Platform
@@ -24,7 +24,7 @@ const AuthForm = () => {
         <Text fontSize="xs" mt={2} color="gray.400">
           Dont&apos;t have an account?{" "}
           <Link as="p" onClick={() => setIsLogin(false)}>
-            Register
+            Join Waitlist
           </Link>
         </Text>
       ) : (

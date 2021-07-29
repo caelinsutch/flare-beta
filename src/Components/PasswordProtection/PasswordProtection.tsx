@@ -34,7 +34,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onAuth }) => {
         maxW="500px"
       >
         <Text as="h1" fontWeight="bold" fontSize="5xl" color="orange.400">
-          Flare
+          Plots
         </Text>
         <Text as="h2" fontWeight="bold" fontSize="2xl" color="gray.500">
           The Party Platform

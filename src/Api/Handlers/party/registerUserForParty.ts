@@ -10,6 +10,9 @@ const registerUserForParty = async (partyId: string, userId: string) => {
     const oldParty: Party = partySnapshot.data() as Party;
     const user: UserDbo = userSnapshot.data() as UserDbo;
 
+    if (oldParty.attendees.find((a) => a.userId === userId))
+      throw Error("User already registered!");
+
     const newAttendee: PartyAttendee = {
       userId,
       name: user.name,
@@ -17,11 +20,11 @@ const registerUserForParty = async (partyId: string, userId: string) => {
     };
 
     await partyCollection.doc(partyId).update({
-      attendees: [...oldParty.attendees, newAttendee],
+      attendees: [...(oldParty.attendees ?? []), newAttendee],
     });
 
     await userCollection.doc(userId).update({
-      attending: [user.attending, partyId],
+      attending: [...(user?.attending ?? []), partyId],
     });
 
     return { status: "ok" };

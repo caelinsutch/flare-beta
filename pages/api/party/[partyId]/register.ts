@@ -9,9 +9,9 @@ const UserRegisterParty = async (req: NextApiRequest, res: NextApiResponse) =>
     res,
     "POST",
     async () => {
-      const { userId } = req.query;
-      const { partyId } = req.body;
-      return registerUserForParty(partyId, userId as string);
+      const { partyId } = req.query;
+      const { userId } = req.body;
+      return registerUserForParty(partyId as string, userId as string);
     },
     true
   );

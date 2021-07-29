@@ -15,7 +15,7 @@ const Navbar = () => (
         textDecoration="none"
         href="/"
       >
-        <NextLink href="/">FLARE</NextLink>
+        <NextLink href="/">PLOTS</NextLink>
       </Link>
     </Flex>
   </Container>

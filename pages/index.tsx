@@ -9,9 +9,6 @@ import { selectUser } from "@Redux";
 
 const Home = () => {
   const user = useSelector(selectUser);
-  const [auth, setAuth] = useState(false);
-
-  if (!auth) return <PasswordProtection onAuth={() => setAuth(true)} />;
 
   return (
     <PageContainer noNav>

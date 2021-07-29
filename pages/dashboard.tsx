@@ -1,12 +1,11 @@
 import React from "react";
 
+import authorizeServerSide from "@Utils/authorizeServerSide";
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-
-import { authorizeServerSide } from "@Utils";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { user } = await authorizeServerSide(ctx);

@@ -8,7 +8,6 @@ import {
   Flex,
   Link,
   ListItem,
-  OrderedList,
   Text,
   UnorderedList,
   useDisclosure,
@@ -68,6 +67,7 @@ export const getStaticProps: GetStaticProps<any, { userId: string }> = async ({
       }
     }
   } catch (e) {
+    console.error(e);
     return {
       notFound: true,
     };
@@ -94,7 +94,7 @@ type UserPageProps = {
 
 const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
   const router = useRouter();
-  const { getUser } = useGetUser();
+  const { getUser: getUserLocal } = useGetUser();
   const { deleteReview } = useDeleteReview();
   const me = useSelector(selectUser);
 
@@ -106,7 +106,7 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
     if (!thisUser) {
       const { userId } = router.query;
 
-      getUser(userId as string).then((user) => user && setThisUser(user));
+      getUserLocal(userId as string).then((user) => user && setThisUser(user));
     }
   }, []);
 
@@ -120,7 +120,9 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
     await deleteReview(reviewId);
 
     if (thisUser)
-      await getUser(thisUser.userId).then((user) => user && setThisUser(user));
+      await getUserLocal(thisUser.userId).then(
+        (user) => user && setThisUser(user)
+      );
   };
 
   return (
@@ -133,13 +135,13 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
               {thisUser.address}
             </Text>
             <Text variant="subtitle2" mt={2}>
-              Flare partier since {dayjs(thisUser.createdAt).format("MMM YYYY")}
+              Plots partier since {dayjs(thisUser.createdAt).format("MMM YYYY")}
             </Text>
             <Text mt={4}>{thisUser?.bio}</Text>
             {thisUser.attending?.length !== 0 && (
               <Box mt={4}>
                 <Text variant="title3">Parties Attended</Text>
-                <OrderedList stylePosition="inside" mt={2}>
+                <UnorderedList mt={2}>
                   {thisUser.attending.map((party) => (
                     <ListItem key={party.partyId}>
                       <Link as="p">
@@ -149,7 +151,7 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
                       </Link>
                     </ListItem>
                   ))}
-                </OrderedList>
+                </UnorderedList>
               </Box>
             )}
             {thisUser.hosting?.length !== 0 && (
@@ -169,9 +171,10 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
               </Box>
             )}
           </Box>
-          <Divider my={4} />
           {thisUser.host && (
             <>
+              <Divider my={4} />
+
               <SubmitReviewModal
                 userId={thisUser.userId}
                 onReviewSubmitted={handleReviewSubmitted}

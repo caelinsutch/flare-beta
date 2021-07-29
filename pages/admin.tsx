@@ -12,6 +12,7 @@ import {
   TabList,
 } from "@chakra-ui/react";
 import { SendAnnouncement, UserTable } from "@PageComponents/Admin";
+import authorizeServerSide from "@Utils/authorizeServerSide";
 import {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -22,7 +23,6 @@ import { useSelector } from "react-redux";
 import { PageContainer, PasswordProtection } from "@Components";
 import { useGetUsers } from "@Hooks";
 import { selectUsers } from "@Redux";
-import { authorizeServerSide } from "@Utils";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { user } = await authorizeServerSide(ctx);

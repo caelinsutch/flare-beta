@@ -47,6 +47,11 @@ const components = {
         color: "gray.400",
         as: "h4",
       },
+      subtitl3: {
+        fontSize: "sm",
+        color: "gray.400",
+        as: "p",
+      },
     },
   },
 };

@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import * as React from "react";
 
-import { Box, Container, Link, Spinner, Text } from "@chakra-ui/react";
-import { useGetParty } from "@Hooks/party";
+import {
+  Box,
+  Button,
+  Container,
+  Link,
+  Text,
+  useClipboard,
+} from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { GetStaticPaths, GetStaticProps } from "next";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
+import { FaRegCopy } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 import { PageContainer } from "@Components";
+import { useGetParty, useRegisterForParty } from "@Hooks";
 import { Party } from "@Models";
+import { selectUser } from "@Redux";
 
 import { getParty } from "@Api/Handlers/party";
 import getParties from "@Api/Handlers/party/getParties";
@@ -41,9 +52,17 @@ export const getStaticPaths: GetStaticPaths<{ partyId: string }> = async () => {
 
 const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
   const router = useRouter();
+
+  const user = useSelector(selectUser);
+
   const { getParty, loading } = useGetParty();
+  const { registerForParty, loading: registerLoading } = useRegisterForParty();
 
   const [party, setParty] = useState<Party | undefined>(initialParty);
+
+  const { hasCopied, onCopy } = useClipboard(
+    `https://flaresocial.app/party/${party?.partyId}`
+  );
 
   useEffect(() => {
     if (!router.isReady || party) return;
@@ -56,15 +75,28 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
     });
   }, [router.isReady]);
 
+  const handleRegisterForParty = async () => {
+    if (!user || !party) return;
+    await registerForParty(party.partyId, user.userId);
+    const p = await getParty(party.partyId);
+    setParty(p as Party);
+  };
+
   if (!party) return null;
 
+  const getUserButton = () =>
+    party.attendees.find(({ userId }) => userId === user?.userId) ? (
+      <Button leftIcon={<FaRegCopy />} onClick={onCopy}>
+        {hasCopied ? "Copied" : "Copy Party Link"}
+      </Button>
+    ) : (
+      <Button onClick={handleRegisterForParty} isLoading={registerLoading}>
+        RSVP
+      </Button>
+    );
+
   return (
-    <PageContainer p={4} title={`${party.name} - Hosted with Flare`}>
-      {loading && (
-        <Box mt={4} textAlign="center" size="xl">
-          <Spinner color="orange.500" />
-        </Box>
-      )}
+    <PageContainer p={4} title={`${party.name} - Hosted with Plots`}>
       {party && (
         <Container>
           <Box>
@@ -72,29 +104,31 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
             <Text>
               Hosted by{" "}
               {party.admin.map((user, i) => (
-                <Link
+                <NextLink
                   href={`/user/${user?.url ?? user.userId}`}
                   key={user.userId}
                 >
-                  {user.name}
-                  {party.admin.length > 0 &&
-                    i !== party.admin.length - 1 &&
-                    ", "}
-                </Link>
+                  <Link>
+                    {user.name}
+                    {party.admin.length > 0 &&
+                      i !== party.admin.length - 1 &&
+                      ", "}
+                  </Link>
+                </NextLink>
               ))}
             </Text>
             <Text fontSize="xl" color="gray.500" mt={1}>
               {dayjs(party.date).format("MMM D HH A")} - {party.address}
             </Text>
-            {/*            <Box mt={2}>*/}
-            {/*              <Markdown>*/}
-            {/*                {`*/}
-            {/*# Placeholder*/}
-            {/*1. Test*/}
-            {/*2. Test*/}
-            {/*`}*/}
-            {/*              </Markdown>*/}
-            {/*            </Box>*/}
+          </Box>
+          <Box mt={4}>
+            {user ? (
+              getUserButton()
+            ) : (
+              <NextLink href="/">
+                <Button>Signup for Plots to Access</Button>
+              </NextLink>
+            )}
           </Box>
         </Container>
       )}

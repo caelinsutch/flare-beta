@@ -19,17 +19,15 @@ const addUser = async (req: NextApiRequest) => {
     bio: bio ?? "",
   };
 
-  await userCollection.doc(userId).set(newUser);
-
-  await userCollection.doc(userId).update({
-    userId,
-  });
+  await userCollection.doc(userId).set({ ...newUser, userId });
 
   // Send Welcome SMS
-  await sendText(
-    phone,
-    "Thanks for registering with Flare! We'll be using this phone number to send updates"
-  );
+  if (phone !== "+19161234567") {
+    await sendText(
+      phone,
+      "Thanks for registering with Flare! We'll be using this phone number to send updates"
+    );
+  }
 
   const updatedUser = await userCollection.doc(userId).get();
 

@@ -88,7 +88,7 @@ const RegisterForm: React.FC = () => {
         isLoading={loading}
         width="100%"
       >
-        Register
+        Join Waitlist
       </Button>
     </Box>
   );

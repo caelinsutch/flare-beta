@@ -38,10 +38,10 @@ const useSiteSetup = (initialUser?: User): boolean => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user && !initialUser) {
         const token = await user.getIdToken();
-        nookies.set(undefined, "token", token, { path: "/" });
+        nookies.set(undefined, "token", token);
         getUser(user.uid, true).then(() => setLoading(false));
       } else {
-        nookies.set(undefined, "token", "", { path: "/" });
+        nookies.set(undefined, "token", "");
         setLoading(false);
       }
     });

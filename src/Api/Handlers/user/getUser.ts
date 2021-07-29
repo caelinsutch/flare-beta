@@ -28,7 +28,9 @@ const getUser = async (userId: string) => {
   );
 
   const attending = await Promise.all(
-    userDbo.attending.map(async (partyId) => (await getParty(partyId)).party)
+    userDbo.attending?.map(
+      async (partyId) => (await getParty(partyId)).party
+    ) ?? []
   );
 
   const user: User = {

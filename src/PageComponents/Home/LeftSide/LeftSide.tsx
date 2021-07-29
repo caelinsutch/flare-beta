@@ -18,7 +18,7 @@ const LeftSide: React.FC = () => (
       fontWeight="bold"
       letterSpacing="widest"
     >
-      FLARE
+      PLOTS
     </Text>
   </Box>
 );
