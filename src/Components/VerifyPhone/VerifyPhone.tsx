@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import { Box, Button, useToast, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  PinInput,
+  PinInputField,
+  useToast,
+} from "@chakra-ui/react";
 
 import firebase from "@Firebase";
 import { useGetUserByPhone } from "@Hooks";
@@ -98,59 +105,57 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
     }
   };
 
-  if (verifyMode) {
-    return (
-      <Box mt={4}>
-        <Input
-          label="Code"
-          type="input"
-          placeholder="123456"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
-        <Button
-          mt={2}
-          colorScheme="orange"
-          type="button"
-          onClick={() => onVerifyCode(code)}
-          isDisabled={code === ""}
-          isLoading={verifyCodeLoading}
-        >
-          Verify Code
-        </Button>
-      </Box>
-    );
-  }
-
   return (
     <Box mt={4}>
-      {register ? (
-        <Text variant="title3" mb={2}>
-          Join Waitlist
-        </Text>
+      {verifyMode ? (
+        <>
+          <HStack mx="auto" justifyContent="center">
+            <PinInput
+              otp
+              value={code}
+              onChange={(e) => setCode(e)}
+              variant="filled"
+            >
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+            </PinInput>
+          </HStack>
+
+          <Button
+            mt={4}
+            type="button"
+            onClick={() => onVerifyCode(code)}
+            isDisabled={code.length !== 6}
+            isLoading={verifyCodeLoading}
+          >
+            Verify Code
+          </Button>
+        </>
       ) : (
-        <Text variant="title3" mb={2}>
-          Log In
-        </Text>
+        <>
+          <Input
+            label="Phone"
+            type="phone"
+            placeholder="+15106427464"
+            info="Make sure you match the +15106427464 format"
+            value={phone}
+            error={error}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <Button
+            mt={4}
+            type="button"
+            onClick={() => onSendCode(phone)}
+            isLoading={sendSmsLoading}
+          >
+            {register ? "Sign Up" : "Sign In"}
+          </Button>
+        </>
       )}
-      <Input
-        label="Phone"
-        type="phone"
-        placeholder="+15106427464"
-        info="Make sure you match the +15106427464 format"
-        value={phone}
-        error={error}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-      <Button
-        mt={4}
-        colorScheme="orange"
-        type="button"
-        onClick={() => onSendCode(phone)}
-        isLoading={sendSmsLoading}
-      >
-        {register ? "Register" : "Log In"}
-      </Button>
       <div id="captchaContainer" />
     </Box>
   );

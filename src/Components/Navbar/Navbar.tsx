@@ -9,7 +9,7 @@ const Navbar = () => (
       <Link
         as="p"
         fontSize="3xl"
-        color="orange.400"
+        color="brand.500"
         fontWeight="bold"
         letterSpacing="widest"
         textDecoration="none"

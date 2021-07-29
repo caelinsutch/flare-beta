@@ -36,9 +36,9 @@ const UserInfo: React.FC = () => {
 
   return (
     <>
-      <Flex flexDirection="column" mt={4} minHeight="400px" maxWidth="350px">
+      <Flex flexDirection="column" mt={4} maxWidth="350px">
         <Box flex={1}>
-          <Text fontSize="lg" color="gray.400">
+          <Text fontSize="lg" color="white">
             Hey {user.name}
           </Text>
           <Text fontSize="xl" mt={2}>
@@ -46,13 +46,13 @@ const UserInfo: React.FC = () => {
           </Text>
           {user.attending.length !== 0 && (
             <Box mt={2}>
-              <Text variant="subtitle2" mb={2}>
+              <Text variant="subtitle2" color="white" mb={2}>
                 Attending
               </Text>
               <UnorderedList>
                 {user.attending.map((party: Party) => (
-                  <ListItem key={party.name}>
-                    <Link as="p">
+                  <ListItem key={party.name} color="white">
+                    <Link as="p" color="white">
                       <NextLink href={`/party/${party.partyId}`}>
                         {party.name}
                       </NextLink>
@@ -64,7 +64,7 @@ const UserInfo: React.FC = () => {
           )}
           {user.hosting.length !== 0 && (
             <Box mt={2}>
-              <Text variant="subtitle2" mb={2}>
+              <Text variant="subtitle2" color="white" mb={2}>
                 Hosted
               </Text>
               <UnorderedList>

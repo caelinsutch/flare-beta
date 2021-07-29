@@ -29,6 +29,17 @@ module.exports = {
     "react/prop-types": 0,
     "react/no-unescaped-entities": 0,
     "import/no-unresolved": 0,
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
     "import/order": [
       "error",
       {

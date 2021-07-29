@@ -1,6 +1,6 @@
 import { NextApiRequest } from "next";
 
-import { NewUserDbo, User } from "@Models";
+import { NewUserDbo } from "@Models";
 
 import { userCollection } from "@Api/Firebase";
 import { sendText } from "@Api/Twilio";

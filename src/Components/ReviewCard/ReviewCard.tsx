@@ -12,7 +12,7 @@ type ReviewCardProps = {
 };
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review, onDelete }) => (
-  <Box boxShadow="md" p={4} mt={4}>
+  <Box borderWidth={1} borderColor="gray.800" borderRadius={4} p={4} mt={4}>
     <Flex alignContent="center" justifyContent="space-between" row>
       <Text variant="subtitle2">{review.name}</Text>
       <HStack spacing={2}>

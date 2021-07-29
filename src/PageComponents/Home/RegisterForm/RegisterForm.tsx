@@ -73,22 +73,13 @@ const RegisterForm: React.FC = () => {
       />
       <Button
         type="submit"
-        borderColor="transparent"
-        backgroundColor={
-          Object.keys(errors).length > 0 ? "orange.200" : "orange.400"
-        }
-        pointerEvents={Object.keys(errors).length > 0 ? "none" : undefined}
+        disabled={Object.keys(errors).length > 0}
         color="white"
-        _hover={{
-          color: "white",
-          backgroundColor:
-            Object.keys(errors).length > 0 ? undefined : "orange.500",
-        }}
         mt={2}
         isLoading={loading}
         width="100%"
       >
-        Join Waitlist
+        Sign Up
       </Button>
     </Box>
   );

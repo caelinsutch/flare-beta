@@ -14,12 +14,14 @@ type IProps = {
   error?: string;
   info?: string;
   area?: false;
+  textColor?: string;
 } & ChakraInputProps;
 type AreaProps = {
   label?: string;
   error?: string;
   info?: string;
   area: true;
+  textColor?: string;
 } & TextareaProps;
 
 type InputProps = IProps | AreaProps;
@@ -29,13 +31,15 @@ const Input: React.FC<InputProps> = ({
   label,
   error,
   area,
+  textColor = "black",
   ...props
 }) => (
-  <Box>
+  <Box textAlign="left">
     <Text
       display={label ? "block" : "none"}
       fontSize="xs"
-      color="gray.400"
+      fontWeight="bold"
+      color={textColor}
       mb={2}
     >
       {label}
@@ -44,8 +48,7 @@ const Input: React.FC<InputProps> = ({
       <Textarea {...(props as AreaProps)} />
     ) : (
       <ChakraInput
-        border="2px solid"
-        borderColor="gray.400"
+        backgroundColor="white"
         _hover={{ borderColor: "gray.500" }}
         _focus={{ borderColor: "gray.500" }}
         _placeholder={{ color: "gray.400" }}
@@ -55,7 +58,7 @@ const Input: React.FC<InputProps> = ({
     <Text
       mt={2}
       opacity={error || info ? 1 : 0}
-      color={error ? "red.400" : "gray.400"}
+      color={error ? "red.400" : textColor}
       fontSize="xs"
     >
       {(error || info) ?? "a"}

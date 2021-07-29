@@ -10,7 +10,7 @@ const LoadingScreen = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Spinner size="xl" thickness="4px" color="orange.500" />
+      <Spinner size="xl" thickness="4px" color="brand.500" />
     </Box>
   );
 };

@@ -4,10 +4,14 @@ import components from "./components";
 
 const theme = extendTheme({
   fonts: {
-    body: "Roboto Mono, monospace",
-    mono: "Menlo, monospace",
+    body: "Open Sans, monospace",
   },
   components,
+  colors: {
+    brand: {
+      "500": "#569CDD",
+    },
+  },
 });
 
 export default theme;

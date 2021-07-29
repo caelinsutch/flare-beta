@@ -10,31 +10,43 @@ import {
   useClipboard,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSidePropsContext } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
+import nookies from "nookies";
 import { FaRegCopy } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
+import { firebaseAdmin, getUser } from "@Api";
 import { PageContainer } from "@Components";
 import { useGetParty, useRegisterForParty } from "@Hooks";
-import { Party } from "@Models";
+import { Party, User } from "@Models";
 import { selectUser } from "@Redux";
 
 import { getParty } from "@Api/Handlers/party";
-import getParties from "@Api/Handlers/party/getParties";
 
-export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
-  params,
-}) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
-    const { party } = await getParty(params?.partyId as string);
-    return {
-      props: {
-        party,
-      },
-      revalidate: 1,
-    };
+    const { party } = await getParty(ctx.params?.partyId as string);
+
+    try {
+      const cookies = nookies.get(ctx);
+      const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
+      const { uid } = token;
+
+      const { user } = await getUser(uid);
+
+      return {
+        props: { user, party },
+      };
+    } catch (err) {
+      return {
+        props: {
+          party,
+        },
+      };
+    }
   } catch (e) {
     return {
       notFound: true,
@@ -42,20 +54,16 @@ export const getStaticProps: GetStaticProps<any, { partyId: string }> = async ({
   }
 };
 
-export const getStaticPaths: GetStaticPaths<{ partyId: string }> = async () => {
-  const { parties } = await getParties();
-  return {
-    paths: parties.map((u) => ({ params: { partyId: u.partyId } })),
-    fallback: "blocking",
-  };
-};
-
-const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
+const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
+  party: initialParty,
+  user: initialUser,
+}) => {
   const router = useRouter();
 
-  const user = useSelector(selectUser);
+  const localUser = useSelector(selectUser);
+  const user = initialUser ?? localUser;
 
-  const { getParty, loading } = useGetParty();
+  const { getParty } = useGetParty();
   const { registerForParty, loading: registerLoading } = useRegisterForParty();
 
   const [party, setParty] = useState<Party | undefined>(initialParty);
@@ -119,6 +127,9 @@ const PartyPage: React.FC<{ party?: Party }> = ({ party: initialParty }) => {
             </Text>
             <Text fontSize="xl" color="gray.500" mt={1}>
               {dayjs(party.date).format("MMM D HH A")} - {party.address}
+            </Text>
+            <Text variant="body" mt={2}>
+              Problems? DM @caelinsutch on Instagram or text 9163174484
             </Text>
           </Box>
           <Box mt={4}>

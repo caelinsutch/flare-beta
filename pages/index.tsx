@@ -1,45 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Box } from "@chakra-ui/react";
-import { AuthForm, LeftSide, UserInfo } from "@PageComponents/Home";
-import { useSelector } from "react-redux";
+import { Box, Text } from "@chakra-ui/react";
+import { AuthForm, UserInfo } from "@PageComponents/Home";
+import { GetServerSidePropsContext } from "next";
+import nookies from "nookies";
 
-import { PageContainer, PasswordProtection } from "@Components";
-import { selectUser } from "@Redux";
+import { firebaseAdmin, getUser } from "@Api";
+import { PageContainer } from "@Components";
 
-const Home = () => {
-  const user = useSelector(selectUser);
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    const cookies = nookies.get(ctx);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
 
+    const { uid } = token;
+
+    const { user } = await getUser(uid);
+
+    return {
+      props: { user },
+    };
+  } catch (err) {
+    return { props: {} as never };
+  }
+};
+const Home = ({ user: initialUser }: any) => {
   return (
-    <PageContainer noNav>
+    <PageContainer noNav bgColor="brand.500">
       <Box
-        height="100vh"
-        backgroundImage="url('./bg.svg')"
+        minHeight="100vh"
         backgroundSize="cover"
         justifyContent="center"
         alignItems="center"
-        display="flex"
-        flexDirection={{ base: "column", md: "row" }}
+        display={{ base: "block", md: "flex" }}
         padding={4}
+        flexDirection="column"
         paddingTop={{ base: 14, md: 4 }}
       >
-        <LeftSide />
         <Box flex={1}>
-          <Box
-            mx="auto"
-            py={{ base: 4, md: 8 }}
-            px={{ base: 8, md: 16 }}
-            borderRadius={8}
-            backgroundColor="white"
-            width="fit-content"
-            minWidth="350px"
-            minHeight="400px"
-            boxShadow="2xl"
-          >
-            {user && <UserInfo />}
-            {!user && <AuthForm />}
-          </Box>
+          <Text variant="title1" fontSize="6xl" color="white">
+            Plots
+          </Text>
         </Box>
+        <Box flex={1}>
+          {initialUser && <UserInfo />}
+          {!initialUser && <AuthForm />}
+        </Box>
+        <Box flex={1} />
       </Box>
     </PageContainer>
   );
