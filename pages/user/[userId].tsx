@@ -126,7 +126,7 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
   };
 
   return (
-    <PageContainer p={4}>
+    <PageContainer title={`Plots - ${thisUser?.name}`}>
       {thisUser && (
         <Container>
           <Box>

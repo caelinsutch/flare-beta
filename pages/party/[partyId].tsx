@@ -104,7 +104,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
     );
 
   return (
-    <PageContainer p={4} title={`${party.name} - Hosted with Plots`}>
+    <PageContainer title={`${party.name} - Hosted with Plots`}>
       {party && (
         <Container>
           <Box>
@@ -129,7 +129,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
               {dayjs(party.date).format("MMM D HH A")} - {party.address}
             </Text>
             <Text variant="body" mt={2}>
-              Problems? DM @caelinsutch on Instagram or text 9163174484
+              Problems? DM @caelinsutch on Instagram or text 9163174484.
             </Text>
           </Box>
           <Box mt={4}>

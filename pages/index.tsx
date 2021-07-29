@@ -4,9 +4,11 @@ import { Box, Text } from "@chakra-ui/react";
 import { AuthForm, UserInfo } from "@PageComponents/Home";
 import { GetServerSidePropsContext } from "next";
 import nookies from "nookies";
+import { useSelector } from "react-redux";
 
 import { firebaseAdmin, getUser } from "@Api";
 import { PageContainer } from "@Components";
+import { selectUser } from "@Redux";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
@@ -25,6 +27,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 const Home = ({ user: initialUser }: any) => {
+  const localUser = useSelector(selectUser);
+
   return (
     <PageContainer noNav bgColor="brand.500">
       <Box
@@ -32,7 +36,7 @@ const Home = ({ user: initialUser }: any) => {
         backgroundSize="cover"
         justifyContent="center"
         alignItems="center"
-        display={{ base: "block", md: "flex" }}
+        display="flex"
         padding={4}
         flexDirection="column"
         paddingTop={{ base: 14, md: 4 }}
@@ -43,10 +47,14 @@ const Home = ({ user: initialUser }: any) => {
           </Text>
         </Box>
         <Box flex={1}>
-          {initialUser && <UserInfo />}
-          {!initialUser && <AuthForm />}
+          {initialUser && localUser && <UserInfo />}
+          {!localUser && <AuthForm />}
         </Box>
-        <Box flex={1} />
+        <Box flex={1} justifyContent="flex-end" flexDirection="column">
+          <Text variant="body" color="white">
+            Issues? DM @caelinsutch on Insta
+          </Text>
+        </Box>
       </Box>
     </PageContainer>
   );
