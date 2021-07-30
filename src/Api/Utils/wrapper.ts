@@ -13,7 +13,6 @@ const wrapper = async (
   if (req.method === method) {
     if (isProtected) {
       const cookies = nookies.get({ req });
-      console.log(cookies);
       try {
         const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
         const { uid } = token;

@@ -32,18 +32,18 @@ const PageContainer: React.FC<PageContainerProps> = ({
         <meta name="description" content={description} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://beta.flaresocial.app/" />
+        <meta property="og:url" content="https://whatsplots.app/" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="https://i.imgur.com/fp2QjfP.png" />
+        <meta property="og:image" content="https://i.imgur.com/scifPP3.png" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://beta.flaresocial.app/" />
+        <meta property="twitter:url" content="https://whatsplots.app/" />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
         <meta
           property="twitter:image"
-          content="https://i.imgur.com/fp2QjfP.png"
+          content="https://i.imgur.com/scifPP3.png"
         />
         <link rel="icon" href="/favicon.ico" />
         <link
