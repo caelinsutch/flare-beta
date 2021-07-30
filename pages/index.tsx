@@ -40,7 +40,7 @@ const Home = ({ user: initialUser }: any) => {
   return (
     <PageContainer noNav bgColor="brand.500">
       <Box
-        minHeight="100vh"
+        minH="100vh"
         backgroundSize="cover"
         justifyContent="center"
         alignItems="center"
@@ -51,12 +51,12 @@ const Home = ({ user: initialUser }: any) => {
       >
         <Box flex={1}>
           <Text variant="title1" fontSize="6xl" color="white">
-            Plots
+            PLOTS
           </Text>
         </Box>
         <Box flex={1}>{initialUser || user ? <UserInfo /> : <AuthForm />}</Box>
-        <Box flex={1} justifyContent="flex-end" flexDirection="column">
-          <Text variant="body" color="white">
+        <Box>
+          <Text fontSize="sm" color="white">
             Issues? DM @caelinsutch on Insta
           </Text>
         </Box>

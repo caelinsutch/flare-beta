@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
   <Box textAlign="left">
     <Text
       display={label ? "block" : "none"}
-      fontSize="xs"
+      fontSize="md"
       fontWeight="bold"
       color={textColor}
       mb={2}
@@ -58,7 +58,7 @@ const Input: React.FC<InputProps> = ({
     <Text
       mt={2}
       opacity={error || info ? 1 : 0}
-      color={error ? "red.400" : textColor}
+      color={error ? "white" : textColor}
       fontSize="xs"
     >
       {(error || info) ?? "a"}

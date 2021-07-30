@@ -5,13 +5,12 @@ import NextLink from "next/link";
 
 const Navbar = () => (
   <Container p={4}>
-    <Flex row>
+    <Flex row justify="center">
       <Link
         as="p"
-        fontSize="3xl"
+        fontSize="6xl"
         color="brand.500"
         fontWeight="bold"
-        letterSpacing="widest"
         textDecoration="none"
         href="/"
       >

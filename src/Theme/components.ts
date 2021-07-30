@@ -40,22 +40,25 @@ const components = {
       _hover: {
         background: "gray.900",
         backgroundColor: "gray.900",
-        boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.25)",
+        boxShadow: "16px 16px 0px rgba(0, 0, 0, 0.25)",
+        transform: "translate(-8px, -8px) scale(1.1)",
       },
       _active: {
         background: "gray.900",
         backgroundColor: "gray.900",
-        boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.25)",
+        boxShadow: "none",
+        transform: "none",
       },
       _loading: {
         background: "gray.600",
         backgroundColor: "gray.600",
         boxShadow: "6px 6px 0px rgba(0, 0, 0, 0.25)",
+        transform: "none",
       },
       _focus: {
         background: "gray.900",
         backgroundColor: "gray.900",
-        boxShadow: "7px 7px 0px rgba(0, 0, 0, 0.25)",
+        boxShadow: "6px 6px 0px rgba(0, 0, 0, 0.25)",
       },
       _disabled: {
         background: "gray.600",
