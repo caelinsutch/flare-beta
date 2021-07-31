@@ -99,11 +99,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   const getUserButton = () =>
     party.attendees.find(({ userId }) => userId === user?.userId) ? (
-      <Button leftIcon={<FaRegCopy />} onClick={onCopy}>
+      <Button leftIcon={<FaRegCopy />} onClick={onCopy} variant="primary">
         {hasCopied ? "Copied" : "Copy Party Link"}
       </Button>
     ) : (
-      <Button onClick={handleRegisterForParty} isLoading={registerLoading}>
+      <Button
+        onClick={handleRegisterForParty}
+        isLoading={registerLoading}
+        variant="primary"
+      >
         RSVP
       </Button>
     );

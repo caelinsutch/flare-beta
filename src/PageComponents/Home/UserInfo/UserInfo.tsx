@@ -87,7 +87,7 @@ const UserInfo: React.FC = () => {
             </Box>
           )}
           <Divider my={4} />
-          <Button colorScheme="red" onClick={handleLogout}>
+          <Button colorScheme="red" variant="primary" onClick={handleLogout}>
             Log Out
           </Button>
         </Box>

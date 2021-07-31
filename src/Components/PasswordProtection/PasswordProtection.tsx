@@ -49,7 +49,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ onAuth }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <Button colorScheme="orange" onClick={handleSubmit}>
+        <Button variant="primary" onClick={handleSubmit}>
           Submit
         </Button>
       </Box>

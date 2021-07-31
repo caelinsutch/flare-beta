@@ -72,6 +72,7 @@ const RegisterForm: React.FC = () => {
         }
       />
       <Button
+        variant="primary"
         type="submit"
         disabled={Object.keys(errors).length > 0}
         color="white"

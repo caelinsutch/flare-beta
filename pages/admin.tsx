@@ -21,7 +21,7 @@ import {
 import { useSelector } from "react-redux";
 
 import { PageContainer, PasswordProtection } from "@Components";
-import { useGetUsers } from "@Hooks";
+import { useGetParties, useGetUsers } from "@Hooks";
 import { selectUsers } from "@Redux";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -33,11 +33,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
   ({ user }) => {
     const { getUsers } = useGetUsers();
+    const { getParties } = useGetParties();
     const users = useSelector(selectUsers);
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
       getUsers();
+      getParties(true);
       if (localStorage.getItem("auth") == "true") setLoggedIn(true);
     }, []);
 
@@ -78,13 +80,6 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
                 <ListItem>Don't be a dick and have a good time</ListItem>{" "}
                 <ListItem>Take a shot </ListItem>
               </OrderedList>
-            </Box>
-            <Box mt={4}>
-              <Box>
-                <Text color="gray.700" fontSize="lg">
-                  <b>Total Users:</b> {users?.length}
-                </Text>
-              </Box>
             </Box>
             <Tabs variant="line" mt={4}>
               <TabList>

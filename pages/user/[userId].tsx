@@ -183,7 +183,7 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
               />
               <Flex justifyContent="space-between" alignItems="center">
                 <Text variant="title3">Reviews</Text>
-                <Button colorScheme="orange" onClick={onOpen}>
+                <Button variant="primary" onClick={onOpen}>
                   Submit Anonymous Review
                 </Button>
               </Flex>
