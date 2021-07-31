@@ -123,7 +123,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
       title={`${party.name} - Hosted with Plots`}
     >
       {party && (
-        <Container flex={1} maxW="450px" align="flex-start">
+        <Container flex={1} maxW="450px" d="flex" flexDir="column">
           <Box>
             <Text variant="title1">{party.name}</Text>
             <Text>
@@ -161,19 +161,19 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             </HStack>
           </Box>
           <Divider mt={2} />
-          <Box mt={4}>
+          <Box mt={6} px={4} align="center" d="flex" flexDir="column">
             {user ? (
               getUserButton()
             ) : (
               <NextLink href={`/?redirectParty=${party.partyId}`}>
-                <Button>RSVP</Button>
+                <Button variant="primary">RSVP</Button>
               </NextLink>
             )}
           </Box>
         </Container>
       )}
-      <Text variant="body" mt={2}>
-        Issues? DM @caelinsutch on Insta or text (916) 317-4484.
+      <Text fontSize="sm" p={4}>
+        Issues? DM @caelinsutch on Insta
       </Text>
     </PageContainer>
   );
