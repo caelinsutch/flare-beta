@@ -145,8 +145,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
           <Input
             label="Phone"
             type="phone"
-            placeholder="+15106427464"
-            info="Make sure you match the +15106427464 format"
+            placeholder="5106427464"
             value={phone}
             error={error}
             onChange={(e) => setPhone(e.target.value)}
@@ -155,7 +154,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
             mt={4}
             type="button"
             variant="primary"
-            onClick={() => onSendCode(phone)}
+            onClick={() => onSendCode("+1" + phone)}
             isLoading={sendSmsLoading}
           >
             {register ? "Sign Up" : "Sign In"}

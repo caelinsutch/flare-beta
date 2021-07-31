@@ -4,7 +4,7 @@ import components from "./components";
 
 const theme = extendTheme({
   fonts: {
-    body: "Open Sans, monospace",
+    body: "Open Sans, system-ui, sans-serif",
   },
   components,
   colors: {
