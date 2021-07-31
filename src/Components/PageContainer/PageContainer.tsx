@@ -84,8 +84,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
           }}
         />
       </Head>
-      {!noNav && <Navbar />}
-      <Box {...props}>{children}</Box>
+      <Box {...props}>
+        {!noNav && <Navbar />}
+        {children}
+      </Box>
     </>
   );
 };

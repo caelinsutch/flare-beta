@@ -46,10 +46,8 @@ const UserInfo: React.FC = () => {
     <>
       <Flex flexDirection="column" mt={4} maxWidth="350px">
         <Box flex={1}>
-          <Text fontSize="lg" color="white">
-            Hey {user.name}
-          </Text>
-          <Text fontSize="xl" mt={2}>
+          <Text fontSize="xl">Hey {user.name},</Text>
+          <Text fontSize="xl" mt={1}>
             We'll text you when the next party drops.
           </Text>
           {user.attending.length !== 0 && (
@@ -88,12 +86,11 @@ const UserInfo: React.FC = () => {
               </UnorderedList>
             </Box>
           )}
+          <Divider my={4} />
+          <Button colorScheme="red" onClick={handleLogout}>
+            Log Out
+          </Button>
         </Box>
-
-        <Divider my={4} />
-        <Button colorScheme="red" onClick={handleLogout}>
-          Log Out
-        </Button>
       </Flex>
     </>
   );

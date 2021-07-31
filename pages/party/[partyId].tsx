@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 
 import {
+  Badge,
   Box,
   Button,
   Container,
+  Divider,
+  HStack,
+  Icon,
   Link,
   Text,
   useClipboard,
@@ -14,6 +18,7 @@ import { GetServerSidePropsContext } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import nookies from "nookies";
+import { AiFillHome, AiOutlineClockCircle } from "react-icons/ai";
 import { FaRegCopy } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -104,9 +109,17 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
     );
 
   return (
-    <PageContainer title={`${party.name} - Hosted with Plots`}>
+    <PageContainer
+      minH="100vh"
+      backgroundSize="cover"
+      justifyContent="center"
+      alignItems="center"
+      display="flex"
+      flexDirection="column"
+      title={`${party.name} - Hosted with Plots`}
+    >
       {party && (
-        <Container>
+        <Container flex={1} maxW="450px" align="flex-start">
           <Box>
             <Text variant="title1">{party.name}</Text>
             <Text>
@@ -125,24 +138,39 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 </NextLink>
               ))}
             </Text>
-            <Text fontSize="xl" color="gray.500" mt={1}>
-              {dayjs(party.date).format("MMM D HH A")} - {party.address}
-            </Text>
-            <Text variant="body" mt={2}>
-              Problems? DM @caelinsutch on Instagram or text 9163174484.
-            </Text>
+            {user && (
+              <Badge my={2} colorScheme="green">
+                Attending
+              </Badge>
+            )}
+            <HStack mt={1}>
+              <Icon as={AiOutlineClockCircle} color="gray.500" w={5} h={5} />
+              <Text fontSize="lg" color="gray.500">
+                {dayjs(party.date).format("MMM D, dddd hh:mm a")}
+              </Text>
+            </HStack>
+            <HStack mt={1}>
+              <Icon as={AiFillHome} color="gray.500" w={5} h={5} />
+              <Text fontSize="lg" color="gray.500">
+                {party.address}
+              </Text>
+            </HStack>
           </Box>
+          <Divider mt={2} />
           <Box mt={4}>
             {user ? (
               getUserButton()
             ) : (
               <NextLink href={`/?redirectParty=${party.partyId}`}>
-                <Button>Signup for Plots to RSVP</Button>
+                <Button>RSVP</Button>
               </NextLink>
             )}
           </Box>
         </Container>
       )}
+      <Text variant="body" mt={2}>
+        Issues? DM @caelinsutch on Insta or text (916) 317-4484.
+      </Text>
     </PageContainer>
   );
 };
