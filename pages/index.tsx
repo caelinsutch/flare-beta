@@ -57,11 +57,14 @@ const Home = ({ user: initialUser }: any) => {
             variant="title1"
             fontSize="6xl"
             color={initialUser || user ? "brand.500" : "white"}
+            textAlign="center"
           >
             PLOTS
           </Text>
         </Box>
-        <Box flex={1}>{initialUser || user ? <UserInfo /> : <AuthForm />}</Box>
+        <Box flex={1} w="100%" maxW="600px">
+          {initialUser || user ? <UserInfo /> : <AuthForm />}
+        </Box>
         <Box>
           <Text fontSize="sm" color="white">
             Issues? DM @caelinsutch on Insta

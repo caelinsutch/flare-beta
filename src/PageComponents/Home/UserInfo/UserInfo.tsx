@@ -44,7 +44,7 @@ const UserInfo: React.FC = () => {
 
   return (
     <>
-      <Flex flexDirection="column" mt={4} maxWidth="600px">
+      <Flex flexDirection="column" mt={4} maxWidth="600px" w="100%">
         <Text fontSize="lg" color="gray.400" textAlign="center">
           Welcome {user.name}
         </Text>

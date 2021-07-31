@@ -22,13 +22,13 @@ const PartyCard: React.FC<PartyCardProps> = ({
       p={4}
       {...props}
     >
-      <Text variant="subtitle1" color="gray.600">
+      <Text fontSize="lg" color="gray.600">
         {name}
       </Text>
-      <Text fontSize="xs" color="gray.400">
+      <Text fontSize="sm" color="gray.400">
         {time}
       </Text>
-      <Text fontSize="sm" color="gray.600" mt={2}>
+      <Text fontSize="md" color="gray.600" mt={2}>
         {description}
       </Text>
     </Box>
