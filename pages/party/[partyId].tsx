@@ -94,11 +94,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   const getUserButton = () =>
     party.attendees.find(({ userId }) => userId === user?.userId) ? (
-      <Button leftIcon={<FaRegCopy />} onClick={onCopy}>
+      <Button leftIcon={<FaRegCopy />} onClick={onCopy} variant="primary">
         {hasCopied ? "Copied" : "Copy Party Link"}
       </Button>
     ) : (
-      <Button onClick={handleRegisterForParty} isLoading={registerLoading}>
+      <Button
+        onClick={handleRegisterForParty}
+        isLoading={registerLoading}
+        variant="primary"
+      >
         RSVP
       </Button>
     );
@@ -126,7 +130,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
               ))}
             </Text>
             <Text fontSize="xl" color="gray.500" mt={1}>
-              {dayjs(party.date).format("MMM D HH A")} - {party.address}
+              {dayjs(party.date).format("MMM D hh A")} - {party.address}
             </Text>
             <Text variant="body" mt={2}>
               Problems? DM @caelinsutch on Instagram or text 9163174484.
@@ -137,7 +141,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
               getUserButton()
             ) : (
               <NextLink href={`/?redirectParty=${party.partyId}`}>
-                <Button>Signup for Plots to RSVP</Button>
+                <Button variant="primary">Signup for Plots to RSVP</Button>
               </NextLink>
             )}
           </Box>

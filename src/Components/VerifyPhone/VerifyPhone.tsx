@@ -132,6 +132,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
           <Button
             mt={4}
             type="button"
+            variant="primary"
             onClick={() => onVerifyCode(code)}
             isDisabled={code.length !== 6}
             isLoading={verifyCodeLoading}
@@ -153,6 +154,7 @@ const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
           <Button
             mt={4}
             type="button"
+            variant="primary"
             onClick={() => onSendCode(phone)}
             isLoading={sendSmsLoading}
           >

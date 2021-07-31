@@ -13,17 +13,20 @@ const wrapper = async (
   if (req.method === method) {
     if (isProtected) {
       const cookies = nookies.get({ req });
+      let uid: string;
       try {
         const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
-        const { uid } = token;
-        try {
-          const data = await handler(req, uid);
-          return res.status(200).send(data);
-        } catch (e) {
-          return res.status(500).send({ error: e.toString() });
-        }
+        uid = token.uid;
       } catch (e) {
+        console.error(e);
         return res.status(401).send({ message: "Please log in!" });
+      }
+      try {
+        const data = await handler(req, uid);
+        return res.status(200).send(data);
+      } catch (e) {
+        console.error(e);
+        return res.status(500).send({ error: e.toString() });
       }
     }
     try {

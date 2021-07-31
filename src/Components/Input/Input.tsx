@@ -7,6 +7,7 @@ import {
   TextareaProps,
   Box,
   Text,
+  BoxProps,
 } from "@chakra-ui/react";
 
 type IProps = {
@@ -15,6 +16,7 @@ type IProps = {
   info?: string;
   area?: false;
   textColor?: string;
+  boxProps?: BoxProps;
 } & ChakraInputProps;
 type AreaProps = {
   label?: string;
@@ -22,6 +24,7 @@ type AreaProps = {
   info?: string;
   area: true;
   textColor?: string;
+  boxProps?: BoxProps;
 } & TextareaProps;
 
 type InputProps = IProps | AreaProps;
@@ -32,9 +35,10 @@ const Input: React.FC<InputProps> = ({
   error,
   area,
   textColor = "black",
+  boxProps,
   ...props
 }) => (
-  <Box textAlign="left">
+  <Box textAlign="left" {...boxProps}>
     <Text
       display={label ? "block" : "none"}
       fontSize="xs"

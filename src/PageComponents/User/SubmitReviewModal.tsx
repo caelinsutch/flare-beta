@@ -66,6 +66,7 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
             error={errors.text ? "Review text is required!" : undefined}
           />
           <Button
+            variant="primary"
             colorScheme="orange"
             type="submit"
             disabled={Object.keys(errors).length !== 0}

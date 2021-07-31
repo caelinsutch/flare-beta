@@ -15,7 +15,7 @@ type PageContainerProps = {
 } & BoxProps;
 
 const PageContainer: React.FC<PageContainerProps> = ({
-  title = "Plots - The Best Berkeley Parties",
+  title = "Plots - What's Plots?",
   description = "RSVP for the best Berkeley parties. Get exclusive access today.",
   children,
   noNav = false,
@@ -27,7 +27,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   return (
     <>
       <Head>
-        <title>Plots - Find Berkeley Parties</title>
+        <title>{title}</title>
         <meta name="title" content={title} />
         <meta name="description" content={description} />
 

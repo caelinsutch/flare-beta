@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { User } from "@Models";
+import { UserDbo } from "@Models";
 
 type UsersSliceState = {
-  users?: User[];
+  users?: UserDbo[];
 };
 
 const initialState: UsersSliceState = {
@@ -14,7 +14,7 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setUsers: (state, action: PayloadAction<User[]>) => {
+    setUsers: (state, action: PayloadAction<UserDbo[]>) => {
       state.users = action.payload;
     },
     deleteUsers: (state, action: PayloadAction<string[]>) => {

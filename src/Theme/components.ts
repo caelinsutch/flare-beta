@@ -16,6 +16,11 @@ const components = {
       color: "brand.500",
     },
   },
+  Select: {
+    baseStyle: {
+      width: "auto",
+    },
+  },
   PinInput: {
     variants: {
       filled: {
@@ -32,35 +37,37 @@ const components = {
     },
   },
   Button: {
-    baseStyle: {
-      background: "gray.800",
-      backgroundColor: "gray.800",
-      color: "white",
-      boxShadow: "6px 6px 0px rgba(0, 0, 0, 0.25)",
-      _hover: {
-        background: "gray.900",
-        backgroundColor: "gray.900",
-        boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.25)",
-      },
-      _active: {
-        background: "gray.900",
-        backgroundColor: "gray.900",
-        boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.25)",
-      },
-      _loading: {
-        background: "gray.600",
-        backgroundColor: "gray.600",
+    variants: {
+      primary: {
+        background: "gray.800",
+        backgroundColor: "gray.800",
+        color: "white",
         boxShadow: "6px 6px 0px rgba(0, 0, 0, 0.25)",
-      },
-      _focus: {
-        background: "gray.900",
-        backgroundColor: "gray.900",
-        boxShadow: "7px 7px 0px rgba(0, 0, 0, 0.25)",
-      },
-      _disabled: {
-        background: "gray.600",
-        backgroundColor: "gray.600",
-        boxShadow: "2px 2px 0px rgba(0, 0, 0, 0.25)",
+        _hover: {
+          background: "gray.900",
+          backgroundColor: "gray.900",
+          boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.25)",
+        },
+        _active: {
+          background: "gray.900",
+          backgroundColor: "gray.900",
+          boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.25)",
+        },
+        _loading: {
+          background: "gray.600",
+          backgroundColor: "gray.600",
+          boxShadow: "6px 6px 0px rgba(0, 0, 0, 0.25)",
+        },
+        _focus: {
+          background: "gray.900",
+          backgroundColor: "gray.900",
+          boxShadow: "7px 7px 0px rgba(0, 0, 0, 0.25)",
+        },
+        _disabled: {
+          background: "gray.600",
+          backgroundColor: "gray.600",
+          boxShadow: "2px 2px 0px rgba(0, 0, 0, 0.25)",
+        },
       },
     },
   },
