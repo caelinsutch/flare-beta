@@ -5,6 +5,7 @@ import {
   Button,
   Divider,
   Flex,
+  Link,
   SimpleGrid,
   Spinner,
   Text,
@@ -46,7 +47,10 @@ const UserInfo: React.FC = () => {
     <>
       <Flex flexDirection="column" mt={4} maxWidth="600px" w="100%">
         <Text fontSize="lg" color="gray.400" textAlign="center">
-          Welcome {user.name}
+          Welcome{" "}
+          <NextLink href={`/user/${user.userId}`}>
+            <Link color="gray.400">{user.name}</Link>
+          </NextLink>
         </Text>
         {user.attending.length === 0 && user.attending.length === 0 && (
           <Text variant="body1" color="gray.400">

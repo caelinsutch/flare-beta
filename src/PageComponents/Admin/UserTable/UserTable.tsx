@@ -14,8 +14,10 @@ import {
   Th,
   Thead,
   Tr,
+  Link,
   useDisclosure,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { useSelector } from "react-redux";
 
 import { Input, SendMessageModal } from "@Components";
@@ -76,7 +78,7 @@ const UserTable: React.FC = () => {
             boxProps={{ mr: 2 }}
           />
           <Select
-            placeholder="Select Party"
+            width="auto"
             value={selectedParty}
             onChange={(e) => setParty(e.target.value)}
           >
@@ -134,7 +136,11 @@ const UserTable: React.FC = () => {
                       />
                     </Td>
                     <Td>
-                      <Code>{user.userId}</Code>
+                      <NextLink href={`/user/${user.userId}`}>
+                        <Link as="p">
+                          <Code>{user.userId}</Code>
+                        </Link>
+                      </NextLink>
                     </Td>
                     <Td>{user.name}</Td>
                     <Td>{user.phone}</Td>
