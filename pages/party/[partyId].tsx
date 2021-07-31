@@ -161,7 +161,10 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             </HStack>
           </Box>
           <Divider mt={2} />
-          <Box mt={6} px={4} align="center" d="flex" flexDir="column">
+          <Box mt={4}>
+            <Text>{party.info}</Text>
+          </Box>
+          <Box mt={4}>
             {user ? (
               getUserButton()
             ) : (

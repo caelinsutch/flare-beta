@@ -18,14 +18,12 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { useSelector } from "react-redux";
 
 import { PageContainer, PasswordProtection } from "@Components";
 import { useGetParties, useGetUsers } from "@Hooks";
-import { selectUsers } from "@Redux";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { user } = await authorizeServerSide(ctx);
+  const { user } = await authorizeServerSide(ctx, true);
 
   return { props: { user } };
 };
@@ -34,7 +32,6 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
   ({ user }) => {
     const { getUsers } = useGetUsers();
     const { getParties } = useGetParties();
-    const users = useSelector(selectUsers);
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -44,7 +41,7 @@ const Admin: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
     }, []);
 
     return (
-      <PageContainer initialUser={user}>
+      <PageContainer initialUser={user} noNav>
         {!loggedIn ? (
           <PasswordProtection
             onAuth={() => {

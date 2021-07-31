@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { AiFillDelete } from "react-icons/ai";
 
@@ -13,9 +13,9 @@ type ReviewCardProps = {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review, onDelete }) => (
   <Box borderWidth={1} borderColor="gray.800" borderRadius={4} p={4} mt={4}>
-    <Flex alignContent="center" justifyContent="space-between" row>
+    <Flex alignItems="center" justifyContent="space-between" row>
       <Text variant="subtitle2">{review.name}</Text>
-      <HStack spacing={2}>
+      <Box spacing={2} alignItems="center" display="flex" flexDirection="row">
         <Text variant="subtitle3">
           {dayjs(review.createdAt).format("M/D/YYYY h:mm A")}
         </Text>
@@ -28,7 +28,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review, onDelete }) => (
             icon={<AiFillDelete />}
           />
         )}
-      </HStack>
+      </Box>
     </Flex>
     <Text mt={2}>{review.body}</Text>
   </Box>

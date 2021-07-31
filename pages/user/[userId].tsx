@@ -6,10 +6,8 @@ import {
   Container,
   Divider,
   Flex,
-  Link,
-  ListItem,
+  SimpleGrid,
   Text,
-  UnorderedList,
   useDisclosure,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
@@ -18,9 +16,9 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
-import { PageContainer, ReviewCard } from "@Components";
+import { PageContainer, PartyCard, ReviewCard } from "@Components";
 import { useGetUser, useDeleteReview } from "@Hooks";
-import { User } from "@Models";
+import { Party, User } from "@Models";
 import { SubmitReviewModal } from "@PageComponents";
 import { selectUser } from "@Redux";
 
@@ -140,34 +138,48 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
             <Text mt={4}>{thisUser?.bio}</Text>
             {thisUser.attending?.length !== 0 && (
               <Box mt={4}>
-                <Text variant="title3">Parties Attended</Text>
-                <UnorderedList mt={2}>
-                  {thisUser.attending.map((party) => (
-                    <ListItem key={party.partyId}>
-                      <Link as="p">
-                        <NextLink href={`/party/${party.partyId}`}>
-                          {party.name}
-                        </NextLink>
-                      </Link>
-                    </ListItem>
+                <Text variant="title3" mb={2}>
+                  Parties Attended
+                </Text>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+                  {thisUser.attending.map((party: Party) => (
+                    <NextLink
+                      href={`/party/${party.partyId}`}
+                      key={party.partyId}
+                    >
+                      <PartyCard
+                        key={party.partyId}
+                        name={party.name}
+                        time={dayjs(party.date).format("MMM D, dddd hh:mm a")}
+                        description={party.info}
+                        cursor="pointer"
+                      />
+                    </NextLink>
                   ))}
-                </UnorderedList>
+                </SimpleGrid>
               </Box>
             )}
             {thisUser.hosting?.length !== 0 && (
               <Box mt={4}>
-                <Text variant="title3">Parties Hosted</Text>
-                <UnorderedList mt={2}>
-                  {thisUser.hosting.map((party) => (
-                    <ListItem key={party.partyId}>
-                      <Link as="p">
-                        <NextLink href={`/party/${party.partyId}`}>
-                          {party.name}
-                        </NextLink>
-                      </Link>
-                    </ListItem>
+                <Text variant="title3" mb={2}>
+                  Parties Hosted
+                </Text>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+                  {thisUser.hosting.map((party: Party) => (
+                    <NextLink
+                      href={`/party/${party.partyId}`}
+                      key={party.partyId}
+                    >
+                      <PartyCard
+                        key={party.partyId}
+                        name={party.name}
+                        time={dayjs(party.date).format("MMM D, dddd hh:mm a")}
+                        description={party.info}
+                        cursor="pointer"
+                      />
+                    </NextLink>
                   ))}
-                </UnorderedList>
+                </SimpleGrid>
               </Box>
             )}
           </Box>

@@ -38,7 +38,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 const Home = ({ user: initialUser }: any) => {
   const user = useSelector(selectUser);
   return (
-    <PageContainer noNav bgColor="brand.500">
+    <PageContainer
+      noNav
+      bgColor={initialUser || user ? "transparent" : "brand.500"}
+    >
       <Box
         minH="100vh"
         backgroundSize="cover"
@@ -50,7 +53,11 @@ const Home = ({ user: initialUser }: any) => {
         paddingTop={{ base: 14, md: 4 }}
       >
         <Box flex={1}>
-          <Text variant="title1" fontSize="6xl" color="white">
+          <Text
+            variant="title1"
+            fontSize="6xl"
+            color={initialUser || user ? "brand.500" : "white"}
+          >
             PLOTS
           </Text>
         </Box>

@@ -35,8 +35,8 @@ const getUser = async (userId: string) => {
 
   const user: User = {
     ...userDbo,
-    hosting,
-    attending,
+    hosting: hosting.sort((a, b) => b.date - a.date),
+    attending: attending.sort((a, b) => b.date - a.date),
     reviews,
   };
 

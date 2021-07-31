@@ -47,7 +47,7 @@ const components = {
           background: "gray.900",
           backgroundColor: "gray.900",
           boxShadow: "12px 12px 0px rgba(0, 0, 0, 0.25)",
-          transform: "translate(-4px, -4px) scale(1.1)",
+          transform: "translate(-4px, -4px) scale(1.01)",
         },
         _active: {
           background: "gray.900",
