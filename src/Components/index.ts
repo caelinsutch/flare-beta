@@ -9,3 +9,4 @@ export { default as ReviewCard } from "./ReviewCard";
 export { default as Navbar } from "./Navbar";
 export { default as SendMessageModal } from "./SendMessageModal";
 export { default as PartyCard } from "./PartyCard";
+export { default as AddToPartyModal } from "./AddToPartyModal";

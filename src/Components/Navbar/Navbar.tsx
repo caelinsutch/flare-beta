@@ -7,7 +7,7 @@ const Navbar = () => (
   <Container p={4}>
     <Flex row justify="center">
       <Link
-        as="p"
+        as="h1"
         fontSize="6xl"
         color="brand.500"
         fontWeight="bold"

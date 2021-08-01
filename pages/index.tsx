@@ -38,10 +38,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 const Home = ({ user: initialUser }: any) => {
   const user = useSelector(selectUser);
   return (
-    <PageContainer
-      noNav
-      bgColor={initialUser || user ? "transparent" : "brand.500"}
-    >
+    <PageContainer bgColor={initialUser || user ? "transparent" : "brand.500"}>
       <Box
         minH="100vh"
         backgroundSize="cover"
@@ -52,16 +49,6 @@ const Home = ({ user: initialUser }: any) => {
         flexDirection="column"
         paddingTop={{ base: 14, md: 4 }}
       >
-        <Box flex={1}>
-          <Text
-            variant="title1"
-            fontSize="6xl"
-            color={initialUser || user ? "brand.500" : "white"}
-            textAlign="center"
-          >
-            PLOTS
-          </Text>
-        </Box>
         <Box flex={1} w="100%" maxW="600px">
           {initialUser || user ? <UserInfo /> : <AuthForm />}
         </Box>

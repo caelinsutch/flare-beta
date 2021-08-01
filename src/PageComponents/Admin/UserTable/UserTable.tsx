@@ -20,7 +20,7 @@ import {
 import NextLink from "next/link";
 import { useSelector } from "react-redux";
 
-import { Input, SendMessageModal } from "@Components";
+import { AddToPartyModal, Input, SendMessageModal } from "@Components";
 import { useDeleteUsers } from "@Hooks";
 import { UserDbo } from "@Models";
 import { selectParties, selectUsers } from "@Redux";
@@ -36,6 +36,11 @@ const UserTable: React.FC = () => {
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   const [selectedParty, setParty] = useState("all");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isAddPartyModalOpen,
+    onOpen: onAddPartyModalOpen,
+    onClose: onAddPartyModalClose,
+  } = useDisclosure();
 
   const searchedUsers: UserDbo[] = users
     ? searchArrayObject(users, search)
@@ -68,6 +73,11 @@ const UserTable: React.FC = () => {
         onClose={onClose}
         userIds={selectedUserIds}
       />
+      <AddToPartyModal
+        isOpen={isAddPartyModalOpen}
+        onClose={onAddPartyModalClose}
+        userIds={selectedUserIds}
+      />
       <Box mt={6}>
         <Text fontSize="xl">{sortedUsers.length} Users</Text>
         <Box display="flex" flexDirection="row" mt={4}>
@@ -90,6 +100,13 @@ const UserTable: React.FC = () => {
             ))}
           </Select>
           <Box flex={1} />
+          <Button
+            disabled={selectedUserIds.length === 0}
+            onClick={onAddPartyModalOpen}
+            mr={2}
+          >
+            Add to Party
+          </Button>
           <Button
             disabled={selectedUserIds.length === 0}
             onClick={onOpen}
@@ -123,6 +140,7 @@ const UserTable: React.FC = () => {
                 <Th flex={1}>id</Th>
                 <Th flex={1}>Name</Th>
                 <Th flex={1}>Phone</Th>
+                <Th flex={1}>Attending</Th>
               </Tr>
             </Thead>
             {sortedUsers ? (
@@ -144,6 +162,7 @@ const UserTable: React.FC = () => {
                     </Td>
                     <Td>{user.name}</Td>
                     <Td>{user.phone}</Td>
+                    <Td>{user.attending.join(", ")}</Td>
                   </Tr>
                 ))}
               </Tbody>
