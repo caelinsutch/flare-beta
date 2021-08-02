@@ -9,7 +9,7 @@ import {
 } from "@Api";
 import { NewParty, Party, PartyDbo, User } from "@Models";
 
-const createParty = async (newParty: NewParty): Promise<{ party: Party }> => {
+const createParty = async (newParty: NewParty): Promise<{ party?: Party }> => {
   let partyId = _.kebabCase(newParty.name);
   const admins = (await Promise.all(newParty.admin.map((a) => getUser(a)))) as {
     user: User;

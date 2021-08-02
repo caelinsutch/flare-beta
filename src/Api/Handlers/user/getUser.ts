@@ -1,4 +1,4 @@
-import { User, UserDbo, Review } from "@Models";
+import { User, UserDbo, Review, Party } from "@Models";
 
 import { userCollection } from "@Api/Firebase";
 
@@ -24,13 +24,13 @@ const getUser = async (userId: string): Promise<{ user?: User }> => {
 
   const hosting = await Promise.all(
     userDbo.hosting?.map(
-      async (partyId) => (await getParty(partyId, false))?.party
+      async (partyId) => (await getParty(partyId, false))?.party as Party
     ) ?? []
   );
 
   const attending = await Promise.all(
     userDbo.attending?.map(
-      async (partyId) => (await getParty(partyId, false))?.party
+      async (partyId) => (await getParty(partyId, false))?.party as Party
     ) ?? []
   );
 

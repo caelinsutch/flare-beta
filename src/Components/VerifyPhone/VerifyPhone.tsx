@@ -8,7 +8,6 @@ import {
   PinInputField,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 
 import firebase from "@Firebase";
 import { useGetUserByPhone } from "@Hooks";
@@ -23,7 +22,6 @@ type VerifyPhoneProps = {
 const VerifyPhone: React.FC<VerifyPhoneProps> = ({ onVerify, register }) => {
   const { getUserByPhone } = useGetUserByPhone();
   const toast = useToast();
-  const router = useRouter();
 
   const [confirmationResult, setConfirmationResult] = useState<any>();
   const [verifyMode, setVerifyMode] = useState<any>(false);
