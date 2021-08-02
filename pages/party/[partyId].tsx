@@ -24,7 +24,7 @@ import { useSelector } from "react-redux";
 
 import { firebaseAdmin, getUser } from "@Api";
 import { PageContainer } from "@Components";
-import { useGetParty, useRegisterForParty } from "@Hooks";
+import { useDeleteParty, useGetParty, useRegisterForParty } from "@Hooks";
 import { Party, User } from "@Models";
 import { selectUser } from "@Redux";
 
@@ -70,6 +70,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   const { getParty } = useGetParty();
   const { registerForParty, loading: registerLoading } = useRegisterForParty();
+  const { deleteParty, loading: deleteLoading } = useDeleteParty();
 
   const [party, setParty] = useState<Party | undefined>(initialParty);
 
@@ -93,6 +94,12 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
     await registerForParty(party.partyId, user.userId);
     const p = await getParty(party.partyId);
     setParty(p as Party);
+  };
+
+  const handleDelete = async () => {
+    if (!user || !party) return;
+    const res = await deleteParty(party.partyId);
+    if (res.status === "ok") await router.push("/");
   };
 
   if (!party) return null;
@@ -142,7 +149,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 </NextLink>
               ))}
             </Text>
-            {user && (
+            {user && party.attendees.find((a) => a.userId === user.userId) && (
               <Badge my={2} colorScheme="green">
                 Attending
               </Badge>
@@ -165,13 +172,24 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Text>{party.info}</Text>
           </Box>
           <Box mt={4}>
-            {user ? (
-              getUserButton()
-            ) : (
-              <NextLink href={`/?redirectParty=${party.partyId}`}>
-                <Button variant="primary">RSVP</Button>
-              </NextLink>
-            )}
+            <HStack spacing={4}>
+              {user ? (
+                getUserButton()
+              ) : (
+                <NextLink href={`/?redirectParty=${party.partyId}`}>
+                  <Button variant="primary">RSVP</Button>
+                </NextLink>
+              )}
+              {Boolean(party.admin.find((a) => a.userId === user?.userId)) && (
+                <Button
+                  colorScheme="red"
+                  isLoading={deleteLoading}
+                  onClick={handleDelete}
+                >
+                  Delete Party
+                </Button>
+              )}
+            </HStack>
           </Box>
         </Container>
       )}

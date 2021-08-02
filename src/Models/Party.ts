@@ -24,3 +24,11 @@ export type PartyAttendee = {
   name: string;
   createdAt: number;
 };
+
+export type NewParty = {
+  name: string;
+  date: number;
+  address: string;
+  info: string;
+  admin: string[];
+};

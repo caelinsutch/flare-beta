@@ -1,3 +1,5 @@
+import * as firebase from "firebase-admin";
+
 import { Party, PartyAttendee, UserDbo } from "@Models";
 
 import { partyCollection, userCollection } from "@Api/Firebase";
@@ -10,7 +12,10 @@ const registerUserForParty = async (partyId: string, userId: string) => {
     const oldParty: Party = partySnapshot.data() as Party;
     const user: UserDbo = userSnapshot.data() as UserDbo;
 
-    if (oldParty.attendees.find((a) => a.userId === userId))
+    if (
+      oldParty.attendees.find((a) => a.userId === userId) &&
+      user.attending.includes(partyId)
+    )
       throw Error("User already registered!");
 
     const newAttendee: PartyAttendee = {
@@ -19,13 +24,15 @@ const registerUserForParty = async (partyId: string, userId: string) => {
       createdAt: Date.now().valueOf(),
     };
 
-    await partyCollection.doc(partyId).update({
-      attendees: [...(oldParty.attendees ?? []), newAttendee],
-    });
+    if (!oldParty.attendees.find((a) => a.userId === userId))
+      await partyCollection.doc(partyId).update({
+        attendees: firebase.firestore.FieldValue.arrayUnion(newAttendee),
+      });
 
-    await userCollection.doc(userId).update({
-      attending: [...(user?.attending ?? []), partyId],
-    });
+    if (!user.attending.includes(partyId))
+      await userCollection.doc(userId).update({
+        attending: firebase.firestore.FieldValue.arrayUnion(partyId),
+      });
 
     return { status: "ok" };
   } else {

@@ -2,13 +2,20 @@ import { Party, PartyDbo, UserDbo } from "@Models";
 
 import { partyCollection, userCollection } from "@Api/Firebase";
 
-const getParty = async (partyId: string): Promise<{ party: Party }> => {
+const getParty = async (
+  partyId: string,
+  notFoundError: boolean = true
+): Promise<{ party?: Party }> => {
   const snapshot = await partyCollection.doc(partyId).get();
 
   if (!snapshot.exists) {
-    const e = new Error("Party does not exist");
-    e.name = "404";
-    throw e;
+    if (notFoundError) {
+      const e = new Error("Party does not exist");
+      e.name = "404";
+      throw e;
+    } else {
+      return { party: undefined };
+    }
   }
 
   const partyDbo: PartyDbo = snapshot.data() as PartyDbo;

@@ -38,7 +38,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 const Home = ({ user: initialUser }: any) => {
   const user = useSelector(selectUser);
   return (
-    <PageContainer bgColor={initialUser || user ? "transparent" : "brand.500"}>
+    <PageContainer
+      bgColor={initialUser || user ? "transparent" : "brand.500"}
+      navbarProps={{ logoColor: initialUser || user ? "brand.500" : "white" }}
+    >
       <Box
         minH="100vh"
         backgroundSize="cover"

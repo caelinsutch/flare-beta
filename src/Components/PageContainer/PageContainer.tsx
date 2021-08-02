@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Box, BoxProps } from "@chakra-ui/layout";
+import { NavbarProps } from "@Components/Navbar/Navbar";
 import Head from "next/head";
 
 import { Navbar } from "@Components";
@@ -12,6 +13,7 @@ type PageContainerProps = {
   description?: string;
   noNav?: boolean;
   initialUser?: User;
+  navbarProps?: NavbarProps;
 } & BoxProps;
 
 const PageContainer: React.FC<PageContainerProps> = ({
@@ -20,6 +22,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   children,
   noNav = false,
   initialUser,
+  navbarProps,
   ...props
 }) => {
   useSiteSetup(initialUser);
@@ -79,13 +82,12 @@ const PageContainer: React.FC<PageContainerProps> = ({
         g.setVars=function(n, p){g('setVars',[n,p]);};
         g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
         if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
-        g._v="1.3.0";
-      })(window,document,window['_fs_namespace'],'script','user');`,
+        g._v="1.3.0";      })(window,document,window['_fs_namespace'],'script','user');`,
           }}
         />
       </Head>
       <Box {...props}>
-        {!noNav && <Navbar />}
+        {!noNav && <Navbar {...navbarProps} />}
         {children}
       </Box>
     </>

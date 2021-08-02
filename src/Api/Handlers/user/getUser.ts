@@ -5,7 +5,7 @@ import { userCollection } from "@Api/Firebase";
 import { getParty } from "../party";
 import { getUserReviews } from "../review";
 
-const getUser = async (userId: string) => {
+const getUser = async (userId: string): Promise<{ user?: User }> => {
   const userSnapshot = await userCollection.doc(userId).get();
 
   if (!userSnapshot.exists) {
@@ -23,13 +23,14 @@ const getUser = async (userId: string) => {
   const userDbo = userSnapshot.data() as UserDbo;
 
   const hosting = await Promise.all(
-    userDbo.hosting?.map(async (partyId) => (await getParty(partyId)).party) ??
-      []
+    userDbo.hosting?.map(
+      async (partyId) => (await getParty(partyId, false))?.party
+    ) ?? []
   );
 
   const attending = await Promise.all(
     userDbo.attending?.map(
-      async (partyId) => (await getParty(partyId)).party
+      async (partyId) => (await getParty(partyId, false))?.party
     ) ?? []
   );
 

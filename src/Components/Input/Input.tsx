@@ -60,9 +60,9 @@ const Input: React.FC<InputProps> = ({
       />
     )}
     <Text
-      mt={2}
+      my={1}
       opacity={error || info ? 1 : 0}
-      color={error ? "white" : textColor}
+      color={error ? "red.500" : textColor}
       fontSize="xs"
     >
       {(error || info) ?? "a"}

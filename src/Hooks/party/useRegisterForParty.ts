@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 
 import { useToast } from "@chakra-ui/react";
+import { useGetUser } from "@Hooks/user";
+import { useSelector } from "react-redux";
 import useFetch from "use-http";
 
 import { serverUrl } from "@Constants";
 import { StatusOk } from "@Models";
+import { selectUser } from "@Redux";
 
 type UseRegisterForParty = () => {
   registerForParty: (
@@ -26,6 +29,9 @@ const useRegisterForParty: UseRegisterForParty = () => {
   } = useFetch(serverUrl);
   const toast = useToast();
 
+  const { getUser } = useGetUser();
+  const user = useSelector(selectUser);
+
   const registerForParty = async (partyId: string, userId: string) => {
     const status = await post(`/party/${partyId}/register`, { userId });
 
@@ -34,6 +40,7 @@ const useRegisterForParty: UseRegisterForParty = () => {
         status: "success",
         title: "Registered for party!",
       });
+      if (user) getUser(user?.userId, true);
       return status;
     }
   };

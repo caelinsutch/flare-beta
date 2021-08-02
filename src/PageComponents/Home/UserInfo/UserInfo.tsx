@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { PartyCard } from "@Components";
-import { useGetUpcomingParties } from "@Hooks";
+import { useGetUpcomingParties, useRegisterForParty } from "@Hooks";
 import { Party } from "@Models";
 import { clearUser, selectUser } from "@Redux";
 
@@ -27,10 +27,25 @@ const UserInfo: React.FC = () => {
   const router = useRouter();
 
   const { getUpcomingParties, data } = useGetUpcomingParties();
+  const { registerForParty } = useRegisterForParty();
 
   useEffect(() => {
     getUpcomingParties();
   }, []);
+
+  useEffect(() => {
+    const partyId = router.query?.registerParty as string;
+
+    if (partyId && user && !user.attending.find((p) => p.partyId === partyId)) {
+      registerForParty(partyId, user.userId).then(() => {
+        router.push(`/party/${partyId}`);
+      });
+    }
+
+    if (router.query?.redirectParty) {
+      router.push(`/party/${router.query.redirectParty}`);
+    }
+  }, [router.query]);
 
   if (!user || Object.keys(user).length === 0)
     return (
@@ -46,18 +61,12 @@ const UserInfo: React.FC = () => {
       </Flex>
     );
 
-  console.log(data);
-
   const handleLogout = async () => {
     await firebase.auth().signOut();
     dispatch(clearUser());
 
     router.reload();
   };
-
-  if (router.query?.redirectParty) {
-    router.push(`/party/${router.query.redirectParty}`);
-  }
 
   return (
     <>
@@ -73,19 +82,28 @@ const UserInfo: React.FC = () => {
             Upcoming Parties Near You
           </Text>
           {data ? (
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
-              {data?.parties.map((party: Party) => (
-                <NextLink href={`/party/${party.partyId}`} key={party.partyId}>
-                  <PartyCard
-                    key={party.partyId}
-                    name={party.name}
-                    time={dayjs(party.date).format("MMM D, dddd hh:mm a")}
-                    description={party.info}
-                    cursor="pointer"
-                  />
-                </NextLink>
-              ))}
-            </SimpleGrid>
+            <>
+              {data.parties.length > 0 ? (
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+                  {data?.parties.map((party: Party) => (
+                    <NextLink
+                      href={`/party/${party.partyId}`}
+                      key={party.partyId}
+                    >
+                      <PartyCard
+                        key={party.partyId}
+                        name={party.name}
+                        time={dayjs(party.date).format("MMM D, dddd hh:mm a")}
+                        description={party.info}
+                        cursor="pointer"
+                      />
+                    </NextLink>
+                  ))}
+                </SimpleGrid>
+              ) : (
+                <Text color="gray.400">No upcoming parties near you!</Text>
+              )}
+            </>
           ) : (
             <Spinner />
           )}
@@ -117,9 +135,23 @@ const UserInfo: React.FC = () => {
         )}
         {user.hosting.length !== 0 && (
           <Box mt={2}>
-            <Text variant="title3" mb={2}>
-              Hosted
-            </Text>
+            <Flex
+              direction="row"
+              alignItems="center"
+              mb={2}
+              justifyContent="space-between"
+            >
+              <Text variant="title3" color="gray.800" mr={2}>
+                Hosted
+              </Text>
+              {user.host && (
+                <NextLink href="/new">
+                  <Button size="sm" colorScheme="blue">
+                    New Party
+                  </Button>
+                </NextLink>
+              )}
+            </Flex>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
               {user.hosting.map((party: Party) => (
                 <NextLink href={`/party/${party.partyId}`} key={party.partyId}>
