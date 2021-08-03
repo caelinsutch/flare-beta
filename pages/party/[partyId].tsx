@@ -167,6 +167,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
         display="flex"
         flexDirection="column"
         title={`${party.name} - Hosted with Plots`}
+        image={party.bannerImage}
       >
         {party && (
           <Container flex={1} maxW="450px" d="flex" flexDir="column">
@@ -207,8 +208,8 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
               </HStack>
             </Box>
             <Divider mt={2} />
-            <Box mt={4}>
-              <Text>{party.info}</Text>
+            <Box mt={4} whiteSpace="pre-line">
+              <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
             <Box mt={4}>
               <HStack spacing={4}>
@@ -227,7 +228,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                     isLoading={deleteLoading}
                     onClick={handleDelete}
                   >
-                    ` Delete Party
+                    Delete Party
                   </Button>
                 )}
               </HStack>

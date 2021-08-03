@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import _ from "lodash";
 
 import {
@@ -18,7 +19,7 @@ const createParty = async (newParty: NewParty): Promise<{ party?: Party }> => {
   const prevDoc = await partyCollection.doc(partyId).get();
 
   if (prevDoc.exists) {
-    partyId += String(Date.now().valueOf());
+    partyId += String(dayjs().valueOf());
   }
 
   await partyCollection.doc(partyId).set({

@@ -14,6 +14,7 @@ type PageContainerProps = {
   noNav?: boolean;
   initialUser?: User;
   navbarProps?: NavbarProps;
+  image?: string;
 } & BoxProps;
 
 const PageContainer: React.FC<PageContainerProps> = ({
@@ -21,6 +22,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   description = "RSVP for the best Berkeley parties. Get exclusive access today.",
   children,
   noNav = false,
+  image = "https://i.imgur.com/cbAmqKX.png",
   initialUser,
   navbarProps,
   ...props
@@ -38,16 +40,13 @@ const PageContainer: React.FC<PageContainerProps> = ({
         <meta property="og:url" content="https://whatsplots.app/" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="https://i.imgur.com/cbAmqKX.png" />
+        <meta property="og:image" content={image} />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://whatsplots.app/" />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
-        <meta
-          property="twitter:image"
-          content="https://i.imgur.com/cbAmqKX.png"
-        />
+        <meta property="twitter:image" content={image} />
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://fonts.googleapis.com/css?family=Roboto Mono"
