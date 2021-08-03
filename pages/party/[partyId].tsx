@@ -211,15 +211,18 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Box mt={4} whiteSpace="pre-line">
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
-            <Box mt={4}>
+            <Box
+              mt={new Date().valueOf() > new Date(party.date).valueOf() ? 0 : 4}
+            >
               <HStack spacing={4}>
-                {user ? (
-                  getUserButton()
-                ) : (
-                  <NextLink href={`/?registerParty=${party.partyId}`}>
-                    <Button variant="primary">Sign Up to RSVP</Button>
-                  </NextLink>
-                )}
+                {new Date().valueOf() < new Date(party.date).valueOf() &&
+                  (user ? (
+                    getUserButton()
+                  ) : (
+                    <NextLink href={`/?registerParty=${party.partyId}`}>
+                      <Button variant="primary">Sign Up to RSVP</Button>
+                    </NextLink>
+                  ))}
                 {Boolean(
                   party.admin.find((a) => a.userId === user?.userId)
                 ) && (
@@ -233,9 +236,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 )}
               </HStack>
             </Box>
-            {new Date().valueOf() > party.date && (
+            {new Date().valueOf() > new Date(party.date).valueOf() && (
               <>
-                <Divider my={8} />
+                <Divider
+                  my={
+                    new Date().valueOf() > new Date(party.date).valueOf()
+                      ? 4
+                      : 8
+                  }
+                />
 
                 <Box>
                   <Flex justifyContent="space-between" alignItems="center">
@@ -245,17 +254,23 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                     </Button>
                   </Flex>
                   {party.reviews &&
-                    party.reviews.map((r) => (
-                      <ReviewCard
-                        onDelete={
-                          isAdmin
-                            ? () => handleReviewDelete(r.reviewId)
-                            : undefined
-                        }
-                        review={r}
-                        key={r.body + r.createdAt + r.reviewId}
-                      />
-                    ))}
+                    party.reviews
+                      .sort(
+                        (r1, r2) =>
+                          new Date(r2.createdAt).valueOf() -
+                          new Date(r1.createdAt).valueOf()
+                      )
+                      .map((r) => (
+                        <ReviewCard
+                          onDelete={
+                            isAdmin
+                              ? () => handleReviewDelete(r.reviewId)
+                              : undefined
+                          }
+                          review={r}
+                          key={r.body + r.createdAt + r.reviewId}
+                        />
+                      ))}
                 </Box>
               </>
             )}
