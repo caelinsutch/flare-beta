@@ -1,6 +1,7 @@
 import { Party, PartyDbo, UserDbo } from "@Models";
 
 import { partyCollection, userCollection } from "@Api/Firebase";
+import { getPartyReviews } from "@Api/Handlers";
 
 const getParty = async (
   partyId: string,
@@ -27,9 +28,12 @@ const getParty = async (
     })
   );
 
+  const { reviews } = await getPartyReviews(partyId);
+
   const party: Party = {
     ...partyDbo,
     admin,
+    reviews,
   };
 
   return { party };

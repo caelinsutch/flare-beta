@@ -1,1 +1,1 @@
-export { default as SubmitReviewModal } from "./SubmitReviewModal";
+export { default as SubmitUserReviewModal } from "./SubmitUserReviewModal";

@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import { PageContainer, PartyCard, ReviewCard } from "@Components";
 import { useGetUser, useDeleteReview } from "@Hooks";
 import { Party, User } from "@Models";
-import { SubmitReviewModal } from "@PageComponents";
+import { SubmitUserReviewModal } from "@PageComponents";
 import { selectUser } from "@Redux";
 
 import { userCollection } from "@Api/Firebase";
@@ -187,7 +187,7 @@ const UserPage: React.FC<UserPageProps> = ({ user: initialUser }) => {
             <>
               <Divider my={4} />
 
-              <SubmitReviewModal
+              <SubmitUserReviewModal
                 userId={thisUser.userId}
                 onReviewSubmitted={handleReviewSubmitted}
                 isOpen={isOpen}

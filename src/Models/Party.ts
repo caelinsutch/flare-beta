@@ -1,3 +1,5 @@
+import { Review } from "@Models/Review";
+
 import { UserDbo } from "./User";
 
 type RootParty = {
@@ -8,6 +10,7 @@ type RootParty = {
   createdAt: number;
   attendees: PartyAttendee[];
   info: string;
+  bannerImage?: string;
 };
 
 export type PartyDbo = {
@@ -16,6 +19,7 @@ export type PartyDbo = {
 
 export type Party = {
   admin: UserDbo[];
+  reviews: Review[];
 } & RootParty;
 
 export type PartyAttendee = {

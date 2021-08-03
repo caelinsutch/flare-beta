@@ -3,7 +3,7 @@ export type Review = {
   body: string;
   images?: string[];
   createdAt: number;
-  userId: string;
+  userId?: string;
   deleted?: boolean;
   deletedAt?: number;
   reviewId: string;

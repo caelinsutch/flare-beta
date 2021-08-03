@@ -22,7 +22,6 @@ type RootUser = {
 export type UserDbo = {
   hosting: string[];
   attending: string[];
-  reviews: string[];
 } & RootUser;
 
 export type User = {

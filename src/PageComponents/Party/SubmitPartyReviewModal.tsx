@@ -11,18 +11,18 @@ import {
 import { useForm } from "react-hook-form";
 
 import { Input } from "@Components";
-import { useReviewUser } from "@Hooks";
-import { User } from "@Models";
+import { useReviewParty } from "@Hooks";
+import { Party } from "@Models";
 
-type SubmitReviewProps = {
-  userId: string;
-  onReviewSubmitted: (user: User) => void;
+type SubmitPartyReviewProps = {
+  partyId: string;
+  onReviewSubmitted: (party: Party) => void;
   isOpen: boolean;
   onClose: () => void;
 };
 
-const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
-  userId,
+const SubmitPartyReviewModal: React.FC<SubmitPartyReviewProps> = ({
+  partyId,
   onReviewSubmitted,
   isOpen,
   onClose,
@@ -33,16 +33,16 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
     formState: { errors },
   } = useForm();
 
-  const { reviewUser, loading } = useReviewUser();
+  const { reviewParty, loading } = useReviewParty();
 
   const onSubmit = async (data: any) => {
-    const user = await reviewUser(userId, {
+    const res = await reviewParty(partyId, {
       body: data.text,
       images: [],
       name: data.name !== "" ? data.name : "Anonymous",
     });
-    if (user) {
-      onReviewSubmitted(user);
+    if (res) {
+      onReviewSubmitted(res.party);
       onClose();
     }
   };
@@ -80,4 +80,4 @@ const SubmitReviewModal: React.FC<SubmitReviewProps> = ({
   );
 };
 
-export default SubmitReviewModal;
+export default SubmitPartyReviewModal;
