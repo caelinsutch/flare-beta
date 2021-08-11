@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 import { firebaseAdmin, getUser } from "@Api";
 import { PageContainer } from "@Components";
-import { selectUser } from "@Redux";
+import { selectAuth, selectUser } from "@Redux";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
@@ -36,6 +36,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 const Home = ({ user: initialUser }: any) => {
+  const auth = useSelector(selectAuth);
   const user = useSelector(selectUser);
   return (
     <PageContainer
@@ -53,7 +54,7 @@ const Home = ({ user: initialUser }: any) => {
         paddingTop={{ base: 14, md: 4 }}
       >
         <Box flex={1} w="100%" maxW="600px">
-          {initialUser || user ? <UserInfo /> : <AuthForm />}
+          {initialUser || auth ? <UserInfo /> : <AuthForm />}
         </Box>
         <Box>
           <Text fontSize="sm" color="white">

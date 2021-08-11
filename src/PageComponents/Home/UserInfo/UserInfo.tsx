@@ -79,7 +79,7 @@ const UserInfo: React.FC = () => {
         </Text>
         <Box mt={2}>
           <Text variant="title3" mb={2} color="gray.800">
-            Upcoming Parties Near You
+            Upcoming Parties
           </Text>
           {data ? (
             <>

@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
 import { Input } from "@Components";
-import { useCreateParty } from "@Hooks";
+import { useCreateParty, useEditParty } from "@Hooks";
 import { NewParty } from "@Models";
 import { selectUser } from "@Redux";
 
@@ -15,10 +15,15 @@ type NewPartyFormData = {
   name: string;
   address: string;
   info: string;
-  date: number;
+  date: Date;
 };
 
-const NewPartyForm: React.FC = () => {
+type NewPartyFormProps = {
+  defaults?: NewPartyFormData;
+  partyId?: string;
+};
+
+const PartyForm: React.FC<NewPartyFormProps> = ({ defaults, partyId }) => {
   const router = useRouter();
   const user = useSelector(selectUser);
 
@@ -28,24 +33,35 @@ const NewPartyForm: React.FC = () => {
     formState: { errors },
     control,
   } = useForm({
+    defaultValues: defaults,
     reValidateMode: "onChange",
   });
 
   const { createParty, loading } = useCreateParty();
+  const { editParty, loading: editPartyLoading } = useEditParty();
+
+  const isEdit = Boolean(defaults && partyId);
 
   const onSubmit = async (data: NewPartyFormData) => {
     if (!user) return;
-    const newParty: NewParty = {
-      admin: [user?.userId],
-      address: data.address,
-      info: data.info,
-      name: data.name,
-      date: data.date,
-    };
-    const res = await createParty(newParty);
+    if (isEdit && partyId) {
+      await editParty(partyId, {
+        address: data.address,
+      });
+    } else {
+      const newParty: NewParty = {
+        admin: [user?.userId],
+        address: data.address,
+        info: data.info,
+        name: data.name,
+        date: data.date.valueOf(),
+      };
 
-    if (res) {
-      router.push(`/party/${res.party.partyId}`);
+      const res = await createParty(newParty);
+
+      if (res) {
+        router.push(`/party/${res.party.partyId}`);
+      }
     }
   };
 
@@ -73,7 +89,7 @@ const NewPartyForm: React.FC = () => {
         {...register("info", {
           required: true,
         })}
-        error={errors.description ? "Must have a name" : undefined}
+        error={errors.info ? "Must have a name" : undefined}
       />
       <Controller
         name="date"
@@ -90,12 +106,12 @@ const NewPartyForm: React.FC = () => {
         mt={4}
         type="submit"
         disabled={Object.keys(errors).length > 0}
-        isLoading={loading}
+        isLoading={loading || editPartyLoading}
       >
-        Create Party
+        {isEdit ? "Update Party" : "Create Party"}
       </Button>
     </Box>
   );
 };
 
-export default NewPartyForm;
+export default PartyForm;

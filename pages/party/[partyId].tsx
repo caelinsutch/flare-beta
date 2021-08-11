@@ -87,7 +87,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { hasCopied, onCopy } = useClipboard(
-    `https://flaresocial.app/party/${party?.partyId}`
+    `https://www.plots.party/party/${party?.partyId}`
   );
 
   useEffect(() => {

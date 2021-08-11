@@ -5,7 +5,7 @@ import nookies from "nookies";
 import { useDispatch } from "react-redux";
 
 import { User } from "@Models";
-import { setUser } from "@Redux";
+import { setUser, setAuth } from "@Redux";
 
 import { useGetUser } from "./user";
 
@@ -41,6 +41,7 @@ const useSiteSetup = (initialUser?: User): boolean => {
 
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
+        dispatch(setAuth(true));
         const token = await user.getIdToken();
         nookies.set(undefined, "token", token, { path: "/" });
         getUser(user.uid, true).then(() => setLoading(false));
