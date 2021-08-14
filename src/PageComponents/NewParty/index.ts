@@ -1,1 +1,1 @@
-export { default as NewPartyForm } from "./NewPartyForm";
+export { default as PartyForm } from "./PartyForm";

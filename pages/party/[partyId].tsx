@@ -25,7 +25,7 @@ import { FaRegCopy } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import { firebaseAdmin, getUser } from "@Api";
-import { PageContainer, ReviewCard } from "@Components";
+import { EditPartyModal, PageContainer, ReviewCard } from "@Components";
 import {
   useDeleteParty,
   useDeleteReview,
@@ -85,10 +85,29 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   const [party, setParty] = useState<Party | undefined>(initialParty);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: editOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
 
   const { hasCopied, onCopy } = useClipboard(
     `https://www.plots.party/party/${party?.partyId}`
   );
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const { partyId } = router.query;
+
+    if (!editOpen) {
+      console.log(partyId);
+      getParty(partyId as string).then((p) => {
+        console.log(p);
+        if (p) setParty(p);
+      });
+    }
+  }, [editOpen]);
 
   useEffect(() => {
     if (!router.isReady || party) return;
@@ -153,6 +172,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   return (
     <>
+      <EditPartyModal isOpen={editOpen} onClose={onEditClose} party={party} />
       <SubmitPartyReviewModal
         partyId={party.partyId}
         onReviewSubmitted={handleReviewSubmitted}
@@ -223,16 +243,17 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                       <Button variant="primary">Sign Up to RSVP</Button>
                     </NextLink>
                   ))}
-                {Boolean(
-                  party.admin.find((a) => a.userId === user?.userId)
-                ) && (
-                  <Button
-                    colorScheme="red"
-                    isLoading={deleteLoading}
-                    onClick={handleDelete}
-                  >
-                    Delete Party
-                  </Button>
+                {isAdmin && (
+                  <>
+                    <Button onClick={onEditOpen}>Edit Party</Button>
+                    <Button
+                      colorScheme="red"
+                      isLoading={deleteLoading}
+                      onClick={handleDelete}
+                    >
+                      Delete Party
+                    </Button>
+                  </>
                 )}
               </HStack>
             </Box>

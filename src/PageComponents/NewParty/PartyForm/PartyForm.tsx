@@ -11,19 +11,20 @@ import { useCreateParty, useEditParty } from "@Hooks";
 import { NewParty } from "@Models";
 import { selectUser } from "@Redux";
 
-type NewPartyFormData = {
+type PartyFormData = {
   name: string;
   address: string;
   info: string;
   date: Date;
 };
 
-type NewPartyFormProps = {
-  defaults?: NewPartyFormData;
+type PartyFormProps = {
+  defaults?: PartyFormData;
   partyId?: string;
+  onDone?: () => void;
 };
 
-const PartyForm: React.FC<NewPartyFormProps> = ({ defaults, partyId }) => {
+const PartyForm: React.FC<PartyFormProps> = ({ defaults, partyId, onDone }) => {
   const router = useRouter();
   const user = useSelector(selectUser);
 
@@ -42,12 +43,11 @@ const PartyForm: React.FC<NewPartyFormProps> = ({ defaults, partyId }) => {
 
   const isEdit = Boolean(defaults && partyId);
 
-  const onSubmit = async (data: NewPartyFormData) => {
+  const onSubmit = async (data: PartyFormData) => {
     if (!user) return;
     if (isEdit && partyId) {
-      await editParty(partyId, {
-        address: data.address,
-      });
+      await editParty(partyId, { ...data, date: data.date.valueOf() });
+      onDone?.();
     } else {
       const newParty: NewParty = {
         admin: [user?.userId],

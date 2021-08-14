@@ -25,7 +25,7 @@ const addUser = async (req: NextApiRequest) => {
   if (phone !== "+19161234567") {
     await sendText(
       phone,
-      "Thanks for registering with Flare! We'll be using this phone number to send updates"
+      "Thanks for registering with Plots! We'll be using this phone number to send updates"
     );
   }
 

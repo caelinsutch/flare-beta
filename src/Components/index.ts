@@ -10,3 +10,4 @@ export { default as Navbar } from "./Navbar";
 export { default as SendMessageModal } from "./SendMessageModal";
 export { default as PartyCard } from "./PartyCard";
 export { default as AddToPartyModal } from "./AddToPartyModal";
+export { default as EditPartyModal } from "./EditPartyModal";

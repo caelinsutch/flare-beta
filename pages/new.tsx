@@ -6,7 +6,7 @@ import { GetServerSidePropsContext } from "next";
 
 import { PageContainer } from "@Components";
 import { User } from "@Models";
-import { NewPartyForm } from "@PageComponents";
+import { PartyForm } from "@PageComponents";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { user } = await authorizeServerSide(ctx);
@@ -25,7 +25,7 @@ const NewPartyPage = ({ user }: { user: User }) => {
     <PageContainer initialUser={user}>
       <Box maxW="400px" mx="auto" textAlign="center">
         <Text variant="title1">New Party</Text>
-        <NewPartyForm />
+        <PartyForm />
       </Box>
     </PageContainer>
   );

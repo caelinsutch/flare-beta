@@ -1,4 +1,4 @@
-import useFetch from "use-http";
+import useFetch, { CachePolicies } from "use-http";
 
 import { serverUrl } from "@Constants";
 import { Party } from "@Models";
@@ -17,7 +17,9 @@ const useGetParty = (): UseGetParty => {
     error,
     loading,
     response,
-  } = useFetch(serverUrl);
+  } = useFetch(serverUrl, {
+    cachePolicy: CachePolicies.NO_CACHE,
+  });
 
   const getParty = async (partyId: string) => {
     const { party } = await get(`/party/${partyId}`);

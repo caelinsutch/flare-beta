@@ -82,7 +82,7 @@ export const getStaticPaths: GetStaticPaths<{ userId?: string }> = async () => {
   ];
   return {
     paths,
-    fallback: "blocking",
+    fallback: true,
   };
 };
 

@@ -25,6 +25,7 @@ module.exports = {
   ],
   plugins: ["unused-imports"],
   rules: {
+    "react/display-name": 0,
     indent: [2, 2, { SwitchCase: 1 }],
     "react/prop-types": 0,
     "react/no-unescaped-entities": 0,
