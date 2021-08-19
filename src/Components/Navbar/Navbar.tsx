@@ -9,7 +9,7 @@ export type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ logoColor = "brand.500" }) => (
   <Container p={4}>
-    <Flex row justify="center">
+    <Flex justify="center">
       <Link
         as="h1"
         fontSize="6xl"

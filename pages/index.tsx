@@ -1,14 +1,14 @@
 import React from "react";
 
 import { Box, Text } from "@chakra-ui/react";
-import { AuthForm, UserInfo } from "@PageComponents/Home";
 import { GetServerSidePropsContext } from "next";
 import nookies from "nookies";
 import { useSelector } from "react-redux";
 
 import { firebaseAdmin, getUser } from "@Api";
 import { PageContainer } from "@Components";
-import { selectAuth, selectUser } from "@Redux";
+import { AuthForm, UserInfo } from "@PageComponents";
+import { selectUser } from "@Redux";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
@@ -36,7 +36,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 const Home = ({ user: initialUser }: any) => {
-  const auth = useSelector(selectAuth);
   const user = useSelector(selectUser);
   return (
     <PageContainer
@@ -54,7 +53,7 @@ const Home = ({ user: initialUser }: any) => {
         paddingTop={{ base: 14, md: 4 }}
       >
         <Box flex={1} w="100%" maxW="600px">
-          {initialUser || auth ? <UserInfo /> : <AuthForm />}
+          {initialUser || user ? <UserInfo /> : <AuthForm />}
         </Box>
         <Box>
           <Text fontSize="sm" color="white">

@@ -8,7 +8,6 @@ import RegisterForm from "../RegisterForm";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const [loginClicked, setLoginClicked] = useState(false);
 
   return (
     <>

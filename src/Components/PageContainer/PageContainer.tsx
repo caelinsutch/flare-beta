@@ -27,7 +27,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   navbarProps,
   ...props
 }) => {
-  useSiteSetup(initialUser);
+  const loading = useSiteSetup(initialUser);
 
   return (
     <>
@@ -85,10 +85,12 @@ const PageContainer: React.FC<PageContainerProps> = ({
           }}
         />
       </Head>
-      <Box {...props}>
-        {!noNav && <Navbar {...navbarProps} />}
-        {children}
-      </Box>
+      {loading ? null : (
+        <Box {...props}>
+          {!noNav && <Navbar {...navbarProps} />}
+          {children}
+        </Box>
+      )}
     </>
   );
 };

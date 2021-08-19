@@ -29,7 +29,7 @@ const addUser = async (req: NextApiRequest) => {
     );
   }
 
-  const updatedUser = await userCollection.doc(userId).get();
+  const updatedUser = (await userCollection.doc(userId).get()).data();
 
   return { user: updatedUser };
 };

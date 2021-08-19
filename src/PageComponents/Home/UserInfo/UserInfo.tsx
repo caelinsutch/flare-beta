@@ -108,16 +108,11 @@ const UserInfo: React.FC = () => {
             <Spinner />
           )}
         </Box>
-        {user.attending.length === 0 && user.attending.length === 0 && (
-          <Text variant="body1" color="gray.400">
-            You haven't signed up for any parties yet!
+        <Box mt={2}>
+          <Text variant="title3" mb={2} color="gray.800">
+            Attending
           </Text>
-        )}
-        {user.attending.length !== 0 && (
-          <Box mt={2}>
-            <Text variant="title3" mb={2} color="gray.800">
-              Attending
-            </Text>
+          {user.attending?.length !== 0 ? (
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
               {user.attending.map((party: Party) => (
                 <NextLink href={`/party/${party.partyId}`} key={party.partyId}>
@@ -131,9 +126,14 @@ const UserInfo: React.FC = () => {
                 </NextLink>
               ))}
             </SimpleGrid>
-          </Box>
-        )}
-        {user.hosting.length !== 0 && (
+          ) : (
+            <Text variant="body1" color="gray.400" mt={2}>
+              You haven't signed up for any parties yet!
+            </Text>
+          )}
+        </Box>
+
+        {user.hosting?.length !== 0 && (
           <Box mt={2}>
             <Flex
               direction="row"
@@ -153,7 +153,7 @@ const UserInfo: React.FC = () => {
               )}
             </Flex>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
-              {user.hosting.map((party: Party) => (
+              {user.hosting?.map((party: Party) => (
                 <NextLink href={`/party/${party.partyId}`} key={party.partyId}>
                   <PartyCard
                     key={party.partyId}
