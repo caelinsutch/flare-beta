@@ -50,7 +50,7 @@ const PartyForm: React.FC<PartyFormProps> = ({ defaults, partyId, onDone }) => {
       onDone?.();
     } else {
       const newParty: NewParty = {
-        admin: [user?.userId],
+        admins: [user?.userId],
         address: data.address,
         info: data.info,
         name: data.name,

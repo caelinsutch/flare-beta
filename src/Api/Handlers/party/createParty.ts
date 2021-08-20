@@ -2,17 +2,19 @@ import dayjs from "dayjs";
 import _ from "lodash";
 
 import {
-  addUserAsPartyAdmin,
   getParty,
   getUser,
   partyCollection,
   registerUserForParty,
+  addPartyToUserHostList,
 } from "@Api";
 import { NewParty, Party, PartyDbo, User } from "@Models";
 
 const createParty = async (newParty: NewParty): Promise<{ party?: Party }> => {
   let partyId = _.kebabCase(newParty.name);
-  const admins = (await Promise.all(newParty.admin.map((a) => getUser(a)))) as {
+  const admins = (await Promise.all(
+    newParty.admins.map((a) => getUser(a))
+  )) as {
     user: User;
   }[];
 
@@ -30,7 +32,7 @@ const createParty = async (newParty: NewParty): Promise<{ party?: Party }> => {
   } as PartyDbo);
 
   await Promise.all(
-    admins.map(({ user }) => addUserAsPartyAdmin(partyId, user.userId))
+    admins.map(({ user }) => addPartyToUserHostList(user.userId, partyId))
   );
 
   await Promise.all(

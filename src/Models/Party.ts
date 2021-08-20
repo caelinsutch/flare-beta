@@ -14,7 +14,7 @@ type RootParty = {
 };
 
 export type PartyDbo = {
-  admin: string[];
+  admins: string[];
 } & RootParty;
 
 export type Party = {
@@ -34,5 +34,5 @@ export type NewParty = {
   date: number;
   address: string;
   info: string;
-  admin: string[];
+  admins: string[];
 };

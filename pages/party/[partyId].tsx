@@ -25,7 +25,12 @@ import { FaRegCopy } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import { firebaseAdmin, getUser } from "@Api";
-import { EditPartyModal, PageContainer, ReviewCard } from "@Components";
+import {
+  EditPartyModal,
+  PageContainer,
+  PartyAttendeesModal,
+  ReviewCard,
+} from "@Components";
 import {
   useDeleteParty,
   useDeleteReview,
@@ -84,11 +89,17 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
   const { deleteParty, loading: deleteLoading } = useDeleteParty();
 
   const [party, setParty] = useState<Party | undefined>(initialParty);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: editOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
+  } = useDisclosure();
+  const {
+    isOpen: attendeesOpen,
+    onOpen: onAttendeesOpen,
+    onClose: onAttendeesClose,
   } = useDisclosure();
 
   const { hasCopied, onCopy } = useClipboard(
@@ -101,9 +112,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
     const { partyId } = router.query;
 
     if (!editOpen) {
-      console.log(partyId);
       getParty(partyId as string).then((p) => {
-        console.log(p);
         if (p) setParty(p);
       });
     }
@@ -179,6 +188,11 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
         isOpen={isOpen}
         onClose={onClose}
       />
+      <PartyAttendeesModal
+        isOpen={attendeesOpen}
+        onClose={onAttendeesClose}
+        party={party}
+      />
       <PageContainer
         minH="100vh"
         backgroundSize="cover"
@@ -231,9 +245,10 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Box mt={4} whiteSpace="pre-line">
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
-            <Box
-              mt={new Date().valueOf() > new Date(party.date).valueOf() ? 0 : 4}
-            >
+            <Box mt={4}>
+              <HStack mb={2}>
+                <Button onClick={onAttendeesOpen}>Attendees</Button>
+              </HStack>
               <HStack spacing={4}>
                 {new Date().valueOf() < new Date(party.date).valueOf() &&
                   (user ? (
@@ -298,7 +313,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
           </Container>
         )}
         <Text fontSize="sm" p={4}>
-          Issues? DM @caelinsutch on Insta
+          Issues? Text Caelin @ 9163174484
         </Text>
       </PageContainer>
     </>
