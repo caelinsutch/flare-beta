@@ -21,7 +21,7 @@ const getParty = async (
 
   const partyDbo: PartyDbo = snapshot.data() as PartyDbo;
 
-  const admin = await Promise.all(
+  const admins = await Promise.all(
     partyDbo.admins.map(async (userId) => {
       const res = await userCollection.doc(userId).get();
       return res.data() as UserDbo;
@@ -32,7 +32,7 @@ const getParty = async (
 
   const party: Party = {
     ...partyDbo,
-    admin,
+    admins,
     reviews,
   };
 

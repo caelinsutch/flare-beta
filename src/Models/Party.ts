@@ -18,7 +18,7 @@ export type PartyDbo = {
 } & RootParty;
 
 export type Party = {
-  admin: UserDbo[];
+  admins: UserDbo[];
   reviews: Review[];
 } & RootParty;
 

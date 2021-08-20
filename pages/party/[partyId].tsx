@@ -129,7 +129,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
     });
   }, [router.isReady]);
 
-  const isAdmin = party?.admin.find((u) => u.userId === user?.userId);
+  const isPartyAdmin = party?.admins.find((u) => u.userId === user?.userId);
 
   const handleRegisterForParty = async () => {
     if (!user || !party) return;
@@ -209,15 +209,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
               <Text variant="title1">{party.name}</Text>
               <Text>
                 Hosted by{" "}
-                {party.admin.map((user, i) => (
+                {party.admins.map((user, i) => (
                   <NextLink
                     href={`/user/${user?.url ?? user.userId}`}
                     key={user.userId}
                   >
                     <Link>
                       {user.name}
-                      {party.admin.length > 0 &&
-                        i !== party.admin.length - 1 &&
+                      {party.admins.length > 0 &&
+                        i !== party.admins.length - 1 &&
                         ", "}
                     </Link>
                   </NextLink>
@@ -246,9 +246,20 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
             <Box mt={4}>
-              <HStack mb={2}>
-                <Button onClick={onAttendeesOpen}>Attendees</Button>
-              </HStack>
+              {isPartyAdmin && (
+                <HStack mb={2}>
+                  <Button onClick={onAttendeesOpen}>Attendees</Button>
+                  <Button onClick={onEditOpen}>Edit Party</Button>
+                  <Button
+                    colorScheme="red"
+                    isLoading={deleteLoading}
+                    onClick={handleDelete}
+                  >
+                    Delete Party
+                  </Button>
+                </HStack>
+              )}
+
               <HStack spacing={4}>
                 {new Date().valueOf() < new Date(party.date).valueOf() &&
                   (user ? (
@@ -258,18 +269,6 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                       <Button variant="primary">Sign Up to RSVP</Button>
                     </NextLink>
                   ))}
-                {isAdmin && (
-                  <>
-                    <Button onClick={onEditOpen}>Edit Party</Button>
-                    <Button
-                      colorScheme="red"
-                      isLoading={deleteLoading}
-                      onClick={handleDelete}
-                    >
-                      Delete Party
-                    </Button>
-                  </>
-                )}
               </HStack>
             </Box>
             {new Date().valueOf() > new Date(party.date).valueOf() && (
@@ -299,7 +298,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                       .map((r) => (
                         <ReviewCard
                           onDelete={
-                            isAdmin
+                            isPartyAdmin
                               ? () => handleReviewDelete(r.reviewId)
                               : undefined
                           }
