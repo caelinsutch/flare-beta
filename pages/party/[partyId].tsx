@@ -207,22 +207,24 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
           <Container flex={1} maxW="450px" d="flex" flexDir="column">
             <Box>
               <Text variant="title1">{party.name}</Text>
-              <Text>
-                Hosted by{" "}
-                {party.admins.map((user, i) => (
-                  <NextLink
-                    href={`/user/${user?.url ?? user.userId}`}
-                    key={user.userId}
-                  >
-                    <Link>
-                      {user.name}
-                      {party.admins.length > 0 &&
-                        i !== party.admins.length - 1 &&
-                        ", "}
-                    </Link>
-                  </NextLink>
-                ))}
-              </Text>
+              {!party?.noHost && (
+                <Text>
+                  Hosted by{" "}
+                  {party.admins.map((user, i) => (
+                    <NextLink
+                      href={`/user/${user?.url ?? user.userId}`}
+                      key={user.userId}
+                    >
+                      <Link>
+                        {user.name}
+                        {party.admins.length > 0 &&
+                          i !== party.admins.length - 1 &&
+                          ", "}
+                      </Link>
+                    </NextLink>
+                  ))}
+                </Text>
+              )}
               {user && party.attendees.find((a) => a.userId === user.userId) && (
                 <Badge my={2} colorScheme="green">
                   Attending

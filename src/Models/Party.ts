@@ -11,6 +11,7 @@ type RootParty = {
   attendees: PartyAttendee[];
   info: string;
   bannerImage?: string;
+  noHost?: boolean;
 };
 
 export type PartyDbo = {
