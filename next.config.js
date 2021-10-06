@@ -9,4 +9,14 @@ module.exports = {
 
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/neon-party',
+        destination: '/party/neon-party',
+        permanent: true,
+      },
+    ]
+  },
 };
+
