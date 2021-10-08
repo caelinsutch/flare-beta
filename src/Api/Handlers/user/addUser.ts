@@ -23,15 +23,19 @@ const addUser = async (req: NextApiRequest) => {
 
   // Send Welcome SMS
   if (phone !== "+19161234567") {
-    await sendText(
-      phone,
-      "Thanks for registering with Plots! We'll be using this phone number to send updates"
-    );
+    try {
+      await sendText(
+        phone,
+        "Thanks for registering with Plots! We'll be using this phone number to send updates"
+      );
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  const updatedUser = (await userCollection.doc(userId).get()).data();
+  // const updatedUser = (await userCollection.doc(userId).get()).data();
 
-  return { user: updatedUser };
+  return { user: { ...newUser, userId } };
 };
 
 export default addUser;

@@ -25,7 +25,7 @@ const RegisterForm: React.FC = () => {
       const { instagram } = submittedData;
       const socials = instagram === "" ? {} : { instagram };
       await addUser(userId, {
-        phone: phone,
+        phone,
         name: submittedData.name,
         socials,
       });
