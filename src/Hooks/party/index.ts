@@ -8,3 +8,4 @@ export { default as useDeleteParty } from "./useDeleteParty";
 export { default as useReviewParty } from "./useReviewParty";
 export { default as useGetPartyReviews } from "./useGetPartyReviews";
 export { default as useEditParty } from "./useEditParty";
+export { default as useUpdatePartyAttendeeStatus } from "./useUpdatePartyAttendeeStatus";

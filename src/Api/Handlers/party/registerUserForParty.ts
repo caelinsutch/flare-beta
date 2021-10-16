@@ -22,6 +22,7 @@ const registerUserForParty = async (partyId: string, userId: string) => {
       userId,
       name: user.name,
       createdAt: Date.now().valueOf(),
+      status: oldParty.private ? "attending" : "applied",
     };
 
     if (!oldParty.attendees.find((a) => a.userId === userId))

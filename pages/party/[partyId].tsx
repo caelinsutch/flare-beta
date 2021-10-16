@@ -11,6 +11,7 @@ import {
   HStack,
   Icon,
   Link,
+  Tag,
   Text,
   useClipboard,
   useDisclosure,
@@ -146,18 +147,32 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   if (!party) return null;
 
+  const attendeeInfo = party.attendees.find(
+    ({ userId }) => userId === localUser?.userId
+  );
+
+  const copyButton = (
+    <Button leftIcon={<FaRegCopy />} onClick={onCopy} variant="primary">
+      {hasCopied ? "Copied" : "Copy Party Link"}
+    </Button>
+  );
+
   const getUserButton = () =>
-    party.attendees.find(({ userId }) => userId === initialUser?.userId) ? (
-      <Button leftIcon={<FaRegCopy />} onClick={onCopy} variant="primary">
-        {hasCopied ? "Copied" : "Copy Party Link"}
-      </Button>
+    attendeeInfo ? (
+      attendeeInfo.status === "attending" ? (
+        copyButton
+      ) : (
+        <Tag size="lg" colorScheme="yellow">
+          Invite Requested
+        </Tag>
+      )
     ) : (
       <Button
         onClick={handleRegisterForParty}
         isLoading={registerLoading}
         variant="primary"
       >
-        RSVP
+        {party?.private ? "Request Invite" : "RSVP"}
       </Button>
     );
 

@@ -12,6 +12,7 @@ type RootParty = {
   info: string;
   bannerImage?: string;
   noHost?: boolean;
+  private?: boolean;
 };
 
 export type PartyDbo = {
@@ -25,7 +26,7 @@ export type Party = {
 
 export type PartyAttendee = {
   userId: string;
-  status?: "attending" | "applied";
+  status?: PartyAttendeeStatus;
   name: string;
   createdAt: number;
 };
@@ -36,4 +37,11 @@ export type NewParty = {
   address: string;
   info: string;
   admins: string[];
+};
+
+export type PartyAttendeeStatus = "attending" | "applied";
+
+export const partyAttendeeStatusEnglish: Record<PartyAttendeeStatus, string> = {
+  attending: "attending",
+  applied: "on the waitlist for",
 };
