@@ -38,7 +38,7 @@ const changeUserStatus = async (
     try {
       await sendText(
         user.phone,
-        `Plots: You're now ${partyAttendeeStatusEnglish[status]} ${oldParty.name}. More info at plots.party/party/${partyId}!`
+        `Plots: You're now ${partyAttendeeStatusEnglish[status]} ${oldParty.name}. More info at https://plots.party/party/${partyId}!`
       );
     } catch (e) {
       console.error(e);
