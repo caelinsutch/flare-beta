@@ -134,7 +134,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   const handleRegisterForParty = async () => {
     if (!user || !party) return;
-    await registerForParty(party.partyId, user.userId);
+    await registerForParty(party.partyId, user.userId, party.private);
     const p = await getParty(party.partyId);
     setParty(p as Party);
   };
@@ -240,9 +240,16 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                   ))}
                 </Text>
               )}
-              {user && party.attendees.find((a) => a.userId === user.userId) && (
-                <Badge my={2} colorScheme="green">
-                  Attending
+              {user && attendeeInfo && (
+                <Badge
+                  my={2}
+                  colorScheme={
+                    attendeeInfo.status === "attending" ? "green" : "yellow"
+                  }
+                >
+                  {attendeeInfo.status === "attending"
+                    ? "Attending"
+                    : "Requested"}
                 </Badge>
               )}
               <HStack mt={1}>

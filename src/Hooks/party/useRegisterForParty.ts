@@ -12,7 +12,8 @@ import { selectUser } from "@Redux";
 type UseRegisterForParty = () => {
   registerForParty: (
     partyId: string,
-    userId: string
+    userId: string,
+    waitlist?: boolean
   ) => Promise<StatusOk | undefined>;
   data?: StatusOk;
   loading?: boolean;
@@ -32,13 +33,17 @@ const useRegisterForParty: UseRegisterForParty = () => {
   const { getUser } = useGetUser();
   const user = useSelector(selectUser);
 
-  const registerForParty = async (partyId: string, userId: string) => {
+  const registerForParty = async (
+    partyId: string,
+    userId: string,
+    waitlist?: boolean
+  ) => {
     const status = await post(`/party/${partyId}/register`, { userId });
 
     if (response.ok) {
       toast({
         status: "success",
-        title: "Registered for party!",
+        title: waitlist ? "Request sent for party!" : "Registered for party!",
       });
       if (user) getUser(user?.userId, true);
       return status;
