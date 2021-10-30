@@ -12,3 +12,4 @@ export { default as PartyCard } from "./PartyCard";
 export { default as AddToPartyModal } from "./AddToPartyModal";
 export { default as EditPartyModal } from "./EditPartyModal";
 export { default as PartyAttendeesModal } from "./PartyAttendeesModal";
+export { default as QrCodeModal } from "./QrCodeModal";

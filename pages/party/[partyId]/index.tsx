@@ -30,6 +30,7 @@ import {
   EditPartyModal,
   PageContainer,
   PartyAttendeesModal,
+  QrCodeModal,
   ReviewCard,
 } from "@Components";
 import {
@@ -92,6 +93,11 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
   const [party, setParty] = useState<Party | undefined>(initialParty);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: qrModalOpen,
+    onOpen: qrModalOnOpen,
+    onClose: qrModalOnClose,
+  } = useDisclosure();
   const {
     isOpen: editOpen,
     onOpen: onEditOpen,
@@ -196,6 +202,13 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
 
   return (
     <>
+      {attendeeInfo && (
+        <QrCodeModal
+          isOpen={qrModalOpen}
+          onClose={qrModalOnClose}
+          value={`https://plots.party/party/${party.partyId}/${attendeeInfo.userId}`}
+        />
+      )}
       <EditPartyModal isOpen={editOpen} onClose={onEditClose} party={party} />
       <SubmitPartyReviewModal
         partyId={party.partyId}
@@ -293,6 +306,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                       <Button variant="primary">Sign Up to RSVP</Button>
                     </NextLink>
                   ))}
+                {attendeeInfo && <Button onClick={qrModalOnOpen}>QR</Button>}
               </HStack>
             </Box>
             {new Date().valueOf() > new Date(party.date).valueOf() && (
