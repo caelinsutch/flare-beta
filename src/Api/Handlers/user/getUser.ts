@@ -36,8 +36,10 @@ const getUser = async (userId: string): Promise<{ user?: User }> => {
 
   const user: User = {
     ...userDbo,
-    hosting: hosting.sort((a, b) => b.date - a.date),
-    attending: attending.sort((a, b) => b.date - a.date),
+    hosting: hosting.filter((p) => Boolean(p)).sort((a, b) => b.date - a.date),
+    attending: attending
+      .filter((p) => Boolean(p))
+      .sort((a, b) => b.date - a.date),
     reviews,
   };
 
