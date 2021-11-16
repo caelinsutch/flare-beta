@@ -271,12 +271,14 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                   {dayjs(party.date).format("MMM D, dddd hh:mm a")}
                 </Text>
               </HStack>
-              <HStack mt={1}>
-                <Icon as={AiFillHome} color="gray.500" w={5} h={5} />
-                <Text fontSize="lg" color="gray.500">
-                  {party.address}
-                </Text>
-              </HStack>
+              {user && attendeeInfo && attendeeInfo.status === "attending" && (
+                <HStack mt={1}>
+                  <Icon as={AiFillHome} color="gray.500" w={5} h={5} />
+                  <Text fontSize="lg" color="gray.500">
+                    {party.address}
+                  </Text>
+                </HStack>
+              )}
             </Box>
             <Divider mt={2} />
             <Box mt={4} whiteSpace="pre-line">
