@@ -54,8 +54,8 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
           <Table variant="simple" size="sm">
             <Thead>
               <Tr fontWeight="bold">
-                <Th flex={1}>id</Th>
                 <Th flex={1}>Name</Th>
+                <Th flex={1}>Paid</Th>
                 <Th flex={1}>Status</Th>
               </Tr>
             </Thead>

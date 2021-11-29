@@ -108,10 +108,13 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                   title: "Something went wrong :(",
                 });
               }}
-              options={{
-                clientId:
-                  "AV6H4sxp_Q1Y_37MUsuykY6NLE951UA-qoAhA_VY-Xe8ocxmUcIXF6y39663yVdf6vJniR2l-ju1mXz5",
-              }}
+              options={
+                {
+                  enableFunding: "venmo",
+                  clientId:
+                    "AV6H4sxp_Q1Y_37MUsuykY6NLE951UA-qoAhA_VY-Xe8ocxmUcIXF6y39663yVdf6vJniR2l-ju1mXz5",
+                } as any
+              }
             />
           )}
         </>
