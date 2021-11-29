@@ -284,7 +284,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Box mt={4} whiteSpace="pre-line">
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
-            {party.price?.length && !isPartyAdmin ? (
+            {party.price?.length && !isPartyAdmin && user ? (
               <PaymentSection
                 price={party.price}
                 amountPaid={attendeeInfo?.amountPaid}
