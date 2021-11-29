@@ -2,6 +2,12 @@ import { Review } from "@Models/Review";
 
 import { UserDbo } from "./User";
 
+export type PartyPrice = {
+  title: string;
+  description?: string;
+  price: number; // Price in cents
+};
+
 type RootParty = {
   partyId: string;
   address: string;
@@ -13,6 +19,7 @@ type RootParty = {
   bannerImage?: string;
   noHost?: boolean;
   private?: boolean;
+  price: PartyPrice[];
 };
 
 export type PartyDbo = {
@@ -27,6 +34,9 @@ export type Party = {
 export type PartyAttendee = {
   userId: string;
   status?: PartyAttendeeStatus;
+  amountPaid?: number;
+  orderId?: string;
+  paidAt?: number;
   name: string;
   createdAt: number;
 };

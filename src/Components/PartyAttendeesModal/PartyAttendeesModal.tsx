@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import { Select, Table, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Select, Table, Tag, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
 import { useUpdatePartyAttendeeStatus } from "@Hooks";
 import { Party, PartyAttendee } from "@Models";
@@ -61,8 +61,12 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
             </Thead>
             {party.attendees.map((attendee) => (
               <Tr key={attendee.userId}>
-                <Td>{attendee.userId}</Td>
                 <Td>{attendee.name}</Td>
+                <Td>
+                  <Tag colorScheme={attendee.amountPaid ? "green" : "red"}>
+                    {attendee.amountPaid ?? "Not Paid"}
+                  </Tag>
+                </Td>
                 <Td>
                   <Select
                     value={attendee.status}

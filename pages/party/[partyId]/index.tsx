@@ -40,7 +40,7 @@ import {
   useRegisterForParty,
 } from "@Hooks";
 import { Party, User } from "@Models";
-import { SubmitPartyReviewModal } from "@PageComponents";
+import { PaymentSection, SubmitPartyReviewModal } from "@PageComponents";
 import { selectUser } from "@Redux";
 
 import { getParty } from "@Api/Handlers/party";
@@ -311,6 +311,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 {attendeeInfo && <Button onClick={qrModalOnOpen}>QR</Button>}
               </HStack>
             </Box>
+            {party.price?.length && !isPartyAdmin ? (
+              <PaymentSection
+                price={party.price}
+                amountPaid={attendeeInfo?.amountPaid}
+                paidAt={attendeeInfo?.paidAt}
+                eventId={party.partyId}
+                userId={user?.userId as string}
+              />
+            ) : null}
             {new Date().valueOf() > new Date(party.date).valueOf() && (
               <>
                 <Divider

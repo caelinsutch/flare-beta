@@ -29,6 +29,7 @@ const createParty = async (newParty: NewParty): Promise<{ party?: Party }> => {
     createdAt: Date.now().valueOf(),
     partyId,
     attendees: [],
+    price: [],
   } as PartyDbo);
 
   await Promise.all(

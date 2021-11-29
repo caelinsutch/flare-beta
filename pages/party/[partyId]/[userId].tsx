@@ -35,10 +35,17 @@ const PartyAttendeePage: React.FC<{ attendee?: PartyAttendee; party: Party }> =
   ({ attendee, party }) => {
     const getBackgroundColor = () => {
       if (attendee) {
-        if (attendee.status === "attending") {
-          return "green.400";
+        if (party.price.length > 0) {
+          if (attendee?.amountPaid && attendee.status === "attending") {
+            return "green.400";
+          }
+          return "yellow.400";
+        } else {
+          if (attendee.status === "attending") {
+            return "green.400";
+          }
+          return "yellow.400";
         }
-        return "yellow.400";
       }
       return "red.400";
     };
@@ -57,6 +64,11 @@ const PartyAttendeePage: React.FC<{ attendee?: PartyAttendee; party: Party }> =
           <Box mt={2}>
             <Text color="white">Name:</Text>
             <Heading size="2xl">{attendee.name}</Heading>
+            {attendee?.amountPaid && (
+              <Heading size="xl" mt={2}>
+                Paid: {attendee.amountPaid / 100}
+              </Heading>
+            )}
           </Box>
         ) : (
           <Box>
