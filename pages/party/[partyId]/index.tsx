@@ -284,6 +284,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Box mt={4} whiteSpace="pre-line">
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
+            {party.price?.length && !isPartyAdmin ? (
+              <PaymentSection
+                price={party.price}
+                amountPaid={attendeeInfo?.amountPaid}
+                paidAt={attendeeInfo?.paidAt}
+                eventId={party.partyId}
+                userId={user?.userId as string}
+              />
+            ) : null}
             <Box mt={4}>
               {isPartyAdmin && (
                 <HStack mb={2}>
@@ -311,15 +320,6 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 {attendeeInfo && <Button onClick={qrModalOnOpen}>QR</Button>}
               </HStack>
             </Box>
-            {party.price?.length && !isPartyAdmin ? (
-              <PaymentSection
-                price={party.price}
-                amountPaid={attendeeInfo?.amountPaid}
-                paidAt={attendeeInfo?.paidAt}
-                eventId={party.partyId}
-                userId={user?.userId as string}
-              />
-            ) : null}
             {new Date().valueOf() > new Date(party.date).valueOf() && (
               <>
                 <Divider
