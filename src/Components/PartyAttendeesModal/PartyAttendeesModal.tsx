@@ -87,6 +87,10 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
               <StatNumber>${totalRevenue / 100}</StatNumber>
             </Stat>
             <Stat>
+              <StatLabel>Estimated Revenue Post Fees</StatLabel>
+              <StatNumber>${(totalRevenue / 100) * 0.98}</StatNumber>
+            </Stat>
+            <Stat>
               <StatLabel>Total Paid Attendees</StatLabel>
               <StatNumber>{totalPaidAttendees}</StatNumber>
               <StatHelpText>
