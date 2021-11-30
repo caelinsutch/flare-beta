@@ -23,6 +23,7 @@ const markUserPaid = async (
         ) as PartyAttendee),
         amountPaid,
         orderId,
+        status: "attending",
         paidAt: dayjs().valueOf(),
       },
     ];

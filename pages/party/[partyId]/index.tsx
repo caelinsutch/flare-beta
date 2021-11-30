@@ -315,7 +315,11 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                     getUserButton()
                   ) : (
                     <NextLink href={`/?registerParty=${party.partyId}`}>
-                      <Button variant="primary">Sign Up to RSVP</Button>
+                      <Button variant="primary">
+                        {party.price && party?.price.length > 0
+                          ? "Buy Tickets"
+                          : "Sign up to RSVP"}
+                      </Button>
                     </NextLink>
                   ))}
                 {attendeeInfo && <Button onClick={qrModalOnOpen}>QR</Button>}

@@ -70,6 +70,9 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
   const totalWomen = party.attendees.filter(
     (a) => a.amountPaid && a.amountPaid === 2000
   ).length;
+  const totalAttending = party.attendees.filter(
+    (a) => a.status === "attending"
+  ).length;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
@@ -93,6 +96,7 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
             <Stat>
               <StatLabel>Total Attendees</StatLabel>
               <StatNumber>{party.attendees.length}</StatNumber>
+              <StatHelpText>{totalAttending} marked as attending</StatHelpText>
             </Stat>
           </StatGroup>
           <Table variant="simple" size="sm">
