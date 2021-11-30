@@ -8,7 +8,20 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import { Select, Table, Tag, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Select,
+  Stat,
+  StatGroup,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+  Table,
+  Tag,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 
 import { useUpdatePartyAttendeeStatus } from "@Hooks";
 import { Party, PartyAttendee } from "@Models";
@@ -44,6 +57,20 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
     await updatePartyAttendeeStatus(party.partyId, userId, status);
   };
 
+  const totalRevenue = party.attendees.reduce(
+    (sum, attendee) => sum + (attendee?.amountPaid ?? 0),
+    0
+  );
+
+  const totalPaidAttendees = party.attendees.filter((a) => a.amountPaid).length;
+
+  const totalMen = party.attendees.filter(
+    (a) => a.amountPaid && a.amountPaid === 4000
+  ).length;
+  const totalWomen = party.attendees.filter(
+    (a) => a.amountPaid && a.amountPaid === 2000
+  ).length;
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay />
@@ -51,6 +78,23 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
         <ModalHeader>{party.name} Attendees</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          <StatGroup>
+            <Stat>
+              <StatLabel>Total Revenue</StatLabel>
+              <StatNumber>${totalRevenue / 100}</StatNumber>
+            </Stat>
+            <Stat>
+              <StatLabel>Total Paid Attendees</StatLabel>
+              <StatNumber>{totalPaidAttendees}</StatNumber>
+              <StatHelpText>
+                {totalMen} men, {totalWomen} women
+              </StatHelpText>
+            </Stat>
+            <Stat>
+              <StatLabel>Total Attendees</StatLabel>
+              <StatNumber>{party.attendees.length}</StatNumber>
+            </Stat>
+          </StatGroup>
           <Table variant="simple" size="sm">
             <Thead>
               <Tr fontWeight="bold">
@@ -64,7 +108,9 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
                 <Td>{attendee.name}</Td>
                 <Td>
                   <Tag colorScheme={attendee.amountPaid ? "green" : "red"}>
-                    {attendee.amountPaid ?? "Not Paid"}
+                    {attendee?.amountPaid
+                      ? `$${attendee.amountPaid / 100}`
+                      : "Not Paid"}
                   </Tag>
                 </Td>
                 <Td>

@@ -136,7 +136,8 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
     });
   }, [router.isReady]);
 
-  const isPartyAdmin = party?.admins.find((u) => u.userId === user?.userId);
+  const isPartyAdmin =
+    party?.admins.find((u) => u.userId === user?.userId) || user?.isAdmin;
 
   const handleRegisterForParty = async () => {
     if (!user || !party) return;
