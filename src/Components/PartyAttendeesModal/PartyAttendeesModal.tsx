@@ -22,6 +22,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import useMarkUserPaid from "@Hooks/party/useMarkUserPaid";
 
 import { useUpdatePartyAttendeeStatus } from "@Hooks";
 import { Party, PartyAttendee } from "@Models";
@@ -39,6 +40,7 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
 }) => {
   const [party, setParty] = useState(initialParty);
   const { updatePartyAttendeeStatus } = useUpdatePartyAttendeeStatus();
+  const { markUserPaid } = useMarkUserPaid();
 
   const handleChange = async (
     userId: string,
@@ -55,6 +57,20 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
       ],
     }));
     await updatePartyAttendeeStatus(party.partyId, userId, status);
+  };
+
+  const handlePaymentStatusChange = async (userId: string, paid: number) => {
+    setParty((p) => ({
+      ...p,
+      attendees: [
+        ...p.attendees.filter((a) => a.userId !== userId),
+        {
+          ...(p.attendees.find((a) => a.userId === userId) as PartyAttendee),
+          paid,
+        },
+      ],
+    }));
+    await markUserPaid(party.partyId, userId, paid, "");
   };
 
   const totalRevenue = party.attendees.reduce(
@@ -109,6 +125,7 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
                 <Th flex={1}>Name</Th>
                 <Th flex={1}>Paid</Th>
                 <Th flex={1}>Status</Th>
+                <Th flex={1}>Update Payment Status</Th>
               </Tr>
             </Thead>
             {party.attendees.map((attendee) => (
@@ -130,6 +147,27 @@ const PartyAttendeesModal: React.FC<PartyAttendeesModalProps> = ({
                   >
                     <option value="attending">Attending</option>
                     <option value="applied">Requested</option>
+                  </Select>
+                </Td>
+                <Td>
+                  <Select
+                    value={attendee?.amountPaid}
+                    onChange={(v) =>
+                      handlePaymentStatusChange(
+                        attendee.userId,
+                        v.target.value as any
+                      )
+                    }
+                    placeholder="Not Paid"
+                  >
+                    {party.price.map((price) => (
+                      <option
+                        value={price.price}
+                        key={price.price + price.title}
+                      >
+                        {price.title}
+                      </option>
+                    ))}
                   </Select>
                 </Td>
               </Tr>
