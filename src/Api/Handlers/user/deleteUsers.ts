@@ -9,7 +9,13 @@ const deleteUsers = async (req: NextApiRequest) => {
     throw new Error("No userIds to delete");
   }
 
-  await Promise.all(userIds.map((id) => userCollection.doc(id).delete()));
+  await Promise.all(
+    userIds.map((id) =>
+      userCollection.doc(id).update({
+        deleted: true,
+      })
+    )
+  );
 
   // TODO Sync parties where the user is and delete from that obj
 

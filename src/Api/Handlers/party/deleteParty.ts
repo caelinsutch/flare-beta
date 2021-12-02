@@ -4,7 +4,9 @@ import { partyCollection, userCollection } from "@Api";
 import { StatusOk } from "@Models";
 
 const deleteParty = async (partyId: string): Promise<StatusOk> => {
-  await partyCollection.doc(partyId).delete();
+  await partyCollection.doc(partyId).update({
+    deleted: true,
+  });
 
   const attending = await userCollection
     .where("attending", "array-contains", partyId)

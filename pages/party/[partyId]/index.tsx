@@ -299,13 +299,13 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 <HStack mb={2}>
                   <Button onClick={onAttendeesOpen}>Attendees</Button>
                   <Button onClick={onEditOpen}>Edit Party</Button>
-                  <Button
-                    colorScheme="red"
-                    isLoading={deleteLoading}
-                    onClick={handleDelete}
-                  >
-                    Delete Party
-                  </Button>
+                  {/*<Button*/}
+                  {/*  colorScheme="red"*/}
+                  {/*  isLoading={deleteLoading}*/}
+                  {/*  onClick={handleDelete}*/}
+                  {/*>*/}
+                  {/*  Delete Party*/}
+                  {/*</Button>*/}
                 </HStack>
               )}
 

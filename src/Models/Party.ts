@@ -20,6 +20,7 @@ type RootParty = {
   noHost?: boolean;
   private?: boolean;
   price: PartyPrice[];
+  deleted?: boolean;
 };
 
 export type PartyDbo = {
