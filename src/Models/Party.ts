@@ -21,6 +21,7 @@ type RootParty = {
   private?: boolean;
   price: PartyPrice[];
   deleted?: boolean;
+  disablePayments?: boolean;
 };
 
 export type PartyDbo = {

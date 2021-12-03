@@ -88,7 +88,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
   const { registerForParty, loading: registerLoading } = useRegisterForParty();
   const { deleteReview } = useDeleteReview();
 
-  const { deleteParty, loading: deleteLoading } = useDeleteParty();
+  const { deleteParty } = useDeleteParty();
 
   const [party, setParty] = useState<Party | undefined>(initialParty);
 
@@ -285,7 +285,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Box mt={4} whiteSpace="pre-line">
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
-            {party.price?.length && !isPartyAdmin && user ? (
+            {party.price?.length && !isPartyAdmin && !party.disablePayments ? (
               <PaymentSection
                 price={party.price}
                 amountPaid={attendeeInfo?.amountPaid}
