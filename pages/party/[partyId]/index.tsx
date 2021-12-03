@@ -317,7 +317,7 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                     <NextLink href={`/?registerParty=${party.partyId}`}>
                       <Button variant="primary">
                         {party.price && party?.price.length > 0
-                          ? "Buy Tickets"
+                          ? "RSVP"
                           : "Sign up to RSVP"}
                       </Button>
                     </NextLink>
