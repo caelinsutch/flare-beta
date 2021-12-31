@@ -5,13 +5,14 @@ import { markUserPaid, wrapper } from "@Api";
 const MarkUserPaid = async (req: NextApiRequest, res: NextApiResponse) => {
   await wrapper(req, res, "POST", () => {
     const { partyId, userId } = req.query;
-    const { amountPaid, orderId } = req.body;
+    const { amountPaid, orderId, promoCode } = req.body;
 
     return markUserPaid(
       partyId as string,
       userId as string,
       parseInt(amountPaid, 10),
-      orderId as string
+      orderId as string,
+      promoCode as string
     );
   });
 };

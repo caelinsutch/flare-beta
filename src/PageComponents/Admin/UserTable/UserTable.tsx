@@ -42,6 +42,12 @@ const UserTable: React.FC = () => {
     onClose: onAddPartyModalClose,
   } = useDisclosure();
 
+  // const {
+  //   isOpen: smsOpen,
+  //   onOpen: onSmsOpen,
+  //   onClose: onSmsClose,
+  // } = useDisclosure();
+
   const searchedUsers: UserDbo[] = users
     ? searchArrayObject(users, search)
     : [];
@@ -78,6 +84,16 @@ const UserTable: React.FC = () => {
         onClose={onAddPartyModalClose}
         userIds={selectedUserIds}
       />
+      {/*<SendMessageModal*/}
+      {/*  isOpen={smsOpen}*/}
+      {/*  onClose={onSmsClose}*/}
+      {/*  userIds={*/}
+      {/*    parties*/}
+      {/*      .find((party) => party?.partyId === selectedParty)*/}
+      {/*      ?.attendees.filter((a) => a?.status === "attending")*/}
+      {/*      ?.map((a) => a?.userId) ?? []*/}
+      {/*  }*/}
+      {/*/>*/}
       <Box mt={6}>
         <Text fontSize="xl">{sortedUsers.length} Users</Text>
         <Box display="flex" flexDirection="row" mt={4}>

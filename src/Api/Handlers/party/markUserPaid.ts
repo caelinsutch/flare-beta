@@ -7,7 +7,8 @@ const markUserPaid = async (
   partyId: string,
   userId: string,
   amountPaid: number,
-  orderId: string
+  orderId: string,
+  promoCode?: string
 ) => {
   const partySnapshot = await partyCollection.doc(partyId).get();
   const userSnapshot = await userCollection.doc(userId).get();
@@ -23,6 +24,7 @@ const markUserPaid = async (
         ) as PartyAttendee),
         amountPaid,
         orderId,
+        promoCode,
         status: "attending",
         paidAt: dayjs().valueOf(),
       },

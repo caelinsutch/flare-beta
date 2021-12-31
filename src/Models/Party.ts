@@ -22,6 +22,7 @@ type RootParty = {
   price: PartyPrice[];
   deleted?: boolean;
   disablePayments?: boolean;
+  promoCodes?: string[];
 };
 
 export type PartyDbo = {
@@ -41,6 +42,7 @@ export type PartyAttendee = {
   paidAt?: number;
   name: string;
   createdAt: number;
+  promoCode?: string;
 };
 
 export type NewParty = {

@@ -17,6 +17,7 @@ type RootUser = {
   };
   deleted?: boolean;
   deletedAt?: number;
+  promoCode?: string;
 };
 
 export type UserDbo = {

@@ -11,7 +11,8 @@ type UseMarkUserPaid = () => {
     partyId: string,
     userId: string,
     amountPaid: number,
-    orderId: string
+    orderId: string,
+    promoCode?: string
   ) => Promise<StatusOk>;
   data?: StatusOk;
   error?: any;
@@ -41,11 +42,13 @@ const useMarkUserPaid: UseMarkUserPaid = () => {
     partyId: string,
     userId: string,
     amountPaid: number,
-    orderId: string
+    orderId: string,
+    promoCode?: string
   ) => {
     const status = await post(`/party/${partyId}/attendee/${userId}/paid`, {
       amountPaid,
       orderId,
+      promoCode,
     });
     if (response.ok) {
       return status;

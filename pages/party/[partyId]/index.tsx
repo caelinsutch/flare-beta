@@ -7,7 +7,6 @@ import {
   Button,
   Container,
   Divider,
-  Flex,
   HStack,
   Icon,
   Link,
@@ -31,7 +30,6 @@ import {
   PageContainer,
   PartyAttendeesModal,
   QrCodeModal,
-  ReviewCard,
 } from "@Components";
 import {
   useDeleteParty,
@@ -40,7 +38,11 @@ import {
   useRegisterForParty,
 } from "@Hooks";
 import { Party, User } from "@Models";
-import { PaymentSection, SubmitPartyReviewModal } from "@PageComponents";
+import {
+  PaymentSection,
+  PromoStats,
+  SubmitPartyReviewModal,
+} from "@PageComponents";
 import { selectUser } from "@Redux";
 
 import { getParty } from "@Api/Handlers/party";
@@ -285,16 +287,17 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
             <Box mt={4} whiteSpace="pre-line">
               <Text whiteSpace="pre-line">{party.info}</Text>
             </Box>
-            {party.price?.length && !isPartyAdmin && !party.disablePayments ? (
+            {party.price?.length && !party.disablePayments ? (
               <PaymentSection
                 price={party.price}
                 amountPaid={attendeeInfo?.amountPaid}
                 paidAt={attendeeInfo?.paidAt}
                 eventId={party.partyId}
                 userId={user?.userId as string}
+                promoCodes={party?.promoCodes as string[]}
               />
             ) : null}
-            <Box mt={4}>
+            <Box my={4}>
               {isPartyAdmin && (
                 <HStack mb={2}>
                   <Button onClick={onAttendeesOpen}>Attendees</Button>
@@ -325,44 +328,50 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 {attendeeInfo && <Button onClick={qrModalOnOpen}>QR</Button>}
               </HStack>
             </Box>
-            {new Date().valueOf() > new Date(party.date).valueOf() && (
-              <>
-                <Divider
-                  my={
-                    new Date().valueOf() > new Date(party.date).valueOf()
-                      ? 4
-                      : 8
-                  }
-                />
-
-                <Box>
-                  <Flex justifyContent="space-between" alignItems="center">
-                    <Text variant="title3">Reviews</Text>
-                    <Button variant="primary" onClick={onOpen}>
-                      Submit Anonymous Review
-                    </Button>
-                  </Flex>
-                  {party.reviews &&
-                    party.reviews
-                      .sort(
-                        (r1, r2) =>
-                          new Date(r2.createdAt).valueOf() -
-                          new Date(r1.createdAt).valueOf()
-                      )
-                      .map((r) => (
-                        <ReviewCard
-                          onDelete={
-                            isPartyAdmin
-                              ? () => handleReviewDelete(r.reviewId)
-                              : undefined
-                          }
-                          review={r}
-                          key={r.body + r.createdAt + r.reviewId}
-                        />
-                      ))}
-                </Box>
-              </>
+            {user?.promoCode && (
+              <PromoStats
+                promoCode={user.promoCode}
+                attendees={party.attendees}
+              />
             )}
+            {/*{new Date().valueOf() > new Date(party.date).valueOf() && (*/}
+            {/*  <>*/}
+            {/*    <Divider*/}
+            {/*      my={*/}
+            {/*        new Date().valueOf() > new Date(party.date).valueOf()*/}
+            {/*          ? 4*/}
+            {/*          : 8*/}
+            {/*      }*/}
+            {/*    />*/}
+
+            {/*    <Box>*/}
+            {/*      <Flex justifyContent="space-between" alignItems="center">*/}
+            {/*        <Text variant="title3">Reviews</Text>*/}
+            {/*        <Button variant="primary" onClick={onOpen}>*/}
+            {/*          Submit Anonymous Review*/}
+            {/*        </Button>*/}
+            {/*      </Flex>*/}
+            {/*      {party.reviews &&*/}
+            {/*        party.reviews*/}
+            {/*          .sort(*/}
+            {/*            (r1, r2) =>*/}
+            {/*              new Date(r2.createdAt).valueOf() -*/}
+            {/*              new Date(r1.createdAt).valueOf()*/}
+            {/*          )*/}
+            {/*          .map((r) => (*/}
+            {/*            <ReviewCard*/}
+            {/*              onDelete={*/}
+            {/*                isPartyAdmin*/}
+            {/*                  ? () => handleReviewDelete(r.reviewId)*/}
+            {/*                  : undefined*/}
+            {/*              }*/}
+            {/*              review={r}*/}
+            {/*              key={r.body + r.createdAt + r.reviewId}*/}
+            {/*            />*/}
+            {/*          ))}*/}
+            {/*    </Box>*/}
+            {/*  </>*/}
+            {/*)}*/}
           </Container>
         )}
         <Text fontSize="sm" p={4}>

@@ -17,7 +17,9 @@ type IProps = {
   area?: false;
   textColor?: string;
   boxProps?: BoxProps;
+  disabled?: boolean;
 } & ChakraInputProps;
+
 type AreaProps = {
   label?: string;
   error?: string;

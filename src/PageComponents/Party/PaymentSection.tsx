@@ -7,10 +7,13 @@ import {
   Select,
   Text,
   Box,
+  Button,
+  Flex,
 } from "@chakra-ui/react";
 import useMarkUserPaid from "@Hooks/party/useMarkUserPaid";
 import { PayPalButton } from "react-paypal-button-v2";
 
+import { Input } from "@Components";
 import { PartyPrice } from "@Models";
 
 type PaymentSectionProps = {
@@ -19,6 +22,7 @@ type PaymentSectionProps = {
   paidAt?: number;
   eventId: string;
   userId: string;
+  promoCodes?: string[];
 };
 
 const PaymentSection: React.FC<PaymentSectionProps> = ({
@@ -26,8 +30,11 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
   amountPaid,
   eventId,
   userId,
+  promoCodes,
 }) => {
   const toast = useToast();
+  const [priceModifier, setPriceModifier] = useState(1);
+  const [promo, setPromo] = useState("");
 
   const { markUserPaid, data } = useMarkUserPaid();
 
@@ -47,8 +54,24 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
       eventId,
       userId,
       selectedPrice as number,
-      data.orderID as string
+      data.orderID as string,
+      promo
     );
+  };
+
+  const handlePromoCodeSubmit = async () => {
+    if (promoCodes && promoCodes.includes(promo)) {
+      toast({
+        title: "Promo Code Applied",
+        status: "success",
+      });
+      setPriceModifier(0.9);
+    } else {
+      toast({
+        title: "Promo Code Not Found :(",
+        status: "error",
+      });
+    }
   };
 
   return (
@@ -69,7 +92,7 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
           {price.map((p) => (
             <Box key={JSON.stringify(p)}>
               <Text fontSize="md">
-                {p.title} - {p.price / 100}
+                {p.title} - ${(p.price * priceModifier) / 100}
               </Text>
               <Text fontSize="sm" color="gray500">
                 {p.description}
@@ -92,14 +115,39 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({
                 value={p.price}
                 key={p.title + p.price + "purchase option"}
               >
-                {p.title} - {p.price / 100}
+                {p.title} - {(p.price * priceModifier) / 100}
               </option>
             ))}
           </Select>
 
+          <Flex direction="row">
+            <Input
+              placeholder="PROMO_CODE"
+              value={promo}
+              label=""
+              disabled={priceModifier !== 1}
+              onChange={(e) => setPromo(e.target.value)}
+            />
+
+            <Button
+              ml={2}
+              onClick={handlePromoCodeSubmit}
+              disabled={priceModifier !== 1}
+            >
+              Submit Promo Code
+            </Button>
+          </Flex>
+
+          {priceModifier !== 1 && (
+            <Alert status="success" variant="left-accent" mb={4}>
+              <AlertIcon />
+              Discount of 10% applied!
+            </Alert>
+          )}
+
           {selectedPrice && (
             <PayPalButton
-              amount={selectedPrice / 100}
+              amount={(selectedPrice * priceModifier) / 100}
               shippingPreference="NO_SHIPPING"
               onSuccess={handleSuccess}
               onError={() => {
