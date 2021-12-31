@@ -15,6 +15,7 @@ import {
   useClipboard,
   useDisclosure,
 } from "@chakra-ui/react";
+import AllPromoStats from "@PageComponents/Party/AllPromoStats";
 import dayjs from "dayjs";
 import { GetServerSidePropsContext } from "next";
 import NextLink from "next/link";
@@ -333,6 +334,15 @@ const PartyPage: React.FC<{ party?: Party; user?: User }> = ({
                 promoCode={user.promoCode}
                 attendees={party.attendees}
               />
+            )}
+            {(user?.isAdmin || isPartyAdmin) && (
+              <>
+                <Divider my={2} />
+                <AllPromoStats
+                  promoCodes={party?.promoCodes ?? []}
+                  attendees={party.attendees}
+                />
+              </>
             )}
             {/*{new Date().valueOf() > new Date(party.date).valueOf() && (*/}
             {/*  <>*/}
